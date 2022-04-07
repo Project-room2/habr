@@ -4862,6 +4862,17 @@ pip-log.txt
 
 # Common configure file
 /Application/Common/Conf/config.php
+<<<<<<< HEAD
+=======
+### Example user template template
+### Example user template
+
+# IntelliJ project files
+.idea
+*.iml
+out
+gen
+>>>>>>> Init Django
 ### Typo3 template
 ## TYPO3 v6.2
 # Ignore several upload and file directories.
@@ -4887,6 +4898,7 @@ pip-log.txt
 # Ignore temp directory.
 /typo3temp/
 
+<<<<<<< HEAD
 ### Example user template template
 ### Example user template
 
@@ -4895,6 +4907,8 @@ pip-log.txt
 *.iml
 out
 gen
+=======
+>>>>>>> Init Django
 ### CodeSniffer template
 # gitignore for the PHP Codesniffer framework
 # website: https://github.com/squizlabs/PHP_CodeSniffer
