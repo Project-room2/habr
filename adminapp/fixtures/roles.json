@@ -1,0 +1,294 @@
+[
+{
+    "model": "adminapp.approle",
+    "pk": 1,
+    "fields": {
+        "name": "Guest",
+        "description": "Незарегистрированный пользователь",
+        "created": "2022-04-10T09:20:16.899Z",
+        "updated": "2022-04-10T09:20:16.899Z",
+        "active": true
+    }
+},
+{
+    "model": "adminapp.approle",
+    "pk": 2,
+    "fields": {
+        "name": "User",
+        "description": "Зарегистрированный пользователь",
+        "created": "2022-04-10T09:20:16.902Z",
+        "updated": "2022-04-10T09:20:16.902Z",
+        "active": true
+    }
+},
+{
+    "model": "adminapp.approle",
+    "pk": 3,
+    "fields": {
+        "name": "Moderator",
+        "description": "Модератор",
+        "created": "2022-04-10T09:20:16.904Z",
+        "updated": "2022-04-10T09:20:16.904Z",
+        "active": true
+    }
+},
+{
+    "model": "adminapp.approle",
+    "pk": 4,
+    "fields": {
+        "name": "Admin",
+        "description": "Администратор",
+        "created": "2022-04-10T09:20:16.907Z",
+        "updated": "2022-04-10T09:20:16.907Z",
+        "active": true
+    }
+},
+{
+    "model": "adminapp.appfunction",
+    "pk": 1,
+    "fields": {
+        "name": "AllContentRead",
+        "description": "Просмотр всего контента",
+        "created": "2022-04-10T09:20:16.911Z",
+        "updated": "2022-04-10T09:20:16.911Z",
+        "active": true
+    }
+},
+{
+    "model": "adminapp.appfunction",
+    "pk": 2,
+    "fields": {
+        "name": "SelfContentCreate",
+        "description": "Создание статей",
+        "created": "2022-04-10T09:20:16.913Z",
+        "updated": "2022-04-10T09:20:16.913Z",
+        "active": true
+    }
+},
+{
+    "model": "adminapp.appfunction",
+    "pk": 3,
+    "fields": {
+        "name": "SelfContentEdit",
+        "description": "Редактирование статей",
+        "created": "2022-04-10T09:20:16.915Z",
+        "updated": "2022-04-10T09:20:16.915Z",
+        "active": true
+    }
+},
+{
+    "model": "adminapp.appfunction",
+    "pk": 4,
+    "fields": {
+        "name": "CommentCreate",
+        "description": "Создание комментариев",
+        "created": "2022-04-10T09:20:16.916Z",
+        "updated": "2022-04-10T09:20:16.916Z",
+        "active": true
+    }
+},
+{
+    "model": "adminapp.appfunction",
+    "pk": 5,
+    "fields": {
+        "name": "ContentDelete",
+        "description": "Удаление статей",
+        "created": "2022-04-10T09:20:16.918Z",
+        "updated": "2022-04-10T09:20:16.918Z",
+        "active": true
+    }
+},
+{
+    "model": "adminapp.appfunction",
+    "pk": 6,
+    "fields": {
+        "name": "CommentDelete",
+        "description": "Удаление комментариев",
+        "created": "2022-04-10T09:20:16.920Z",
+        "updated": "2022-04-10T09:20:16.920Z",
+        "active": true
+    }
+},
+{
+    "model": "adminapp.appfunction",
+    "pk": 7,
+    "fields": {
+        "name": "CreateModerator",
+        "description": "Назначение модератора",
+        "created": "2022-04-10T09:20:16.921Z",
+        "updated": "2022-04-10T09:20:16.921Z",
+        "active": true
+    }
+},
+{
+    "model": "adminapp.appfunction",
+    "pk": 8,
+    "fields": {
+        "name": "DeleteModerator",
+        "description": "Удаление модератора",
+        "created": "2022-04-10T09:20:16.924Z",
+        "updated": "2022-04-10T09:20:16.924Z",
+        "active": true
+    }
+},
+{
+    "model": "adminapp.rolefunction",
+    "pk": 1,
+    "fields": {
+        "role": 1,
+        "function": 1,
+        "created": "2022-04-10T09:20:16.928Z",
+        "active": true
+    }
+},
+{
+    "model": "adminapp.rolefunction",
+    "pk": 2,
+    "fields": {
+        "role": 2,
+        "function": 2,
+        "created": "2022-04-10T09:20:16.930Z",
+        "active": true
+    }
+},
+{
+    "model": "adminapp.rolefunction",
+    "pk": 3,
+    "fields": {
+        "role": 2,
+        "function": 3,
+        "created": "2022-04-10T09:20:16.932Z",
+        "active": true
+    }
+},
+{
+    "model": "adminapp.rolefunction",
+    "pk": 4,
+    "fields": {
+        "role": 2,
+        "function": 4,
+        "created": "2022-04-10T09:20:16.933Z",
+        "active": true
+    }
+},
+{
+    "model": "adminapp.rolefunction",
+    "pk": 5,
+    "fields": {
+        "role": 3,
+        "function": 2,
+        "created": "2022-04-10T09:20:16.934Z",
+        "active": true
+    }
+},
+{
+    "model": "adminapp.rolefunction",
+    "pk": 6,
+    "fields": {
+        "role": 3,
+        "function": 4,
+        "created": "2022-04-10T09:20:16.935Z",
+        "active": true
+    }
+},
+{
+    "model": "adminapp.rolefunction",
+    "pk": 7,
+    "fields": {
+        "role": 3,
+        "function": 5,
+        "created": "2022-04-10T09:20:16.937Z",
+        "active": true
+    }
+},
+{
+    "model": "adminapp.rolefunction",
+    "pk": 8,
+    "fields": {
+        "role": 3,
+        "function": 6,
+        "created": "2022-04-10T09:20:16.939Z",
+        "active": true
+    }
+},
+{
+    "model": "adminapp.rolefunction",
+    "pk": 9,
+    "fields": {
+        "role": 4,
+        "function": 1,
+        "created": "2022-04-10T09:20:16.942Z",
+        "active": true
+    }
+},
+{
+    "model": "adminapp.rolefunction",
+    "pk": 10,
+    "fields": {
+        "role": 4,
+        "function": 2,
+        "created": "2022-04-10T09:20:16.946Z",
+        "active": true
+    }
+},
+{
+    "model": "adminapp.rolefunction",
+    "pk": 11,
+    "fields": {
+        "role": 4,
+        "function": 3,
+        "created": "2022-04-10T09:20:16.947Z",
+        "active": true
+    }
+},
+{
+    "model": "adminapp.rolefunction",
+    "pk": 12,
+    "fields": {
+        "role": 4,
+        "function": 4,
+        "created": "2022-04-10T09:20:16.949Z",
+        "active": true
+    }
+},
+{
+    "model": "adminapp.rolefunction",
+    "pk": 13,
+    "fields": {
+        "role": 4,
+        "function": 5,
+        "created": "2022-04-10T09:20:16.954Z",
+        "active": true
+    }
+},
+{
+    "model": "adminapp.rolefunction",
+    "pk": 14,
+    "fields": {
+        "role": 4,
+        "function": 6,
+        "created": "2022-04-10T09:20:16.955Z",
+        "active": true
+    }
+},
+{
+    "model": "adminapp.rolefunction",
+    "pk": 15,
+    "fields": {
+        "role": 4,
+        "function": 7,
+        "created": "2022-04-10T09:20:16.958Z",
+        "active": true
+    }
+},
+{
+    "model": "adminapp.rolefunction",
+    "pk": 16,
+    "fields": {
+        "role": 4,
+        "function": 8,
+        "created": "2022-04-10T09:20:16.960Z",
+        "active": true
+    }
+}
+]
