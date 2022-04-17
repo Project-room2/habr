@@ -2,11 +2,14 @@ from datetime import timedelta
 from django.utils.timezone import now
 from django.db import models
 from django.contrib.auth.models import AbstractUser
+from adminapp.models import AppRole
+
 
 # Create your models here.
 
 def default_expire_time():
     return now() + timedelta(hours=48)
+
 
 class User(AbstractUser):
     avatar = models.ImageField(upload_to='users_avatar', blank=True)
@@ -16,10 +19,17 @@ class User(AbstractUser):
 
     activation_key_expires = models.DateTimeField(default=default_expire_time)
 
+    role = models.ForeignKey(AppRole,
+                             on_delete=models.CASCADE,
+                             verbose_name='Ссылка на роль',
+                             default=1
+                             )
+
     def is_activation_key_expired(self):
         if now() <= self.activation_key_expires:
             return False
         return True
+
 
 class UserProfile(models.Model):
     MALE = 'M'
