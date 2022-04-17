@@ -20,6 +20,6 @@ class Habr(models.Model):
     description = models.TextField(verbose_name='Текст статьи', blank=False)
     created_timestamp = models.DateTimeField(auto_now_add=True, db_index=True)
     id_category = models.CharField(verbose_name='Тема', max_length=1, choices=SUBJECT_CHOICES, blank=False)
-    id_user = models.ForeignKey(User, on_delete=models.SET_NULL())
+    id_user = models.ForeignKey(User, on_delete=models.CASCADE)
     is_active = models.BooleanField(default=True)
     is_published = models.BooleanField(default=False)
