@@ -31,4 +31,3 @@ class UserProfile(models.Model):
     user = models.OneToOneField(User, unique=True, null=False, db_index=True, on_delete=models.CASCADE)
     aboutMe = models.TextField(verbose_name='о себе', max_length=512, blank=True)
     gender = models.CharField(verbose_name='пол', max_length=1, choices=GENDER_CHOICES, blank=True)
-    id_user_category = models.ForeignKey(user_category, on_delete=models.SET_NULL())
