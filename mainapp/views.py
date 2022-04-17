@@ -40,3 +40,11 @@ def marketing(request):
         'content': 'Хабры по Маркетингу',
     }
     return render(request, 'mainapp/index.html', context)
+
+def help(request):
+    context = {
+        'title': 'Помощь',
+        'help': 'selected',
+        'content': 'Краткая документация к сайту',
+    }
+    return render(request, 'mainapp/index.html', context)

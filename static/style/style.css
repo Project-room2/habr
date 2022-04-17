@@ -87,7 +87,7 @@ ol li
   height: 202px;}
 
 #logo
-{ width: 1078px;
+{ width: 1150px;
   position: relative;
   height: 148px;
   border-bottom: 2px solid #822956;}
@@ -118,7 +118,7 @@ ol li
   color: #000;}
 
 #menubar
-{ width: 1078px;
+{ width: 1150px;
   height: 52px;
   padding: 0;
   background: transparent url(transparent.png) repeat;} 
@@ -150,7 +150,7 @@ ul#menu li a:hover, ul#menu li.selected a, ul#menu li.selected a:hover
   background: transparent url(transparent.png) repeat;}
 
 #site_content
-{ width: 1034px;
+{ width: 1106px;
   overflow: hidden;
   margin: 0 auto 0 auto;
   padding: 0 24px 20px 20px;

@@ -18,7 +18,7 @@ from django.urls import path
 from django.conf import settings
 from django.conf.urls.static import static
 
-from mainapp.views import index, design, web_developing, mobile_developing, marketing
+from mainapp.views import index, design, web_developing, mobile_developing, marketing, help
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -27,4 +27,5 @@ urlpatterns = [
     path('web_developing/', web_developing, name='web_developing'),
     path('mobile_developing/', mobile_developing, name='mobile_developing'),
     path('marketing/', marketing, name='marketing'),
+    path('help/', help, name='help'),
 ]
