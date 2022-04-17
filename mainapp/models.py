@@ -23,3 +23,30 @@ class Habr(models.Model):
     id_user = models.ForeignKey(User, on_delete=models.CASCADE)
     is_active = models.BooleanField(default=True)
     is_published = models.BooleanField(default=False)
+
+    STATUSES = (
+        (1, 'Черновик'),
+        (2, 'Одобрено'),
+        (3, 'Отказано')
+    )
+    status = models.IntegerField(verbose_name='Статус модерирования', choices=STATUSES, blank=False, default=1)
+
+
+class HabrLike(models.Model):
+    """ Таблица лайков к хабру """
+    user = models.ForeignKey(User,
+                             on_delete=models.CASCADE,
+                             verbose_name='Ссылка на пользователя'
+                             )
+    habr = models.ForeignKey(Habr,
+                             on_delete=models.CASCADE,
+                             verbose_name='Ссылка на хабр'
+                             )
+
+    created = models.DateTimeField(auto_now_add=True, editable=False)
+
+    class Meta:
+        verbose_name = 'лайк'
+        verbose_name_plural = 'лайки'
+        db_table = "habr_like"
+
