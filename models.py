@@ -10,7 +10,7 @@ class Thread(models.Model):
     body = models.TextField()
     create = models.DateTimeField(auto_now_add=True)
     update = models.DateTimeField(auto_now=True)
-    id_reply = models.ForeignKey(Reply, on_delete=models.SET_NULL() )
+    id_reply = models.ForeignKey(Reply, on_delete=models.SET_NULL()   )
 
     def __str__(self):
         return f"{self.body}   "
