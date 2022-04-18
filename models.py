@@ -13,7 +13,7 @@ class Thread(models.Model):
     id_reply = models.ForeignKey(Reply, on_delete=models.SET_NULL() )
 
     def __str__(self):
-        return f"{self.body} "
+        return f"{self.body}   "
 
 
 class Reply(models.Model):
