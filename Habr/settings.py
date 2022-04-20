@@ -11,7 +11,8 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 
 from pathlib import Path
-
+from typing import Dict
+import YamJam
 import json
 import os
 import sys
@@ -24,16 +25,16 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-^b39$0wbl5iq$oa9^i(=k^!zht-fyn)qs&0&0#z_3m2-1p33k7'
+DJANGO_SECRET_KEY = YamJam.yamjam()['myproject']['django_secret_key']
 
 # SECURITY WARNING: don't run with debug turned on in production!
+# DEBUG = YamJam.yamjam()['myproject']['DEBUG']
 DEBUG = True
 
+# ALLOWED_HOSTS = YamJam.yamjam()['myproject']['ALLOWED_HOSTS']
 ALLOWED_HOSTS = []
 
-
 # Application definition
-
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -82,23 +83,19 @@ WSGI_APPLICATION = 'Habr.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
+
+dbcfg = YamJam.yamjam()['myproject']['database']
+
 DATABASES = {
-    # 'sqlite3': {
-    #     'ENGINE': 'django.db.backends.sqlite3',
-    #     'NAME': BASE_DIR / 'db.sqlite3',
-    # },
     'default': {
-   #     'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-   #     'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'postgres',
-        'USER': 'postgres',
-        'PASSWORD': 'admin',
-        'HOST': 'localhost',
-        'PORT': '5432',
+        'ENGINE':dbcfg['engine'],
+        'NAME': dbcfg['name'],
+        'USER': dbcfg['user'],
+        'PASSWORD': dbcfg['password'],
+        'HOST': dbcfg['host'],
+        'PORT': dbcfg['port'],
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators
@@ -121,10 +118,9 @@ AUTH_PASSWORD_VALIDATORS = [
 
 # Internationalization
 # https://docs.djangoproject.com/en/4.0/topics/i18n/
+LANGUAGE_CODE = 'ru'
 
-LANGUAGE_CODE = 'en-us'
-
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Moscow/Europe'
 
 USE_I18N = True
 
