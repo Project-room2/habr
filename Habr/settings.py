@@ -12,7 +12,7 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 
 from pathlib import Path
 from typing import Dict
-import YamJam
+from YamJam import yamjam
 import json
 import os
 import sys
@@ -25,7 +25,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-DJANGO_SECRET_KEY = YamJam.yamjam()['myproject']['django_secret_key']
+SECRET_KEY = yamjam()['myproject']['django_secret_key']
 
 # SECURITY WARNING: don't run with debug turned on in production!
 # DEBUG = YamJam.yamjam()['myproject']['DEBUG']
@@ -84,7 +84,7 @@ WSGI_APPLICATION = 'Habr.wsgi.application'
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
 
-dbcfg = YamJam.yamjam()['myproject']['database']
+dbcfg = yamjam()['myproject']['database']
 
 DATABASES = {
     'default': {
