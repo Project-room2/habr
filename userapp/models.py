@@ -19,11 +19,11 @@ class User(AbstractUser):
 
     activation_key_expires = models.DateTimeField(default=default_expire_time)
 
-    role = models.ForeignKey(AppRole,
-                             on_delete=models.CASCADE,
-                             verbose_name='Ссылка на роль',
-                             default=1
-                             )
+    # role = models.ForeignKey(AppRole,
+    #                          on_delete=models.CASCADE,
+    #                          verbose_name='Ссылка на роль',
+    #                          default=1
+    #                          )
 
     def is_activation_key_expired(self):
         if now() <= self.activation_key_expires:
