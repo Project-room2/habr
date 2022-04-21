@@ -46,7 +46,7 @@ class HabrLike(models.Model):
     created = models.DateTimeField(auto_now_add=True, editable=False)
 
     class Meta:
-        verbose_name = 'лайк'
-        verbose_name_plural = 'лайки'
+        verbose_name = 'habrlike'
+        verbose_name_plural = 'habrlikes'
         db_table = "habr_like"
 
