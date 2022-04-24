@@ -1,3 +1,6 @@
 from django.contrib import admin
+from .models import Habr, HabrLike
 
-# Register your models here.
+
+admin.site.register(Habr)
+admin.site.register(HabrLike)
