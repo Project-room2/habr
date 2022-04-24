@@ -1,0 +1,18 @@
+{% extends 'userapp/base.html' %}
+{% load static %}
+{% block content %}
+    <div class="btn btn-round form-control">
+        {% if user.is_authenticated %}
+            <h3>Поздравляем!</h3>
+            <br>
+            <h4>Пользователь {{ user.username }} подтвержден.</h4>
+        {% else %}
+            <h3>Верификация не пройдена.</h3>
+        {% endif %}
+
+        <br>
+        <button class="btn btn-round form-control">
+            <a href="{% url 'index' %}" class=""><h3>на главную</h3></a>
+        </button>
+    </div>
+{% endblock %}
