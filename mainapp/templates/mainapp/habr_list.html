@@ -1,16 +1,18 @@
-<!-- templates/list.html -->
+<!-- templates/mainapp/habr_list.html -->
+{% extends 'mainapp/base.html' %}
+{% load static %}
 {% block content %}
     <h1>{{ content }}</h1>
     <div class="row">
         <hr>
-        {% for habr in habrs %}
+        {% for habr in object_list %}
             <div>
                 <a href="">{{ habr.id_user|title }}</a>
-                <time datetime="{{ time_create }}"
+                <time datetime="{{ habr.time_create }}"
                       title="{{ habr.time_create }}">{{ habr.time_create }}</time>
                 , [{{ habr.category }}]
                 <h2 class="display-8 fw-bold lh-1"><a
-                        href="{% url 'main:habr' habr.slug %}">{{ habr.title }}</a></h2>
+                        href="{% url 'main:habr' habr.slug %}">{{ habr.title}}</a></h2>
                 <p class="lead">{{ habr.content }}</p>
                 <button onclick="document.location='{% url 'main:habr' habr.slug %}'">Читать дальше</button>
                 <br><br>

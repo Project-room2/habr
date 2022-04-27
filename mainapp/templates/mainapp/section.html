@@ -5,15 +5,16 @@
     <h1>{{ content }}</h1>
     <div class="row">
         <hr>
-    {{ posts }}<br><br>
-    {{ category }}<br><br>
-    {{ categories }}<br><br>
-        {% for post in posts %}
-            {{ habr.created_timestamp }}
+   posts = {{ posts }}<br><br>
+   category = {{ category }}<br><br>
+   categories = {{ categories }}<br><br>
+   cat = {{ cat }}<br><br>
+        {% for category in categories %}
+            {{ habr.time_create }}
             <div>
                 <a href="">{{ habr.id_user|title }}</a>
-                <time datetime="{{ habr.created_timestamp }}"
-                      title="{{ habr.created_timestamp }}">{{ habr.created_timestamp }}</time>
+                <time datetime="{{ habr.time_create }}"
+                      title="{{ habr.time_create }}">{{ habr.time_create }}</time>
                 , [{{ habr.category }}]
 {#                <h2 class="display-8 fw-bold lh-1"><a#}
 {#                        href="{% url 'main:habr' habr.slug %}">{{ habr.short_description }}</a></h2>#}

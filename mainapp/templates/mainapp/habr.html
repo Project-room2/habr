@@ -1,25 +1,20 @@
-<!-- templates/habr.html -->
+<!-- templates/mainapp/habr.html -->
 {% extends 'mainapp/base.html' %}
 {% load static %}
 
-{% block css %}
-{% endblock %}
-
 {% block content %}
-    <br><br>
-    <div class="row">
-        <div>
-            {% for habr in habrs %}
-
-                <a href="">{{ habr.id_user|title }}</a>
-                <time datetime="{{ habr.created_timestamp }}"
-                      title="{{ habr.created_timestamp }}">{{ habr.created_timestamp }}</time> | {{ habr.category }}
-                <h2 class="display-8 fw-bold lh-1"><a
-                        href="{% url 'main:habr' habr.slug %}">{{ habr.short_description }}</a></h2>
-                <p class="lead">{{ habr.description }}</p>
-
-            {% endfor %}
-        </div>
-
+<br><br>
+<div class="row">
+    <div>
+        {% for habr in habrs %}
+        <a href="">{{ habr.id_user|title }}</a>
+        <time datetime="{{ habr.time_create}}"
+              title="{{ habr.time_create }}">{{ habr.time_create }}
+        </time>
+        | {{ habr.category }}
+        <h2 class="display-8 fw-bold lh-1">{{ habr.title }}</h2>
+        <p class="lead">{{ habr.content }}</p>
+        {% endfor %}
     </div>
+</div>
 {% endblock %}

@@ -1,13 +1,13 @@
+<!-- templates/mainapp/list.html -->
 {% extends 'mainapp/base.html' %}
 {% load static %}
 
 {% block css %}
 {% endblock %}
-<!-- templates/list.html -->
-  {% for post in object_list %}
-    <div class="post-entry">
-      <h2><a href="">{{ post.title }}</a></h2>
-      <p>{{ post.body }}</p>
-    </div>
-  {% endfor %}
-    221
+
+{% for post in object_list %}
+<div class="post-entry">
+    <h2><a href="">{{ post.title }}</a></h2>
+    <p>{{ post.body }}</p>
+</div>
+{% endfor %}

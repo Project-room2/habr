@@ -14,59 +14,50 @@ import string
 class Category(models.Model):
     """модель категории поста"""
 
-    name = models.CharField(verbose_name='название категории', max_length=64, default='', unique=True)
-    slug = models.SlugField(verbose_name='уникальный адрес', max_length=70)
-    description = models.TextField(verbose_name='описание категории', blank=True)
+    objects = None
+    name = models.CharField(max_length = 100, unique = True, db_index = True, verbose_name = 'название категории')
+    slug = models.SlugField(max_length = 255, unique = True, db_index = True, verbose_name = 'URL')
     is_active = models.BooleanField(verbose_name='активна', default=True)
 
     class Meta:
-        verbose_name = "категория"
-        verbose_name_plural = "категории"
+        verbose_name = "Категория"
+        verbose_name_plural = "Категории"
+        ordering = ['id']
 
     def __str__(self):
         return self.name
+
+    def get_absolute_url(self):
+        return reverse('category', kwargs={'cat_slug': self.slug})
+
 
 
 class Habr(models.Model):
     """ модель хабра (статьи)"""
 
-    Design = '1'
-    Web_development = '2'
-    Mobile_development = '3'
-    Marketing = '4'
-
-    SUBJECT_CHOICES = (
-        (Design, 'Дизайн'),
-        (Web_development, 'Веб-разработка'),
-        (Mobile_development, 'Мобильная разработка'),
-        (Marketing, 'Маркетинг'),
-    )
-    short_description = models.CharField(verbose_name = 'Название статьи', max_length = 256, blank = False)
-    description = models.TextField(verbose_name = 'Текст статьи', blank = False)
-    created_timestamp = models.DateTimeField(auto_now_add = True, db_index = True)
-    category = models.ForeignKey(Category, verbose_name='Категория', on_delete=models.CASCADE)
-    id_user = models.ForeignKey(User, on_delete = models.CASCADE)
-    is_active = models.BooleanField(default = True)
-    is_published = models.BooleanField(default = False)
-    slug = models.SlugField(verbose_name = 'Уникальный адрес', max_length = 70, unique = True)
-
-    STATUSES = (
-        (1, 'Черновик'),
-        (2, 'Одобрено'),
-        (3, 'Отказано')
-    )
-    status = models.IntegerField(verbose_name = 'Статус модерирования', choices = STATUSES, blank = False, default = 1)
+    objects = None
+    title = models.CharField(max_length = 256, blank = False, verbose_name = 'Название статьи')
+    slug = models.SlugField(max_length=255, unique=True, db_index=True, verbose_name="URL")
+    content = models.TextField(blank = False, verbose_name = 'Текст статьи')
+    # photo = models.ImageField(upload_to = "photos/%Y/%m/%d/", verbose_name = "Фото")
+    time_create = models.DateTimeField(auto_now_add=True, verbose_name="Время создания")
+    time_update = models.DateTimeField(auto_now=True, verbose_name="Время изменения")
+    category = models.ForeignKey('Category', on_delete=models.PROTECT, verbose_name="Категория")
+    # id_user = models.ForeignKey('User', on_delete = models.CASCADE, verbose_name = 'ID ползователя')
+    is_active = models.BooleanField(default = True, verbose_name = "Активна")
+    is_published = models.BooleanField(default=False, verbose_name="Публикация")
 
     class Meta:
-        verbose_name = "пост"
-        verbose_name_plural = "посты"
-        ordering = ('-created_timestamp',)
+        verbose_name = "Хабры"
+        verbose_name_plural = "Хабры"
+        ordering = ('-time_create', 'title')
 
     def __str__(self):
-        return f"{self.short_description} ({self.category.name} {self.is_active} {self.slug} {self.id_user})"
+        return self.title
+        # return f"{self.short_description} ({self.category.name} {self.is_active} {self.slug} {self.id_user})"
 
     def get_absolute_url(self):
-        return reverse('blogapp:post_list')
+        return reverse('post', kwargs={'post_slug': self.slug})
 
 class HabrLike(models.Model):
     """ Таблица лайков к хабру """

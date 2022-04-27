@@ -3,7 +3,7 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
-from mainapp.views import index, design, web_developing, mobile_developing, marketing, help
+from mainapp.views import index, design, web_dev, mobile_developing, marketing, help
 
 
 urlpatterns = [
@@ -11,7 +11,7 @@ urlpatterns = [
     path('', include('mainapp.urls', namespace='main')),
     # path('', index, name='index'),
     path('design/', design, name='design'),
-    path('web_developing/', web_developing, name='web_developing'),
+    path('web_dev/', web_dev, name='web_dev'),
     path('mobile_developing/', mobile_developing, name='mobile_developing'),
     path('marketing/', marketing, name='marketing'),
     path('help/', help, name='help'),
