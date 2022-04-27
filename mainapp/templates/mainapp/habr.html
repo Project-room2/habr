@@ -6,7 +6,6 @@
 <br><br>
 <div class="row">
     <div>
-        {% for habr in habrs %}
         <a href="">{{ habr.id_user|title }}</a>
         <time datetime="{{ habr.time_create}}"
               title="{{ habr.time_create }}">{{ habr.time_create }}
@@ -14,7 +13,6 @@
         | {{ habr.category }}
         <h2 class="display-8 fw-bold lh-1">{{ habr.title }}</h2>
         <p class="lead">{{ habr.content }}</p>
-        {% endfor %}
     </div>
 </div>
 {% endblock %}

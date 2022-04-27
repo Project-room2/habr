@@ -9,8 +9,6 @@ import string
 
 
 # Create your models here.
-
-
 class Category(models.Model):
     """модель категории поста"""
 
@@ -20,7 +18,7 @@ class Category(models.Model):
     is_active = models.BooleanField(verbose_name='активна', default=True)
 
     class Meta:
-        verbose_name = "Категория"
+        verbose_name = "Категорию"
         verbose_name_plural = "Категории"
         ordering = ['id']
 
@@ -45,10 +43,10 @@ class Habr(models.Model):
     category = models.ForeignKey('Category', on_delete=models.PROTECT, verbose_name="Категория")
     # id_user = models.ForeignKey('User', on_delete = models.CASCADE, verbose_name = 'ID ползователя')
     is_active = models.BooleanField(default = True, verbose_name = "Активна")
-    is_published = models.BooleanField(default=False, verbose_name="Публикация")
+    is_published = models.BooleanField(default=False, verbose_name="Опубликовано")
 
     class Meta:
-        verbose_name = "Хабры"
+        verbose_name = "Хабр"
         verbose_name_plural = "Хабры"
         ordering = ('-time_create', 'title')
 
@@ -57,10 +55,12 @@ class Habr(models.Model):
         # return f"{self.short_description} ({self.category.name} {self.is_active} {self.slug} {self.id_user})"
 
     def get_absolute_url(self):
-        return reverse('post', kwargs={'post_slug': self.slug})
+        return reverse('post', kwargs={'habr_slug': self.slug})
+
 
 class HabrLike(models.Model):
     """ Таблица лайков к хабру """
+
     user = models.ForeignKey(User,
                              on_delete = models.CASCADE,
                              verbose_name = 'Ссылка на пользователя'
@@ -73,10 +73,7 @@ class HabrLike(models.Model):
     created = models.DateTimeField(auto_now_add = True, editable = False)
 
 
-class Meta:
-    verbose_name = 'habrlike'
-    verbose_name_plural = 'habrlikes'
-    db_table = "habr_like"
-
-
-
+    class Meta:
+        verbose_name = 'Лайк'
+        verbose_name_plural = 'Лайки'
+        db_table = "habr_like"

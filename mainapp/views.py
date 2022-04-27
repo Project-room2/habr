@@ -4,15 +4,8 @@ from django.views.generic import ListView, DetailView, CreateView
 from .models import *
 
 
-# class HabrsView(ListView):
-#     model = Habr
-#     template_name = 'mainapp/index.html'
-#
-#     def get_queryset(self):
-#         return Habr.objects.filter(is_active = True)
-
-
 class SectionView(ListView):
+    """контроллер, отборажает Хабры с привязкой к разделам"""
     model = Habr
     allow_empty = False
     template_name = 'mainapp/habr_list.html'
@@ -20,7 +13,14 @@ class SectionView(ListView):
     def get_queryset(self):
         return Habr.objects.filter(category__slug = self.kwargs['cat_slug'], is_published = True)
 
-        # return Habr.objects.filter(category = 1, is_published = True)
+
+class HabrView(DetailView):
+    """контроллер, отборажает выбранный Хабр"""
+    model = Habr
+    allow_empty = False
+    template_name = 'mainapp/habr.html'
+    slug_url_kwarg = 'habr_slug'
+    context_object_name = 'habr'
 
 
 def index(request):
@@ -82,70 +82,3 @@ def help(request):
         'content': 'Краткая документация к сайту',
     }
     return render(request, 'mainapp/index.html', context)
-
-
-def habr(request, slug):
-    """контроллер вывода хабра"""
-
-    habr = Habr.objects.filter(slug = slug, is_active = True)
-    categories = Category.objects.all()
-
-    # post = Habr.objects.filter(slug = slug, is_active = True)
-    # categories = Habr.category.objects.all()
-    # comment = Comments.objects.filter(post=post.first())
-
-    # if request.method == "POST":
-    #     form = CommentForm(data=request.POST)
-    #     if form.is_valid():
-    #         form = form.save(commit=False)
-    #         form.user = request.user
-    #         form.post = post.first()
-    #         form.save()
-    #
-    # else:
-    #     form = CommentForm()
-
-    context = {
-        'page_title': 'хабр',
-        'habrs': habr,
-        'title': 'Хабр',
-        'content': 'Выбранный хабр',
-        'categories': categories,
-        # 'comments': comment,
-        # 'form': form,
-    }
-    return render(request, 'mainapp/habr.html', context)
-
-
-# def section(request, slug):
-#     """контроллер вывода страниц статей, относящихся к конкретной категории """
-#
-#     categories = Category.objects.filter(is_active = True)
-#     category = get_object_or_404(Category, slug = slug)
-#     cat = Habr.category
-#     posts = Habr.objects.filter(Category = '1').order_by('-time_create')
-#
-#     # if request.user.is_authenticated:
-#     #     new_like, created = Like.objects.get_or_create(
-#     #         user=request.user, slug=slug)
-#     # else:
-#     #     new_like = Like.objects.all()
-#     # if slug == '':
-#     #     category = {'slug': '', 'name': 'все'}
-#     #     posts = Post.objects.filter(
-#     #         is_active=True).order_by('-create_datetime')
-#     # else:
-#     #     category = get_object_or_404(Category, slug=slug)
-#     #     posts = category.post_set.filter(
-#     #         is_active=True).order_by('-create_datetime')
-#
-#     context = {
-#         'page_title': 'главная',
-#         'categories': categories,
-#         'category': category,
-#         'posts': posts,
-#         'content': category,
-#         'cat': cat,
-#         #     'new_like': new_like,
-#     }
-#     return render(request, 'mainapp/section.html', context)
