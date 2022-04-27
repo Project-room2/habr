@@ -12,9 +12,9 @@
                       title="{{ habr.time_create }}">{{ habr.time_create }}</time>
                 , [{{ habr.category }}]
                 <h2 class="display-8 fw-bold lh-1"><a
-                        href="{% url 'main:habr' habr.slug %}">{{ habr.title}}</a></h2>
+                        href="{% url 'index:habr' habr.slug %}">{{ habr.title}}</a></h2>
                 <p class="lead">{{ habr.content }}</p>
-                <button onclick="document.location='{% url 'main:habr' habr.slug %}'">Читать дальше</button>
+                <button onclick="document.location='{% url 'index:habr' habr.slug %}'">Читать дальше</button>
                 <br><br>
                 <hr>
             </div>

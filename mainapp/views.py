@@ -1,11 +1,25 @@
 from django.http import HttpResponse, HttpResponseNotFound, Http404
 from django.shortcuts import render, redirect, get_object_or_404
+from django.template import RequestContext
 from django.views.generic import ListView, DetailView, CreateView
+
 from .models import *
 
 
+def get_client_ip(request):
+    x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
+    if x_forwarded_for:
+        ip = x_forwarded_for.split(',')[0]
+    else:
+        ip = request.META.get('REMOTE_ADDR')  # В REMOTE_ADDR значение айпи пользователя
+    return ip
+
+
+def page_not_found_view(request, exception):
+    return render(request, 'mainapp/404.html', status=404)
+
+
 class SectionView(ListView):
-    """контроллер, отборажает Хабры с привязкой к разделам"""
     model = Habr
     allow_empty = False
     template_name = 'mainapp/habr_list.html'
@@ -28,6 +42,14 @@ def index(request):
 
     habr = Habr.objects.filter(is_active = True).order_by('-time_create')
     habrs = Habr.objects.all()
+    ip = get_client_ip(request)
+   #  Ip.objects.create(ip = ip)
+   #  Ip.objects.get_or_create(ip)
+   # if Ip.objects.filter(ip = ip).exists():
+   #     Habr.views.add(Ip.objects.get(ip = ip))
+   # else:
+   #     Ip.objects.create(ip = ip)
+   #     Habr.views.add(Ip.objects.get(ip = ip))
 
     context = {
         'habr': habr,
@@ -35,6 +57,7 @@ def index(request):
         'title': 'Главная - Проект "Хабр"',
         'index': 'selected',
         'content': 'Все потоки хабров',
+        'ip': ip,
     }
     return render(request, 'mainapp/index.html', context)
 

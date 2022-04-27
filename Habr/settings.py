@@ -44,7 +44,9 @@ INSTALLED_APPS = [
     'adminapp',
     'userapp',
     'mainapp',
-    'blogapp',
+    #'blogapp',
+    'comment',
+
 ]
 
 MIDDLEWARE = [
@@ -55,7 +57,6 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    #   'django.template.context_processors.media',
 ]
 
 ROOT_URLCONF = 'Habr.urls'
@@ -150,7 +151,8 @@ MEDIA_URL = '/media/'
 
 AUTH_USER_MODEL = 'userapp.User'
 
-LOGIN_URL = '/userapp/login/'
+# LOGIN_URL = '/userapp/login/'
+LOGIN_URL = 'login'
 
 DOMAIN_NAME = 'http://localhost:8000'
 EMAIL_HOST = 'localhost'
@@ -168,3 +170,10 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
 EMAIL_FILE_PATH = 'tmp/email-messages/'
+
+COMMENT_FLAG_REASONS = [
+    (1, ('Spam | Exists only to promote a service')),
+    (2, ('Abusive | Intended at promoting hatred')),
+    (3, ('Racist | Sick mentality')),
+    (4, ('Whatever | Your reason')),
+]

@@ -1,7 +1,7 @@
 {% load static %}
+{% load mainapp_tags %}
 <!DOCTYPE HTML>
 <html>
-
 <head>
     <title>{{ title|title }}</title>
     <meta name="description" content="website description"/>
@@ -23,6 +23,7 @@
         </div>
         <!-- insert menu -->
         {% include 'mainapp/includes/inc__main_menu.html' %}
+        {{ get_categories }}
     </div>
     <div id="site_content">
         <div class="sidebar">
@@ -60,11 +61,11 @@
         </div>
     </div>
     {% block footer %}
-        <div id="footer">
-            Copyright &copy; textured_stars_light | <a href="http://validator.w3.org/check?uri=referer">HTML5</a> | <a
-                href="http://jigsaw.w3.org/css-validator/check/referer">CSS</a> | <a
-                href="http://www.html5webtemplates.co.uk">design from HTML5webtemplates.co.uk</a>
-        </div>
+    <div id="footer">
+        Copyright &copy; textured_stars_light | <a href="http://validator.w3.org/check?uri=referer">HTML5</a> | <a
+            href="http://jigsaw.w3.org/css-validator/check/referer">CSS</a> | <a
+            href="http://www.html5webtemplates.co.uk">design from HTML5webtemplates.co.uk</a>
+    </div>
     {% endblock %}
 
 </body>
