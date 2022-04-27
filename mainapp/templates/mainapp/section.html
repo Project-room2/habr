@@ -1,0 +1,27 @@
+<!-- templates/section.html -->
+{% extends 'mainapp/base.html' %}
+{% load static %}
+{% block content %}
+    <h1>{{ content }}</h1>
+    <div class="row">
+        <hr>
+    {{ posts }}<br><br>
+    {{ category }}<br><br>
+    {{ categories }}<br><br>
+        {% for post in posts %}
+            {{ habr.created_timestamp }}
+            <div>
+                <a href="">{{ habr.id_user|title }}</a>
+                <time datetime="{{ habr.created_timestamp }}"
+                      title="{{ habr.created_timestamp }}">{{ habr.created_timestamp }}</time>
+                , [{{ habr.category }}]
+{#                <h2 class="display-8 fw-bold lh-1"><a#}
+{#                        href="{% url 'main:habr' habr.slug %}">{{ habr.short_description }}</a></h2>#}
+                <p class="lead">{{ habr.description }}</p>
+                <button type="button" class="btn btn-primary btn-lg px-4 me-md-2 fw-bold">Читать дальше</button>
+                <br><br>
+                <hr>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

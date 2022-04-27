@@ -1,0 +1,22 @@
+<!-- templates/list.html -->
+{% block content %}
+    <h1>{{ content }}</h1>
+    <div class="row">
+        <hr>
+        {% for habr in habrs %}
+            <div>
+                <a href="">{{ habr.id_user|title }}</a>
+                <time datetime="{{ habr.created_timestamp }}"
+                      title="{{ habr.created_timestamp }}">{{ habr.created_timestamp }}</time>
+                , [{{ habr.category }}]
+                <h2 class="display-8 fw-bold lh-1"><a
+                        href="{% url 'main:habr' habr.slug %}">{{ habr.short_description }}</a></h2>
+                <p class="lead">{{ habr.description }}</p>
+                <button onclick="document.location='{% url 'main:habr' habr.slug %}'">Читать дальше</button>
+                <br><br>
+                <hr>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}
+

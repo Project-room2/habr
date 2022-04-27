@@ -1,0 +1,27 @@
+{% extends 'mainapp/base.html' %}
+{% load static %}
+{% load my_tags %}
+{% block main %}
+<div class="mt-3 posts text-left">
+    <h3 class="text-center"> Удалить статью: </h3>
+    <div class="card ">
+        <div class="card-header">
+            Категория: {{ object.category }}
+        </div>
+        <div class="card-body">
+            <h5 class="card-title">Название статьи: <a href="#">{{ object.name }}</a></h5>
+            <footer class="blockquote-footer">Статья создана <cite title="Source Title">{{ object.create_datetime }}
+            </cite></footer>
+            <div class="btn-group" role="group" aria-label="Basic example">
+                <form action="" method="post">{% csrf_token %}
+                    <h3>Вы уверены, что хотите удалить "{{ post.name }}"?</h3>
+                    <input class="btn btn-secondary bg-danger" type="submit" value="Подтвердить удаление"/>
+                    <a type="button" class="btn btn-secondary"
+                       href="{% url 'blog:post_detail' object.slug %}">Вернуться</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+

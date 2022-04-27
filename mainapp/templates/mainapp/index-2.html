@@ -1,0 +1,11 @@
+{% extends 'mainapp/base.html' %}
+{% load static %}
+
+{% block css %}
+{% endblock %}
+
+
+{% block content %}
+       <header><h1><a href="">{{ content }}</a></h1>
+       {% include 'mainapp/list.html' %}
+{% endblock content %}

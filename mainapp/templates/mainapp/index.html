@@ -1,10 +1,6 @@
 {% extends 'mainapp/base.html' %}
 {% load static %}
 
-{% block css %}
-
-{% endblock %}
-
 {% block content %}
-<h3>{{ content }}</h3>
-{% endblock %}
+        {% include 'mainapp/list.html' %}
+{% endblock content %}

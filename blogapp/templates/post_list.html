@@ -1,0 +1,44 @@
+{% extends 'mainapp/base.html' %}
+{% load static %}
+{% load my_tags %}
+{% block main %}
+    <div class="mt-3 posts text-left">
+        <h3 class="text-center"> Ваши статьи на Xabr:</h3>
+        <div class="btn-group text-center" role="group" aria-label="Basic example">
+            <a type="button" class="btn btn-secondary bg-success"
+               href="{% url 'blog:post_new' %}">Написать статью</a>
+        </div>
+        <br><br>
+        {% for object in object_list %}
+            {% if object.user.first_name == request.user.first_name %}
+                <div class="card ">
+                    {% if object.is_active == "True" %}
+                        <div class="card-header bg-success">Статус: Опубликовано</div>
+                    {% elif object.is_active == "MD" %}
+                        <div class="card-header bg-warning">Статус: На модерации</div>
+                    {% else %}
+                        <div class="card-header bg-danger">Статус: Черновик</div>
+                    {% endif %}
+                    <div class="card-header">
+                        Категория: {{ object.category }}
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">{{ object.name }}</h5>
+                        <footer class="blockquote-footer">Статья создана <cite
+                                title="Source Title">{{ object.create_datetime }}
+                        </cite></footer>
+                        <p class="card-text"> {% autoescape off %}{{ object.description }}{% endautoescape %}</p>
+                        <div class="btn-group" role="group" aria-label="Basic example">
+                            <a type="button" class="btn btn-secondary"
+                               href="{% url 'blog:post_detail' object.slug %}">Смотреть статью</a>
+                            <a type="button" class="btn btn-secondary"
+                               href="{% url 'blog:post_edit' object.slug %}">Редактировать статью</a>
+                            <a type="button" class="btn btn-secondary"
+                               href="{% url 'blog:post_delete' object.slug %}">Удалить статью</a>
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+        {% endfor %}
+    </div>
+{% endblock %}

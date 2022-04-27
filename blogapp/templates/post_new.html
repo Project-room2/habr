@@ -1,0 +1,33 @@
+{% extends 'mainapp/base.html' %}
+{% load static %}
+{% load my_tags %}
+{% block main %}
+<div class="mt-3 posts text-left">
+    <h3 class="text-center"> Новая статья:</h3>
+    <div class="card ">
+        <div class="card-header">
+            <form action="" method="post">{% csrf_token %}
+                <div class="form-group">
+                    <p class="card-text d-none">user:<select name="user" required="" id="id_user">
+                        <option value="{{request.user.id}}">{{request.user.username}}</option>
+                    </select></p>
+                    <p class="card-text">Категория: {{ form.category }}</p>
+                    <p class="card-text">Название статьи:{{ form.name }}</p>
+                    <p class="card-text">Краткое описание статьи:{{ form.description }}</p>
+                    <p class="card-text">Текст статьи:{{ form.posts_text }}{{ form.media }}</p>
+                    <p class="card-text">{{ form.errors }}</p>
+                    {% if form.is_active %}
+                    <input class="card-text" type="radio" name="is_active" value="False" checked> Черновик</p>
+                    <input class="card-text" type="radio" name="is_active" value="MD"> На модерацию</p>
+                    {% endif %}
+                </div>
+                <div class="btn-group" role="group" aria-label="Basic example">
+                    <input class="btn btn-secondary" type="submit" value="Сохранить"/>
+                    <a type="button" class="btn btn-secondary"
+                       href="{% url 'blog:post_list' %}">Все статьи</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
