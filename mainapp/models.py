@@ -37,11 +37,11 @@ class Habr(models.Model):
     title = models.CharField(max_length = 256, blank = False, verbose_name = 'Название статьи')
     slug = models.SlugField(max_length=255, unique=True, db_index=True, verbose_name="URL")
     content = models.TextField(blank = False, verbose_name = 'Текст статьи')
-    # photo = models.ImageField(upload_to = "photos/%Y/%m/%d/", verbose_name = "Фото")
+    images = models.ImageField(upload_to = "images/%Y/%m/%d/", verbose_name = "Картинка")
     time_create = models.DateTimeField(auto_now_add=True, verbose_name="Время создания")
     time_update = models.DateTimeField(auto_now=True, verbose_name="Время изменения")
     category = models.ForeignKey('Category', on_delete=models.PROTECT, verbose_name="Категория")
-    # id_user = models.ForeignKey('User', on_delete = models.CASCADE, verbose_name = 'ID ползователя')
+    user = models.ForeignKey(User, on_delete = models.CASCADE, verbose_name = 'Пользователь')
     is_active = models.BooleanField(default = True, verbose_name = "Активна")
     is_published = models.BooleanField(default=False, verbose_name="Опубликовано")
 

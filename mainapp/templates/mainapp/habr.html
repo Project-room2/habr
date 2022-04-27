@@ -5,13 +5,24 @@
 {% block content %}
 <br><br>
 <div class="row">
+    {{ static_root }}
     <div>
         <a href="">{{ habr.id_user|title }}</a>
         <time datetime="{{ habr.time_create}}"
               title="{{ habr.time_create }}">{{ habr.time_create }}
         </time>
-        | {{ habr.category }}
+        | {{ user.get_full_name }}
+
+        {% if user.profile.avatar.name %}
+        <img src="{{ user.profile.avatar.url }}" class="mainpage-avatar-img img-thumbnail">
+        {% else %}
+        <img src="/media/users_avatar/Avatar_default.jpg" class="mainpage-avatar-img img-thumbnail">
+        {% endif %}
+
         <h2 class="display-8 fw-bold lh-1">{{ habr.title }}</h2>
+        {% if habr.images %}
+        <p><img class="img-article-left" src="{{habr.images.url}}" width="50%" height="50%"></p>
+        {% endif %}
         <p class="lead">{{ habr.content }}</p>
     </div>
 </div>

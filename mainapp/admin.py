@@ -13,5 +13,6 @@ class AdminCategory(admin.ModelAdmin):
     list_display_links = ('id', 'name')
     search_fields = ('name',)
 
+
 admin.site.register(Habr, AdminHabr)
 admin.site.register(Category, AdminCategory)
