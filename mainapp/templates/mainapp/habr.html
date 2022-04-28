@@ -14,9 +14,9 @@
     <img src="/media/users_avatar/Avatar_default.jpg" width="40" height="40"
          class="mainpage-avatar-img img-thumbnail">
     {% endif %}
-    <a href="#">{{ user.get_full_name }}</a>
+    <a href="#">{{ user.get_full_name }}</a>,
     <time datetime="{{ habr.time_create}}"
-          title="{{ habr.time_create }}">{{ habr.time_create }}
+          title="{{ habr.time_create }}">{{ habr.time_create|date }}
     </time>
     <h2 class="blog-post-title">{{ habr.title }}</h2>
     {{ habr.category}}

@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description"
           content="Место накопления знаний">
-    <title>Xabr</title>
+    <title>{{ title }}</title>
 
     <!-- Bootstrap core CSS -->
     <link href="{% static 'bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
@@ -55,10 +55,10 @@
                     </svg>
                 </a>
                 {% if user.is_authenticated %}
-                    <a class="btn btn-sm btn-outline-secondary" href="{% url 'userapp:profile' %}">Профиль</a>
-                    <a class="btn btn-sm btn-outline-secondary" href="{% url 'userapp:logout' %}">Выйти</a>
+                <a class="btn btn-sm btn-outline-secondary" href="{% url 'userapp:profile' %}">Профиль</a>
+                <a class="btn btn-sm btn-outline-secondary" href="{% url 'userapp:logout' %}">Выйти</a>
                 {% else %}
-                    <a class="btn btn-sm btn-outline-secondary" href="{% url 'userapp:login' %}">Войти</a>
+                <a class="btn btn-sm btn-outline-secondary" href="{% url 'userapp:login' %}">Войти</a>
                 {% endif %}
             </div>
         </div>
@@ -68,13 +68,45 @@
 </div>
 
 <main class="container">
-    <!--    <div class="p-4 p-md-5 mb-4 text-white rounded bg-dark">-->
-    <!--        <div class="col-md-6 px-0">-->
-    <!--            <h1 class="display-6">ВСЕ ПОТОКИ ХАБРОВ</h1>-->
-    <!--            &lt;!&ndash;      <p class="lead my-3">Все самое свежие и современное, читайте и комментируйте. станьте автором и делитесь информацией с миром</p>&ndash;&gt;-->
-    <!--            &lt;!&ndash;        <p class="lead mb-0"><a href="#" class="text-white fw-bold">Continue reading...</a></p>&ndash;&gt;-->
-    <!--        </div>-->
-    <!--    </div>-->
+    {% if cat_selected == 1 %}
+    <div class="p-10 p-md-4 mb-10 text-white rounded bg-dark">
+        <div class="col-md-6 px-0">
+            <h1 class="display-6">ХАБРЫ ПРО ДИЗАЙН</h1>
+        </div>
+    </div>
+    {% elif cat_selected == 2 %}
+    <div class="p-10 p-md-4 mb-10 text-white rounded bg-dark">
+        <div class="col-md-8 px-0">
+            <h1 class="display-6">ХАБРЫ ПРО ВЕБ-РАЗРАБОТКУ</h1>
+        </div>
+    </div>
+    {% elif cat_selected == 3 %}
+    <div class="p-10 p-md-4 mb-10 text-white rounded bg-dark">
+        <div class="col-md-8 px-0">
+            <h1 class="display-6">ХАБРЫ О МАРКЕТИНГЕ</h1>
+        </div>
+    </div>
+    {% elif cat_selected == 4 %}
+    <div class="p-10 p-md-4 mb-10 text-white rounded bg-dark">
+        <div class="col-md-8 px-0">
+            <h1 class="display-6">ХАБРЫ ПРО МОБИЛЬНУЮ РАЗРАБОТКУ</h1>
+        </div>
+    </div>
+    {% elif cat_selected == 5 %}
+    <div class="p-10 p-md-4 mb-10 text-white rounded bg-dark">
+        <div class="col-md-8 px-0">
+            <h1 class="display-6">ПОМОЩЬ</h1>
+        </div>
+    </div>
+    {% else %}
+    <div class="p-10 p-md-4 mb-10 text-white rounded bg-dark">
+        <div class="col-md-8 px-0">
+            <h1 class="display-6">ВСЕ ПОТОКИ ХАБРОВ</h1>
+        </div>
+    </div>
+    {% endif %}
+
+
     <BR><BR><BR>
     <div class="row g-5">
         <div class="col-md-8">

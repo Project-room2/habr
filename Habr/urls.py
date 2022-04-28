@@ -14,7 +14,7 @@ urlpatterns = [
     path('web_dev/', web_dev, name='web_dev'),
     path('mobile_developing/', mobile_developing, name='mobile_developing'),
     path('marketing/', marketing, name='marketing'),
-    path('help/', help, name='help'),
+    path('help.html', help, name='help'),
     path('userapp/', include('userapp.urls', namespace='userapp')),
     path('comment/', include('comment.urls')),
     path('api/', include('comment.api.urls')),

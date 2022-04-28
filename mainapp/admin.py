@@ -6,6 +6,7 @@ class AdminHabr(admin.ModelAdmin):
     list_display = ('id', 'title', 'time_create', 'is_active', 'is_published', 'category')
     list_display_links = ('id', 'title')
     search_fields = ('title', 'content')
+    prepopulated_fields = {'slug': ('title',)}
 
 
 class AdminCategory(admin.ModelAdmin):
