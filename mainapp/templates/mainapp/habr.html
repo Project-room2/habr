@@ -1,4 +1,5 @@
-<!-- templates/mainapp/habr.html -->
+<!-- Начало templates/mainapp/habr.html -->
+<!-- Отображение выбранного Хабра -->
 {% extends 'mainapp/base.html' %}
 {% load comment_tags %}  {# Loading the template tag #}
 {% render_comments obj request %}  {# Render all the comments belong to the passed object "obj" #}
@@ -6,28 +7,26 @@
 {% load static %}
 
 {% block content %}
-<br><br>
-<div class="row">
-    <div>
-        {{ user.profile.avatar.url }}
-        {{ user.profile.avatar }}
-        {{ request.user.profile_picture.url }}
+<article class="blog-post">
+    {% if user.profile.avatar.name %}
+    <img src="{{ user.profile.avatar.url }}" class="mainpage-avatar-img img-thumbnail">
+    {% else %}
+    <img src="/media/users_avatar/Avatar_default.jpg" width="40" height="40"
+         class="mainpage-avatar-img img-thumbnail">
+    {% endif %}
+    <a href="#">{{ user.get_full_name }}</a>
+    <time datetime="{{ habr.time_create}}"
+          title="{{ habr.time_create }}">{{ habr.time_create }}
+    </time>
+    <h2 class="blog-post-title">{{ habr.title }}</h2>
+    {{ habr.category}}
+    <!--        {% if habr.images %}-->
+    <!--        <img class="card-img" src="{{habr.images.url}}" width="10%" height="30%">-->
+    <!--        {% endif %}-->
+    <div><br><br>
+        <p>{{ habr.content }}</p></div>
 
-        {% if user.profile.avatar.name %}
-        <img src="{{ user.profile.avatar.url }}" class="mainpage-avatar-img img-thumbnail">
-        {% else %}
-        <img src="/media/users_avatar/Avatar_default.jpg" width="40" height="40" class="mainpage-avatar-img img-thumbnail">
-        {% endif %}
-        {{ user.get_full_name }}<br>
-        <time datetime="{{ habr.time_create}}"
-              title="{{ habr.time_create }}">{{ habr.time_create }}
-        </time>
-        <h2 class="display-8 fw-bold lh-1">{{ habr.title }}</h2>
-        {% if habr.images %}
-        <p><img class="img-article-left" src="{{habr.images.url}}" width="50%" height="50%"></p>
-        {% endif %}
-        <p class="content">{{ habr.content }}</p>
-    </div>
-</div>
+</article>
 {% render_comments habr request %}
 {% endblock %}
+<!-- Конец templates/mainapp/habr_list.html -->

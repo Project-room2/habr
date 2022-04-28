@@ -16,10 +16,12 @@ def get_client_ip(request):
 
 
 def page_not_found_view(request, exception):
-    return render(request, 'mainapp/404.html', status=404)
+    return render(request, 'mainapp/404.html', status = 404)
 
 
 class SectionView(ListView):
+    """контроллер, отборажает хабры выбранного раздела"""
+
     model = Habr
     allow_empty = False
     template_name = 'mainapp/habr_list.html'
@@ -29,7 +31,8 @@ class SectionView(ListView):
 
 
 class HabrView(DetailView):
-    """контроллер, отборажает выбранный Хабр"""
+    """контроллер, отборажает конкретный Хабр"""
+
     model = Habr
     allow_empty = False
     template_name = 'mainapp/habr.html'
@@ -43,13 +46,13 @@ def index(request):
     habr = Habr.objects.filter(is_active = True).order_by('-time_create')
     habrs = Habr.objects.all()
     ip = get_client_ip(request)
-   #  Ip.objects.create(ip = ip)
-   #  Ip.objects.get_or_create(ip)
-   # if Ip.objects.filter(ip = ip).exists():
-   #     Habr.views.add(Ip.objects.get(ip = ip))
-   # else:
-   #     Ip.objects.create(ip = ip)
-   #     Habr.views.add(Ip.objects.get(ip = ip))
+    #  Ip.objects.create(ip = ip)
+    #  Ip.objects.get_or_create(ip)
+    # if Ip.objects.filter(ip = ip).exists():
+    #     Habr.views.add(Ip.objects.get(ip = ip))
+    # else:
+    #     Ip.objects.create(ip = ip)
+    #     Habr.views.add(Ip.objects.get(ip = ip))
 
     context = {
         'habr': habr,
@@ -101,7 +104,7 @@ def marketing(request):
 def help(request):
     context = {
         'title': 'Помощь - Проект "Хабр"',
-        'help': 'selected',
+        'help.html': 'selected',
         'content': 'Краткая документация к сайту',
     }
-    return render(request, 'mainapp/index.html', context)
+    return render(request, 'mainapp/help.html', context)

@@ -1,26 +1,32 @@
-<!-- templates/list.html -->
+<!-- Начало mainapp/templates/list.html-->
+<!-- Список статей на главной странице -->
+
 {% block content %}
-<h1>{{ content }}</h1>
-<div class="row">
-    <hr>
-    {% for habr in habrs %}
-    <div>
-        <a href="">{{ habr.id_user|title }}</a>
-        <time datetime="{{ time_create }}"
-              title="{{ habr.time_create }}">{{ habr.time_create }}
-        </time>
-        , {{ user.get_full_name }}, [{{ habr.category }}]
-        <h2 class="display-8 fw-bold lh-1"><a
-                href="{% url 'index:habr' habr.slug %}">{{ habr.title }}</a></h2>
-        {% if habr.images %}
-        <img class="img-article-left" src="{{habr.images.url}}" width="25%" height="25%">
-        {% endif %}
-        <p class="lead">{{ habr.content }}</p>
-        <button onclick="document.location='{% url 'index:habr' habr.slug %}'">Читать дальше</button>
-        <br><br>
-        <hr>
+{% for habr in habrs %}
+<article>
+    <div class="row mb-2">
+        <div class="col-12">
+            <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+                <div class="col p-4 d-flex flex-column position-static">
+                    <strong class="d-inline-block mb-2 text-primary">{{ habr.category }}</strong>
+                    <h3 class="mb-0">{{ habr.title }}</h3>
+                    <div class="mb-1 text-muted">{{ habr.time_create }}, {{ user.get_full_name }}</div>
+                    <p class="card-text mb-auto">{{ habr.content }}</p>
+                    <a href="{% url 'index:habr' habr.slug %}" class="stretched-link">Читать хабр</a>
+                </div>
+                <div class="col-auto d-none d-lg-block">
+                    <svg class="bd-placeholder-img" width="200" height="250" xmlns="http://www.w3.org/2000/svg"
+                         role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice"
+                         focusable="false"><title>Placeholder</title>
+                        <rect width="100%" height="100%" fill="#55595c"/>
+                        <text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text>
+                    </svg>
+                </div>
+            </div>
+        </div>
     </div>
-    {% endfor %}
-</div>
+</article>
+{% endfor %}
 {% endblock %}
+<!-- Конец mainapp/templates/list.html-->
 
