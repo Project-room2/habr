@@ -1,0 +1,14 @@
+
+{% block content %}
+    {% for habr in habrs %}
+      <article class="blog-post">
+
+        <h2 class="blog-post-title">{{ habr.title }}</h2>
+        <strong class="d-inline-block mb-2 text-primary">{{ habr.category }}</strong>
+        <p class="blog-post-meta">4 Апрелья 2022, <a href="#">{{ user.get_full_name }}</a></p>
+
+        <p>{{ habr.content }}</p>
+          <p><a href="{% url 'index:habr' habr.slug %}" class="stretched-link">Читать дальше</a></p>
+     </article>
+    {% endfor %}
+{% endblock %}

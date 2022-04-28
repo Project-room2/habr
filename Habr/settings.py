@@ -11,11 +11,9 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 
 from pathlib import Path
-from typing import Dict
 from YamJam import yamjam
-import json
 import os
-import sys
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -46,6 +44,8 @@ INSTALLED_APPS = [
     'adminapp',
     'userapp',
     'mainapp',
+    'comment',
+
 ]
 
 MIDDLEWARE = [
@@ -84,16 +84,23 @@ WSGI_APPLICATION = 'Habr.wsgi.application'
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
 
-dbcfg = yamjam()['myproject']['database']
+# dbcfg = yamjam()['myproject']['database']
+#
+# DATABASES = {
+#     'default': {
+#         'ENGINE':dbcfg['engine'],
+#         'NAME': dbcfg['name'],
+#         'USER': dbcfg['user'],
+#         'PASSWORD': dbcfg['password'],
+#         'HOST': dbcfg['host'],
+#         'PORT': dbcfg['port'],
+#     }
+# }
 
 DATABASES = {
     'default': {
-        'ENGINE':dbcfg['engine'],
-        'NAME': dbcfg['name'],
-        'USER': dbcfg['user'],
-        'PASSWORD': dbcfg['password'],
-        'HOST': dbcfg['host'],
-        'PORT': dbcfg['port'],
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
 
@@ -124,6 +131,8 @@ TIME_ZONE = 'Europe/Moscow'
 
 USE_I18N = True
 
+USE_L10N = True
+
 USE_TZ = True
 
 
@@ -136,12 +145,13 @@ STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
 )
 
-MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'
 
 AUTH_USER_MODEL = 'userapp.User'
 
-LOGIN_URL = '/userapp/login/'
+# LOGIN_URL = '/userapp/login/'
+LOGIN_URL = 'login'
 
 DOMAIN_NAME = 'http://localhost:8000'
 EMAIL_HOST = 'localhost'
@@ -159,3 +169,10 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
 EMAIL_FILE_PATH = 'tmp/email-messages/'
+
+COMMENT_FLAG_REASONS = [
+    (1, ('Spam | Exists only to promote a service')),
+    (2, ('Abusive | Intended at promoting hatred')),
+    (3, ('Racist | Sick mentality')),
+    (4, ('Whatever | Your reason')),
+]

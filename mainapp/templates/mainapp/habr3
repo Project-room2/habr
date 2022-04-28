@@ -1,0 +1,40 @@
+<!-- Начало templates/mainapp/habr.html -->
+<!-- Отображение выбранного Хабра -->
+{% extends 'mainapp/base.html' %}
+{% load comment_tags %}  {# Loading the template tag #}
+{% render_comments obj request %}  {# Render all the comments belong to the passed object "obj" #}
+# {% include_bootstrap %} {# Include bootstrap 4.1.1 - remove this line if BS is already used in your project #}
+{% load static %}
+
+{% block content %}
+<article>
+    <div class="row mb-2">
+        <div class="col-12">
+            <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+                <div class="col p-4 d-flex flex-column position-static">
+                    <div class="mb-4 text-muted">
+                        <time datetime="{{ habr.time_create}}"
+                              title="{{ habr.time_create }}">{{ habr.time_create }}
+                        </time>
+                        , {{ user.get_full_name }}
+                        {% if user.profile.avatar.name %}
+                        <img src="{{ user.profile.avatar.url }}" class="mainpage-avatar-img img-thumbnail">
+                        {% else %}
+                        <img src="/media/users_avatar/Avatar_default.jpg" width="40" height="40"
+                             class="mainpage-avatar-img img-thumbnail">
+                        {% endif %}
+                        <h1 class="mb-0">{{ habr.title }}</h1>
+                    </div>
+                    <div>
+                        {% if habr.images %}
+                        <img class="card-img" src="{{habr.images.url}}" width="30%" height="30%">
+                        {% endif %}
+                    </div>
+                    <div><p class="card-text mb-auto">{{ habr.content }}</p></div>
+                </div>
+            </div>
+        </div>
+</article>
+{% render_comments habr request %}
+{% endblock %}
+<!-- Конец templates/mainapp/habr_list.html -->

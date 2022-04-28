@@ -1,0 +1,33 @@
+{% extends 'mainapp/base.html' %}
+<!-- Начало templates/mainapp/habr_list.html -->
+<!-- Список хабров выбранного раздела -->
+
+{% block content %}
+{% for habr in object_list %}
+<article>
+    <div class="row mb-2">
+        <div class="col-12">
+            <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+                <div class="col-auto d-none d-lg-block">
+                    <svg class="bd-placeholder-img" width="200" height="250" xmlns="http://www.w3.org/2000/svg"
+                         role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice"
+                         focusable="false"><title>Placeholder</title>
+                        <rect width="100%" height="100%" fill="#55595c"/>
+                        <text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text>
+                    </svg>
+                </div>
+                <div class="col p-4 d-flex flex-column position-static">
+                    <strong class="d-inline-block mb-2 text-primary">{{ habr.category }}</strong>
+                    <h3 class="mb-0">{{ habr.title }}</h3>
+                    <div class="mb-1 text-muted">{{ habr.time_create }}, {{ user.get_full_name }}</div>
+                    <p class="card-text mb-auto">{{ habr.content }}</p>
+                    <a href="{% url 'index:habr' habr.slug %}" class="stretched-link">Читать хабр</a>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</article>
+{% endfor %}
+{% endblock %}
+<!-- Конец templates/mainapp/habr_list.html -->

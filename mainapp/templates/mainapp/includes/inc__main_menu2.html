@@ -1,0 +1,25 @@
+<div id="menubar">
+    <ul id="menu">
+        <!-- put class="selected" in the li tag for the selected page - to highlight which page you're on -->
+        <li class="{{ index }}"><a href="/">Главная</a></li>
+        <li class="{{ design }}"><a href="{% url 'design' %}">Дизайн</a></li>
+        <li class="{{ web_dev }}"><a href="{% url 'web_dev' %}">Веб-разработка</a></li>
+        <li class="{{ mobile_developing }}"><a href="{% url 'mobile_developing' %}">Мобильная разработка</a></li>
+        <li class="{{ marketing }}"><a href="{% url 'marketing' %}">Маркетинг</a></li>
+        <li class="{{ help }}"><a href="{% url 'help' %}">Помощь</a></li>
+        {% if user.is_authenticated %}
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'userapp:profile' %}">Профиль
+                <i class="fas fa-user-circle"></i>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'userapp:logout' %}">Выйти <i class="fas fa-sign-out-alt"></i></a>
+        </li>
+        {% else %}
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'userapp:login' %}">Войти <i class="fas fa-sign-in-alt"></i></a>
+        </li>
+        {% endif %}
+    </ul>
+</div>
