@@ -1,3 +1,5 @@
+from django.core.exceptions import ObjectDoesNotExist
+from django.http import Http404, HttpResponseRedirect
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic import ListView, DetailView, CreateView
 
@@ -44,6 +46,22 @@ class HabrView(DetailView):
     template_name = 'mainapp/habr.html'
     slug_url_kwarg = 'habr_slug'
     context_object_name = 'habr'
+
+    def get_queryset(self):
+        return Habr.objects.filter(is_published = True, is_active = True)
+
+    def get_context_data(self, *, object_list = None, **kwargs):
+        context = super().get_context_data()
+        context['title'] = 'Xabr - ' + str(context['habr'])
+        context['cat_selected'] = '0'
+
+        # =
+        liked = False
+        if likes_connected.likes.filter(id=self.request.user.id).exists():
+            liked = True
+        data['number_of_likes'] = likes_connected.number_of_likes()
+        data['post_is_liked'] = liked
+        return context
 
 
 class IndexView(ListView):
@@ -108,3 +126,13 @@ def help(request):
         'cat_selected': 5
     }
     return render(request, 'mainapp/help.html', context = context)
+
+def Like(request, slug):
+    post = get_object_or_404(Habr, id=request.POST.get('like_slug'))
+    print(post)
+    if post.likes.filter(id=request.user.id).exists():
+        post.likes.remove(request.user)
+    else:
+        post.likes.add(request.user)
+
+    return HttpResponseRedirect(reverse('like', args=[str(like_slug)]))

@@ -1,3 +1,5 @@
+from ckeditor.fields import RichTextField
+from ckeditor_uploader.fields import RichTextUploadingField
 from django.db import models
 from django.urls import reverse
 from userapp.models import User
@@ -5,10 +7,7 @@ from django.contrib.contenttypes.fields import GenericRelation
 from comment.models import Comment
 
 
-
 # Create your models here.
-
-
 class Ip(models.Model):  # наша таблица где будут айпи адреса
     ip = models.CharField(max_length = 100)
 
@@ -39,18 +38,18 @@ class Category(models.Model):
 class Habr(models.Model):
     """ модель хабра (статьи)"""
 
-    objects = None
     title = models.CharField(max_length = 256, blank = False, verbose_name = 'Название статьи')
     slug = models.SlugField(max_length = 255, unique = True, db_index = True, verbose_name = "URL")
-    content = models.TextField(blank = False, verbose_name = 'Текст статьи')
-    images = models.ImageField(upload_to = "images/%Y/%m/%d/", verbose_name = "Картинка")
+    content = RichTextUploadingField(blank = False, verbose_name = 'Текст статьи')
     time_create = models.DateTimeField(auto_now_add = True, verbose_name = "Время создания")
     time_update = models.DateTimeField(auto_now = True, verbose_name = "Время изменения")
     category = models.ForeignKey('Category', on_delete = models.PROTECT, verbose_name = "Категория")
     user = models.ForeignKey(User, on_delete = models.CASCADE, verbose_name = 'Пользователь')
     is_active = models.BooleanField(default = True, verbose_name = "Активна")
     is_published = models.BooleanField(default = False, verbose_name = "Опубликовано")
+    likes = models.ManyToManyField(User, related_name = 'blogpost_like')
     comments = GenericRelation(Comment)
+
 
     views = models.ManyToManyField(Ip, related_name = "habr_views", blank = True)
 
@@ -66,29 +65,5 @@ class Habr(models.Model):
     def get_absolute_url(self):
         return reverse('post', kwargs = {'habr_slug': self.slug})
 
-    def total_views(self):
-        return self.views.count()
-
-
-class HabrLike(models.Model):
-    """ Таблица лайков к хабру """
-
-    user = models.ForeignKey(User,
-                             on_delete = models.CASCADE,
-                             verbose_name = 'Ссылка на пользователя'
-                             )
-    habr = models.ForeignKey(Habr,
-                             on_delete = models.CASCADE,
-                             verbose_name = 'Ссылка на хабр'
-                             )
-
-    created = models.DateTimeField(auto_now_add = True, editable = False)
-
-    class Meta:
-        verbose_name = 'Лайк'
-        verbose_name_plural = 'Лайки'
-        db_table = "habr_like"
-
-
-def get_absolute_url(self):
-    return reverse('post_detail_url', kwargs={'slug': self.slug})
+    def number_of_likes(self):
+        return self.likes.count()
