@@ -9,7 +9,6 @@ from mainapp.views import design, web_dev, mobile_developing, marketing, help
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('mainapp.urls', namespace='index')),
-    # path('', index, name='index'),
     path('design/', design, name='design'),
     path('web_dev/', web_dev, name='web_dev'),
     path('mobile_developing/', mobile_developing, name='mobile_developing'),

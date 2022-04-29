@@ -21,6 +21,7 @@ class SectionView(ListView):
     """контроллер, отборажает активные и разрешенные к публикации Хабры выбранного раздела"""
 
     model = Habr
+    paginate_by = 2
     allow_empty = True
     template_name = 'mainapp/habr_list.html'
     context_object_name = 'habr'
@@ -48,6 +49,7 @@ class HabrView(DetailView):
 class IndexView(ListView):
     """контроллер, отборажает все активныее и разрешениые к публикации Хабры на главной """
 
+    paginate_by = 2
     model = Habr
     allow_empty = True
     template_name = 'mainapp/index.html'

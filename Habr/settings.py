@@ -45,8 +45,8 @@ INSTALLED_APPS = [
     'userapp',
     'mainapp',
     'comment',
-
 ]
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

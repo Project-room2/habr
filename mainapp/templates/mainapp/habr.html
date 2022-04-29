@@ -8,13 +8,16 @@
 
 {% block content %}
 <article class="blog-post">
-    {% if user.profile.avatar.name %}
-    <img src="{{ user.profile.avatar.url }}" class="mainpage-avatar-img img-thumbnail">
+
+    {% if habr.user.avatar.url %}
+    <a href="#"><img src="{{ habr.user.avatar.url }}" width="32" height="32"
+                     class="mainpage-avatar-img img-thumbnail rounded-circle"></a>
     {% else %}
-    <img src="/media/users_avatar/Avatar_default.jpg" width="40" height="40"
-         class="mainpage-avatar-img img-thumbnail">
+    <a href="#"><img src="http://127.0.0.1:8040/static/img/default.png" width="32" height="32"
+                     class="mainpage-avatar-img img-thumbnail rounded-circle"></a>
+
     {% endif %}
-    <a href="#">{{ user.get_full_name }}</a>,
+    <a href="#">{{ habr.user.get_full_name }}</a>,
     <time datetime="{{ habr.time_create}}"
           title="{{ habr.time_create }}">{{ habr.time_create|date }}
     </time>

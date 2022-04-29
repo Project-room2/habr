@@ -1,43 +1,44 @@
 {% load static %}
-<div class="blog-header-main">
-    <div class="blog-header container py-3">
-        <div class="row flex-nowrap justify-content-between align-items-center">
-            <div class="col-3">
-                <form class="d-flex" action="{% url 'main:search_results' %}" method="get">
-                    <input class="form-control me-2" name="search" type="text">
-                    <button type="submit" class="btn btn-secondary">Поиск</button>
+<header class="blog-header py-3">
+    <div class="row flex-nowrap justify-content-between align-items-center">
+        <div class="col-4 pt-1">
+            <a class="link-secondary" href="#">Subscribe</a>
+        </div>
+        <div class="col-4 text-center">
+            <a class="blog-header-logo text-dark" href="/">XABR</a>
+        </div>
+        <div class="col-4 d-flex justify-content-end align-items-center">
+            <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+                <form class="col-12 col-lg-auto mb-3 mb-lg-1 me-lg-4">
+                    <input type="search" class="form-control" placeholder="Search..." aria-label="Search">
                 </form>
 
-            </div>
-            <div class="col-6 text-center">
-                <a class="blog-header-logo text-dark" href="{% url 'main:index' %}">Xabr</a>
-            </div>
-            <div class="col-3 d-flex justify-content-end align-items-center">
-                {% if user.is_superuser or user.is_staff %}
-                <a class="admin btn btn-outline-secondary mr-1" href="{% url 'admin:index' %}">
-                    Админка
-                </a>
-                {% endif %}
-                {% if user.is_authenticated %}
-                <div class="dropdown">
-                    <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
-                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        {{ user.first_name|default:'Администратор'|title }}
+                <div class="dropdown text-end">
+                    {% if user.is_authenticated %}
+                    <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" id="dropdownUser1"
+                       data-bs-toggle="dropdown" aria-expanded="false">
+                        {% if habr.user.avatar.url %}
+                        <img src="{{ habr.user.avatar.url }}" width="32" height="32"
+                             class="mainpage-avatar-img img-thumbnail rounded-circle">
+                        {% else %}
+                        <img src="/static/img/default.png" width="32" height="32"
+                             class="mainpage-avatar-img img-thumbnail rounded-circle">
+                        {% endif %}
                     </a>
-                    <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                        <a class="dropdown-item" href="{% url 'auth:read_profile' %}">Профиль</a>
-                        <a class="dropdown-item" href="{% url 'blog:post_list' %}">Мои статьи</a>
-                        <a class="dropdown-item" href="{% url 'blog:post_new' %}">Написать статью</a>
-                        <a class="dropdown-item" href="{% url 'auth:logout' %}">Выход</a>
-                    </div>
+
+                    <ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1">
+                        <li><a class="dropdown-item" href="{% url 'userapp:profile' %}">Профиль</a></li>
+                        <li><a class="dropdown-item" href="#">Уведомления</a></li>
+                        <li><a class="dropdown-item" href="#">Мой Хабр</a></li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li><a class="dropdown-item" href="{% url 'userapp:logout' %}">Выйти</a></li>
+                    </ul>
+                    {% else %}
+                    <a class="btn btn-sm btn-outline-secondary" href="{% url 'userapp:login' %}">Войти</a>
+                    {% endif %}
                 </div>
-                {% else %}
-                <a class="btn btn-sm btn-outline-secondary"
-                   href="{% url 'auth:login' %}?next={{ request.path }}">Вход</a>
-                <a class="btn btn-sm btn-outline-secondary"
-                   href="{% url 'auth:register' %}?next={{ request.path }}">Регистрация</a>
-                {% endif %}
             </div>
         </div>
-    </div>
-</div>
+</header>

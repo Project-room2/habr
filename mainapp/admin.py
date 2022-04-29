@@ -18,3 +18,4 @@ class AdminCategory(admin.ModelAdmin):
 admin.site.register(Habr, AdminHabr)
 admin.site.register(Category, AdminCategory)
 admin.site.register(Ip)
+
