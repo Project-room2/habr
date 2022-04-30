@@ -24,7 +24,7 @@
     <!--        <img class="card-img" src="{{habr.images.url}}" width="10%" height="30%">-->
     <!--        {% endif %}-->
     <div><br><br>
-        <p>{{ habr.content }}</p></div>
+        <p>{{ habr.content|linebreaks }}</p></div>
 
 </article>
 {% render_comments habr request %}
