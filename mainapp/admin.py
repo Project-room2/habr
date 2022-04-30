@@ -10,7 +10,7 @@ class AdminHabr(admin.ModelAdmin):
     list_editable = ('is_active', 'is_published', 'category',)
     search_fields = ('title', 'content')
     prepopulated_fields = {'slug': ('title',)}
-    fields = ('time_create', 'time_update', 'title', 'slug', 'category', 'content', 'user', 'is_active', 'is_published','likes')
+    fields = ('time_create', 'time_update', 'title', 'slug', 'category', 'content', 'user', 'is_active', 'is_published', 'likes',)
     readonly_fields = ('time_create', 'time_update')
     save_on_top = True
 

@@ -10,5 +10,5 @@ urlpatterns = [
     path('', IndexView.as_view(), name = 'index'),
     path('habr/<slug:habr_slug>/', HabrView.as_view(), name = 'habr'),
     path('<slug:cat_slug>/', SectionView.as_view(), name = 'section'),
-    path('like/<slug:like_slug>', Like, name="like"),
+    path('like/<int:pk>/', mainapp.LikeView, name='like_post'),
 ]

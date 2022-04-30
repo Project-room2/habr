@@ -1,7 +1,13 @@
+<!-- Начало templates/mainapp/404.html -->
+<!-- Страница об ошибке 404 -->
 {% extends 'mainapp/base.html' %}
 {% load static %}
+{% block subtitle %}Страница не найдена{% endblock %}
+{% block meta %}<meta name="robots" content="noindex, nofollow">{% endblock %}
 
 {% block content %}
-<h1>Oppss.. что-то пошло не так...</h1>
-
+    <h2>Запрашиваемая страница с адресом {{ path }}  - не найдена</h2>
+    <p>Возможно, неправильно указан путь в адресной строке или страница была удалена.</p>
+    <p>Возврат на <a href="/">главную страницу</a></p>
 {% endblock %}
+<!-- Конец templates/mainapp/404.html -->
