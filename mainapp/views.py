@@ -132,6 +132,7 @@ def Like(request, slug):
     print(post)
     if post.likes.filter(id=request.user.id).exists():
         post.likes.remove(request.user)
+        liked = False
     else:
         post.likes.add(request.user)
 

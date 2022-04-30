@@ -63,7 +63,8 @@ class Habr(models.Model):
         # return f"{self.short_description} ({self.category.name} {self.is_active} {self.slug} {self.id_user})"
 
     def get_absolute_url(self):
-        return reverse('post', kwargs = {'habr_slug': self.slug})
+        # return reverse('post', kwargs = {'habr_slug': self.slug})
+        return reverse('post')
 
-    def number_of_likes(self):
+    def total_likes(self):
         return self.likes.count()
