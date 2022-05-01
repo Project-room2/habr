@@ -8,25 +8,61 @@
 
 {% block content %}
 <article class="blog-post">
-    {% if user.profile.avatar.name %}
-    <img src="{{ user.profile.avatar.url }}" class="mainpage-avatar-img img-thumbnail">
+
+    {% if habr.user.avatar.url %}
+    <a href="#"><img src="{{ habr.user.avatar.url }}" width="32" height="32"
+                     class="mainpage-avatar-img img-thumbnail rounded-circle"></a>
     {% else %}
-    <img src="/media/users_avatar/Avatar_default.jpg" width="40" height="40"
-         class="mainpage-avatar-img img-thumbnail">
+    <a href="#"><img src="http://127.0.0.1:8040/static/img/default.png" width="32" height="32"
+                     class="mainpage-avatar-img img-thumbnail rounded-circle"></a>
+
     {% endif %}
-    <a href="#">{{ user.get_full_name }}</a>
+    <a href="#">{{ habr.user.get_full_name }}</a>,
     <time datetime="{{ habr.time_create}}"
-          title="{{ habr.time_create }}">{{ habr.time_create }}
+          title="{{ habr.time_create }}">{{ habr.time_create|date }}
     </time>
     <h2 class="blog-post-title">{{ habr.title }}</h2>
     {{ habr.category}}
-    <!--        {% if habr.images %}-->
-    <!--        <img class="card-img" src="{{habr.images.url}}" width="10%" height="30%">-->
-    <!--        {% endif %}-->
+            {% if habr.images %}
+            <img class="card-img" src="{{habr.images.url}}" width="10%" height="30%">
+            {% endif %}
     <div><br><br>
-        <p>{{ habr.content|linebreaks }}</p></div>
-
+        <p>{{ habr.content|safe }}</p></div>
 </article>
+
+
+<!-- LIKES -->
+<form action="{% url 'index:like_post' habr.pk %}" method="POST">
+    {% csrf_token %}
+
+    {% if user.is_authenticated %}
+    {% if liked %}
+    <button class="btn btn-danger btn-sm" type="submit" name="habr_id" value="{{ habr.id }}">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-heart-fill"
+             viewBox="0 0 16 16">
+            <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"/>
+        </svg>
+    </button>
+    {% else %}
+    <button class="btn btn-primary btn-sm" name="habr_id" type="submit" value="{{ habr.id }}">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-heartbreak-fill"
+             viewBox="0 0 16 16">
+            <path fill-rule="evenodd"
+                  d="M8.931.586 7 3l1.5 4-2 3L8 15C22.534 5.396 13.757-2.21 8.931.586ZM7.358.77 5.5 3 7 7l-1.5 3 1.815 4.537C-6.533 4.96 2.685-2.467 7.358.77Z"/>
+        </svg>
+    </button>
+    {% endif %}
+    - {{ total_likes }} likes
+    {% else %}
+      <a class="btn btn-danger btn-sm" href="{% url 'userapp:login' %}">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-heart-fill"
+             viewBox="0 0 16 16">
+            <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"/>
+        </svg>
+    </a> - {{ total_likes }} likes
+    {% endif %}
+</form>
+
 {% render_comments habr request %}
 {% endblock %}
 <!-- Конец templates/mainapp/habr_list.html -->

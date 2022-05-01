@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description"
           content="Место накопления знаний">
-    <title>Xabr</title>
+    <title>{{ title }}</title>
 
     <!-- Bootstrap core CSS -->
     <link href="{% static 'bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
@@ -37,63 +37,60 @@
 <body>
 
 <div class="container">
-    <header class="blog-header py-3">
-        <div class="row flex-nowrap justify-content-between align-items-center">
-            <div class="col-4 pt-1">
-                <a class="link-secondary" href="#">Subscribe</a>
-            </div>
-            <div class="col-4 text-center">
-                <a class="blog-header-logo text-dark" href="/">XABR</a>
-            </div>
-            <div class="col-4 d-flex justify-content-end align-items-center">
-                <a class="link-secondary" href="#" aria-label="Search">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor"
-                         stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="mx-3" role="img"
-                         viewBox="0 0 24 24"><title>Поиск</title>
-                        <circle cx="10.5" cy="10.5" r="7.5"/>
-                        <path d="M21 21l-5.2-5.2"/>
-                    </svg>
-                </a>
-                {% if user.is_authenticated %}
-                    <a class="btn btn-sm btn-outline-secondary" href="{% url 'userapp:profile' %}">Профиль</a>
-                    <a class="btn btn-sm btn-outline-secondary" href="{% url 'userapp:logout' %}">Выйти</a>
-                {% else %}
-                    <a class="btn btn-sm btn-outline-secondary" href="{% url 'userapp:login' %}">Войти</a>
-                {% endif %}
-            </div>
-        </div>
-    </header>
     <!-- Heder menu -->
+    {% include 'mainapp/includes/inc__header.html' %}
+    <!-- Section menu -->
     {% include 'mainapp/includes/inc__main_menu.html' %}
 </div>
 
+<!-- Section header -->
 <main class="container">
-    <!--    <div class="p-4 p-md-5 mb-4 text-white rounded bg-dark">-->
-    <!--        <div class="col-md-6 px-0">-->
-    <!--            <h1 class="display-6">ВСЕ ПОТОКИ ХАБРОВ</h1>-->
-    <!--            &lt;!&ndash;      <p class="lead my-3">Все самое свежие и современное, читайте и комментируйте. станьте автором и делитесь информацией с миром</p>&ndash;&gt;-->
-    <!--            &lt;!&ndash;        <p class="lead mb-0"><a href="#" class="text-white fw-bold">Continue reading...</a></p>&ndash;&gt;-->
-    <!--        </div>-->
-    <!--    </div>-->
-    <BR><BR><BR>
+    {% if cat_selected == 0 %}
+    <div class="p-10 p-md-4 mb-10 text-white rounded bg-dark">
+        <div class="col-md-8 px-0">
+            <h1 class="display-6">ВСЕ ПОТОКИ ХАБРОВ</h1>
+        </div>
+    </div>
+    {% elif cat_selected == 1 %}
+    <div class="p-10 p-md-4 mb-10 text-white rounded bg-dark">
+        <div class="col-md-6 px-0">
+            <h1 class="display-6">ХАБРЫ ПРО ДИЗАЙН</h1>
+        </div>
+    </div>
+    {% elif cat_selected == 2 %}
+    <div class="p-10 p-md-4 mb-10 text-white rounded bg-dark">
+        <div class="col-md-8 px-0">
+            <h1 class="display-6">ХАБРЫ ПРО ВЕБ-РАЗРАБОТКУ</h1>
+        </div>
+    </div>
+    {% elif cat_selected == 3 %}
+    <div class="p-10 p-md-4 mb-10 text-white rounded bg-dark">
+        <div class="col-md-8 px-0">
+            <h1 class="display-6">ХАБРЫ О МАРКЕТИНГЕ</h1>
+        </div>
+    </div>
+    {% elif cat_selected == 4 %}
+    <div class="p-10 p-md-4 mb-10 text-white rounded bg-dark">
+        <div class="col-md-8 px-0">
+            <h1 class="display-6">ХАБРЫ ПРО МОБИЛЬНУЮ РАЗРАБОТКУ</h1>
+        </div>
+    </div>
+    {% elif cat_selected == 5 %}
+    <div class="p-10 p-md-4 mb-10 text-white rounded bg-dark">
+        <div class="col-md-8 px-0">
+            <h1 class="display-6">ПОМОЩЬ</h1>
+        </div>
+    </div>
+    {% endif %}
+
+
+    <BR><BR>
     <div class="row g-5">
         <div class="col-md-8">
-            <!--      <h3 class="pb-4 mb-4 fst-italic border-bottom">-->
-            <!--        Все потоки хабров-->
-            <!--      </h3>-->
-
             {% block content %}
 
             {% endblock content %}
-
-            <!--            <nav class="blog-pagination" aria-label="Pagination">-->
-            <!--                &lt;!&ndash; Pagination &ndash;&gt;-->
-            <!--                <a class="btn btn-outline-primary" href="#">Older</a>-->
-            <!--                <a class="btn btn-outline-secondary disabled" href="#" tabindex="-1" aria-disabled="true">Newer</a>-->
-            <!--            </nav>-->
-
         </div>
-
         <!-- Right column - ratig -->
         {% include 'mainapp/includes/inc__right_rating.html' %}
     </div>

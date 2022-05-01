@@ -17,6 +17,7 @@ urlpatterns = [
     path('userapp/', include('userapp.urls', namespace='userapp')),
     path('comment/', include('comment.urls')),
     path('api/', include('comment.api.urls')),
+    path('ckeditor/', include('ckeditor_uploader.urls')),
 ]
 
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

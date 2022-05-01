@@ -6,7 +6,7 @@
             <div>
                 <a href="">{{ habr.id_user|title }}</a>
                 <time datetime="{{ habr.time_create }}"
-                      title="{{ habr.time_create }}">{{ habr.time_create }}</time>
+                      title="{{ habr.time_create }}">{{ habr.time_create|date }}</time>
                 , [{{ habr.category }}]
 {#                <h2 class="display-8 fw-bold lh-1"><a#}
 {#                        href="{% url 'main:habr' habr.slug %}">{{ habr.short_description }}</a></h2>#}

@@ -45,8 +45,10 @@ INSTALLED_APPS = [
     'userapp',
     'mainapp',
     'comment',
-
+    'ckeditor_uploader',
+    'ckeditor',
 ]
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -176,3 +178,12 @@ COMMENT_FLAG_REASONS = [
     (3, ('Racist | Sick mentality')),
     (4, ('Whatever | Your reason')),
 ]
+
+CKEDITOR_UPLOAD_PATH = 'uploads/'
+
+CKEDITOR_CONFIGS = {
+ 'default' : {
+ 'extraPlugins': 'codesnippet',
+  'toolbar':'full',
+    },
+}
