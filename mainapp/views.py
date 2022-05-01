@@ -73,6 +73,7 @@ class IndexView(ListView):
     template_name = 'mainapp/index.html'
     context_object_name = 'habrs'
 
+
     def get_queryset(self):
         return Habr.objects.filter(is_published = True, is_active = True)
 
@@ -122,10 +123,12 @@ def marketing(request):
 def help(request):
     context = {
         'title': 'Помощь - Xabr',
+        'help.html': 'selected',
         'content': 'Краткая документация к сайту',
         'cat_selected': 5
     }
     return render(request, 'mainapp/help.html', context = context)
+
 
 def Like(request, slug):
     post = get_object_or_404(Habr, id=request.POST.get('like_slug'))
@@ -137,3 +140,12 @@ def Like(request, slug):
         post.likes.add(request.user)
 
     return HttpResponseRedirect(reverse('like', args=[str(like_slug)]))
+  
+# class help(DetailView):
+#     """контроллер, отборажает конкретный Хабр"""
+#
+#     model = Habr
+#     allow_empty = True
+#     template_name = 'mainapp/help.html'
+#     context_object_name = 'habr'
+
