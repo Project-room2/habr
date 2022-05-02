@@ -8,12 +8,11 @@
 
 {% block content %}
 <article class="blog-post">
-
     {% if habr.user.avatar.url %}
     <a href="#"><img src="{{ habr.user.avatar.url }}" width="32" height="32"
                      class="mainpage-avatar-img img-thumbnail rounded-circle"></a>
     {% else %}
-    <a href="#"><img src="http://127.0.0.1:8040/static/img/default.png" width="32" height="32"
+    <a href="#"><img src="{% static '/img/default.png' %}" width="32" height="32"
                      class="mainpage-avatar-img img-thumbnail rounded-circle"></a>
 
     {% endif %}
@@ -23,15 +22,16 @@
     </time>
     <h2 class="blog-post-title">{{ habr.title }}</h2>
     {{ habr.category}}
-            {% if habr.images %}
-            <img class="card-img" src="{{habr.images.url}}" width="10%" height="30%">
-            {% endif %}
+    {% if habr.images %}
+    <img class="card-img" src="{{habr.images.url}}" width="10%" height="30%">
+    {% endif %}
     <div><br><br>
         <p>{{ habr.content|safe }}</p></div>
 </article>
 
 
 <!-- LIKES -->
+<a name="like"></a>
 <form action="{% url 'index:like_post' habr.pk %}" method="POST">
     {% csrf_token %}
 

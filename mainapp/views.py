@@ -1,22 +1,16 @@
-from django.core.exceptions import ObjectDoesNotExist
-from django.http import Http404, HttpResponseRedirect
-from django.shortcuts import render, redirect, get_object_or_404
-from django.views.generic import ListView, DetailView, CreateView
-
+from django.db import transaction
+from django.http import HttpResponseRedirect, request
+from django.shortcuts import render, get_object_or_404
+from django.views.generic import ListView, DetailView
+from .decorators import counted
 from .models import *
 
-
-def get_client_ip(request):
-    x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
-    if x_forwarded_for:
-        ip = x_forwarded_for.split(',')[0]
-    else:
-        ip = request.META.get('REMOTE_ADDR')  # В REMOTE_ADDR значение айпи пользователя
-    return ip
+from functools import wraps
+from django.db.models import F
 
 
 def page_not_found_view(request, exception):
-    return render(request, 'mainapp/404.html', status = 404)
+    return render(request, 'mainapp/404.html', {'path': request.path}, status = 404)
 
 
 class SectionView(ListView):
@@ -50,17 +44,27 @@ class HabrView(DetailView):
     def get_queryset(self):
         return Habr.objects.filter(is_published = True, is_active = True)
 
+    def counted(self):
+        with transaction.atomic():
+            counter, created = PageHit.objects.get_or_create(url = request.path)
+            counter.count = F('count') + 1
+            counter.save()
+        return counter
+
     def get_context_data(self, *, object_list = None, **kwargs):
         context = super().get_context_data()
         context['title'] = 'Xabr - ' + str(context['habr'])
         context['cat_selected'] = '0'
 
-        # =
+        stuff = get_object_or_404(Habr, slug = self.kwargs['habr_slug'])
+        total_likes = stuff.total_likes()
+
         liked = False
-        if likes_connected.likes.filter(id=self.request.user.id).exists():
+        if stuff.likes.filter(id = self.request.user.id).exists():
             liked = True
-        data['number_of_likes'] = likes_connected.number_of_likes()
-        data['post_is_liked'] = liked
+
+        context['total_likes'] = total_likes
+        context['liked'] = liked
         return context
 
 
@@ -73,17 +77,17 @@ class IndexView(ListView):
     template_name = 'mainapp/index.html'
     context_object_name = 'habrs'
 
-
     def get_queryset(self):
         return Habr.objects.filter(is_published = True, is_active = True)
 
     def get_context_data(self, *, object_list = None, **kwargs):
         context = super().get_context_data()
         context['title'] = 'Xabr - знания это сила!'
-        context['cat_selected'] = '0'
+        context['cat_selected'] = 0
         return context
 
 
+@counted
 def design(request):
     context = {
         'title': 'Дизайн - Xabr"',
@@ -123,29 +127,20 @@ def marketing(request):
 def help(request):
     context = {
         'title': 'Помощь - Xabr',
-        'help.html': 'selected',
         'content': 'Краткая документация к сайту',
         'cat_selected': 5
     }
     return render(request, 'mainapp/help.html', context = context)
 
 
-def Like(request, slug):
-    post = get_object_or_404(Habr, id=request.POST.get('like_slug'))
-    print(post)
-    if post.likes.filter(id=request.user.id).exists():
+def LikeView(request, pk):
+    """функция проставления лайка/дизлайка"""
+    post = get_object_or_404(Habr, id = request.POST.get('habr_id'))
+    liked = False
+    if post.likes.filter(id = request.user.id).exists():
         post.likes.remove(request.user)
         liked = False
     else:
         post.likes.add(request.user)
-
-    return HttpResponseRedirect(reverse('like', args=[str(like_slug)]))
-  
-# class help(DetailView):
-#     """контроллер, отборажает конкретный Хабр"""
-#
-#     model = Habr
-#     allow_empty = True
-#     template_name = 'mainapp/help.html'
-#     context_object_name = 'habr'
-
+        liked = True
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))

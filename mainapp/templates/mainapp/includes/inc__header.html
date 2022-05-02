@@ -18,10 +18,11 @@
                     <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" id="dropdownUser1"
                        data-bs-toggle="dropdown" aria-expanded="false">
                         {% if habr.user.avatar.url %}
-                        <img src="{{ habr.user.avatar.url }}" width="32" height="32"
+                        <img src="{{ user.avatar.url }}" width="32" height="32"
                              class="mainpage-avatar-img img-thumbnail rounded-circle">
                         {% else %}
-                        <img src="/static/img/default.png" width="32" height="32"
+
+                        <img src="{% static '/img/default.png' %}" width="32" height="32"
                              class="mainpage-avatar-img img-thumbnail rounded-circle">
                         {% endif %}
                     </a>
