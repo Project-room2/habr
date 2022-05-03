@@ -32,6 +32,8 @@ DEBUG = True
 # ALLOWED_HOSTS = YamJam.yamjam()['myproject']['ALLOWED_HOSTS']
 ALLOWED_HOSTS = ['*.4t-habr.ru', '127.0.0.1', '127.0.0.1:8001']
 
+CSRF_TRUSTED_ORIGINS = ['https://4t-habr.ru']
+
 # Application definition
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -45,9 +47,8 @@ INSTALLED_APPS = [
     'allauth.account',
     'allauth.socialaccount',
     'allauth.socialaccount.providers.github',
-    # 'allauth.socialaccount.providers.google',
 
-    'bootstrap_modal_forms',
+     # 'bootstrap_modal_forms',
 
     'adminapp',
     'userapp',
@@ -65,6 +66,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'ipaddr.middleware.IPAddrMiddleware',
 ]
 
 AUTHENTICATION_BACKENDS = (

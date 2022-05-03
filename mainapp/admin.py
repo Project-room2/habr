@@ -5,7 +5,7 @@ from .models import *
 
 
 class AdminHabr(admin.ModelAdmin):
-    list_display = ('id', 'title', 'time_create', 'is_active', 'is_published', 'category')
+    list_display = ('id', 'title', 'time_create', 'is_active', 'is_published', 'category', 'habr_view')
     list_display_links = ('id', 'title')
     list_editable = ('is_active', 'is_published', 'category',)
     search_fields = ('title', 'content')

@@ -2,7 +2,6 @@ from django.db import transaction
 from django.http import HttpResponseRedirect, request
 from django.shortcuts import render, get_object_or_404
 from django.views.generic import ListView, DetailView
-from .decorators import counted
 from .models import *
 
 from functools import wraps
@@ -44,27 +43,32 @@ class HabrView(DetailView):
     def get_queryset(self):
         return Habr.objects.filter(is_published = True, is_active = True)
 
-    def counted(self):
-        with transaction.atomic():
-            counter, created = PageHit.objects.get_or_create(url = request.path)
-            counter.count = F('count') + 1
-            counter.save()
-        return counter
+    # def get(self, request, *args, **kwargs):
+    #     self.object = self.get_object()
+    #     self.object.habr_view += 1
+    #     self.object.save()
+    #     return self.get_context_data(object=self.object)
 
     def get_context_data(self, *, object_list = None, **kwargs):
         context = super().get_context_data()
         context['title'] = 'Xabr - ' + str(context['habr'])
         context['cat_selected'] = '0'
 
+        # Счетчик кол-во открытия хабров
+        object = self.get_object()
+        object.habr_view += 1
+        object.save()
+
+        # Считаем лайки
         stuff = get_object_or_404(Habr, slug = self.kwargs['habr_slug'])
         total_likes = stuff.total_likes()
-
         liked = False
         if stuff.likes.filter(id = self.request.user.id).exists():
             liked = True
 
         context['total_likes'] = total_likes
         context['liked'] = liked
+
         return context
 
 
@@ -87,7 +91,6 @@ class IndexView(ListView):
         return context
 
 
-@counted
 def design(request):
     context = {
         'title': 'Дизайн - Xabr"',
@@ -144,3 +147,8 @@ def LikeView(request, pk):
         post.likes.add(request.user)
         liked = True
     return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+
+# def get_client_ip(request):
+#     """метод для получения ip"""
+#     ip = request.client_ip
+#     return ip

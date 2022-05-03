@@ -3,13 +3,3 @@
 {% block content %}
         {% include 'mainapp/list.html' %}
 {% endblock content %}
-
-<script type="text/javascript">
-$(document).ready(function() {
-
-    $("#create-book").modalForm({
-        formURL: "{% url 'userapp.login' %}"
-    });
-
-});
-</script>
