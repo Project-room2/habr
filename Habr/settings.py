@@ -46,7 +46,7 @@ INSTALLED_APPS = [
     'mainapp',
     'comment',
     'ckeditor_uploader',
-    'ckeditor',
+    'ckeditor'
 ]
 
 
@@ -86,21 +86,18 @@ WSGI_APPLICATION = 'Habr.wsgi.application'
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
 
-# dbcfg = yamjam()['myproject']['database']
-#
-# DATABASES = {
-#     'default': {
-#         'ENGINE':dbcfg['engine'],
-#         'NAME': dbcfg['name'],
-#         'USER': dbcfg['user'],
-#         'PASSWORD': dbcfg['password'],
-#         'HOST': dbcfg['host'],
-#         'PORT': dbcfg['port'],
-#     }
-# }
+dbcfg = yamjam()['myproject']['database']
 
 DATABASES = {
     'default': {
+        'ENGINE': dbcfg['engine'],
+        'NAME': dbcfg['name'],
+        'USER': dbcfg['user'],
+        'PASSWORD': dbcfg['password'],
+        'HOST': dbcfg['host'],
+        'PORT': dbcfg['port'],
+    },
+    'sqllite': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
