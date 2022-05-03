@@ -47,11 +47,9 @@ class Habr(models.Model):
     user = models.ForeignKey(User, on_delete = models.CASCADE, verbose_name = 'Пользователь')
     is_active = models.BooleanField(default = True, verbose_name = "Активна")
     is_published = models.BooleanField(default = False, verbose_name = "Опубликовано")
-    likes = models.ManyToManyField(User, related_name = 'blogpost_like')
+    likes = models.ManyToManyField(User, related_name = 'blog_post')
+    like_quantity = models.PositiveIntegerField('кол-во', default = 0)
     comments = GenericRelation(Comment)
-
-
-    views = models.ManyToManyField(Ip, related_name = "habr_views", blank = True)
 
     class Meta:
         verbose_name = "Хабр"
@@ -68,3 +66,14 @@ class Habr(models.Model):
 
     def total_likes(self):
         return self.likes.count()
+
+
+class Like(models.Model):
+    """модель лайков к постам"""
+    user = models.ForeignKey(User, on_delete = models.CASCADE)
+    slug = models.SlugField(max_length = 255, unique = True, db_index = True, verbose_name = 'URL')
+    is_active = models.BooleanField(verbose_name = 'активна', default = True)
+
+    class Meta:
+        verbose_name = "лайк"
+        verbose_name_plural = "лайки"

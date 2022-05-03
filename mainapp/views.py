@@ -16,7 +16,7 @@ def get_client_ip(request):
 
 
 def page_not_found_view(request, exception):
-    return render(request, 'mainapp/404.html', status = 404)
+    return render(request, 'mainapp/404.html', {'path': request.path}, status = 404)
 
 
 class SectionView(ListView):
@@ -54,13 +54,17 @@ class HabrView(DetailView):
         context = super().get_context_data()
         context['title'] = 'Xabr - ' + str(context['habr'])
         context['cat_selected'] = '0'
+        stuff = get_object_or_404(Habr, slug = self.kwargs['habr_slug'])
+        total_likes = stuff.total_likes()
 
-        # =
         liked = False
-        if likes_connected.likes.filter(id=self.request.user.id).exists():
+        if stuff.likes.filter(id = self.request.user.id).exists():
             liked = True
-        data['number_of_likes'] = likes_connected.number_of_likes()
-        data['post_is_liked'] = liked
+
+        context['total_likes'] = total_likes
+        context['liked'] = liked
+        context['us'] = 5
+
         return context
 
 
@@ -72,7 +76,6 @@ class IndexView(ListView):
     allow_empty = True
     template_name = 'mainapp/index.html'
     context_object_name = 'habrs'
-
 
     def get_queryset(self):
         return Habr.objects.filter(is_published = True, is_active = True)
@@ -123,29 +126,20 @@ def marketing(request):
 def help(request):
     context = {
         'title': 'Помощь - Xabr',
-        'help.html': 'selected',
         'content': 'Краткая документация к сайту',
         'cat_selected': 5
     }
     return render(request, 'mainapp/help.html', context = context)
 
 
-def Like(request, slug):
-    post = get_object_or_404(Habr, id=request.POST.get('like_slug'))
-    print(post)
-    if post.likes.filter(id=request.user.id).exists():
+def LikeView(request, pk):
+    """функция проставления лайка/дизлайка"""
+    post = get_object_or_404(Habr, id = request.POST.get('habr_id'))
+    liked = False
+    if post.likes.filter(id = request.user.id).exists():
         post.likes.remove(request.user)
         liked = False
     else:
         post.likes.add(request.user)
-
-    return HttpResponseRedirect(reverse('like', args=[str(like_slug)]))
-  
-# class help(DetailView):
-#     """контроллер, отборажает конкретный Хабр"""
-#
-#     model = Habr
-#     allow_empty = True
-#     template_name = 'mainapp/help.html'
-#     context_object_name = 'habr'
-
+        liked = True
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))

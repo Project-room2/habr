@@ -23,9 +23,9 @@
     </time>
     <h2 class="blog-post-title">{{ habr.title }}</h2>
     {{ habr.category}}
-            {% if habr.images %}
-            <img class="card-img" src="{{habr.images.url}}" width="10%" height="30%">
-            {% endif %}
+    {% if habr.images %}
+    <img class="card-img" src="{{habr.images.url}}" width="10%" height="30%">
+    {% endif %}
     <div><br><br>
         <p>{{ habr.content|safe }}</p></div>
 </article>
