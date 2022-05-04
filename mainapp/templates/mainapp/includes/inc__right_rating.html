@@ -10,7 +10,7 @@
             <h4>Популярные Хабры</h4>
             {% for habr in object_list %}
             <ol class="list-unstyled mb-0">
-                <li><a href="{% url 'index:habr' habr.slug %}" class="stretched-link">{{ habr.title }}</a></li>
+                <li><a href="{% url 'index:habr' habr.slug %}" class="stretched-link link-dark">{{ habr.title }}</a></li>
             </ol>
             {% endfor %}
 
@@ -23,10 +23,10 @@
                 <li>
                     {% if habr.user.avatar.url %}
                     <a href="#"><img src="{{ habr.user.avatar.url }}" width="32" height="32"
-                                     class="mainpage-avatar-img img-thumbnail rounded-circle"></a>{{ habr.user.get_full_name}}
+                                     class="mainpage-avatar-img img-thumbnail rounded-circle"></a><a href="#" class="stretched-link link-dark">{{ habr.user.get_full_name}}</a>
                     {% else %}
                     <a href="#"><img src="1{% static 'img/default.png' %}" width="32" height="32"
-                                     class="mainpage-avatar-img img-thumbnail rounded-circle"></a>{{ habr.user.get_full_name}}
+                                     class="mainpage-avatar-img img-thumbnail rounded-circle"></a><a href="#" class="stretched-link link-dark">{{ habr.user.get_full_name}}</a>
                     {% endif %}
                 </li>
             </ol>
