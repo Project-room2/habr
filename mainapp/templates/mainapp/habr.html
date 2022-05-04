@@ -7,6 +7,7 @@
 {% load static %}
 
 {% block content %}
+
 <article class="blog-post">
     {% if habr.user.avatar.url %}
     <a href="#"><img src="{{ habr.user.avatar.url }}" width="32" height="32"
@@ -15,12 +16,13 @@
     <a href="#"><img src="{% static '/img/default.png' %}" width="32" height="32"
                      class="mainpage-avatar-img img-thumbnail rounded-circle"></a>
     {% endif %}
-    <a href="#">{{ habr.user.get_full_name }}</a>,
+    <a href="#">{{ habr.user.get_full_name }}</a>&nbsp;|
     <time datetime="{{ habr.time_create}}"
-          title="{{ habr.time_create }}">{{ habr.time_create|date }}
+          title="{{ habr.time_create }}">{{ habr.time_create|date }} | <strong
+            class="d-inline-block mb-2 text-primary text-black-50">{{ habr.category }}</strong>
     </time>
-    <h2 class="blog-post-title">{{ habr.title }}</h2>
-    {{ habr.category}}
+    <h1 class="blog-post-title">{{ habr.title }}</h1>
+    <hr>
     {% if habr.images %}
     <img class="card-img" src="{{habr.images.url}}" width="10%" height="30%">
     {% endif %}
