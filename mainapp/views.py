@@ -43,12 +43,6 @@ class HabrView(DetailView):
     def get_queryset(self):
         return Habr.objects.filter(is_published = True, is_active = True)
 
-    # def get(self, request, *args, **kwargs):
-    #     self.object = self.get_object()
-    #     self.object.habr_view += 1
-    #     self.object.save()
-    #     return self.get_context_data(object=self.object)
-
     def get_context_data(self, *, object_list = None, **kwargs):
         context = super().get_context_data()
         context['title'] = 'Xabr - ' + str(context['habr'])
@@ -75,7 +69,7 @@ class HabrView(DetailView):
 class IndexView(ListView):
     """контроллер, отборажает все активныее и разрешениые к публикации Хабры на главной """
 
-    paginate_by = 2
+    paginate_by = 4
     model = Habr
     allow_empty = True
     template_name = 'mainapp/index.html'
@@ -89,6 +83,12 @@ class IndexView(ListView):
         context['title'] = 'Xabr - знания это сила!'
         context['cat_selected'] = 0
         return context
+
+    def get_rating(self, request, cat_slug):
+        section = get_object_or_404(Habr, slug = cat_slug)
+        sort = request.GET.getlist('sort')
+        articles = section.article_set.all().order_by(*sort)
+        return
 
 
 def design(request):

@@ -4,11 +4,11 @@
 <div class="nav-scroller py-1 mb-2">
     <nav class="nav nav-pills nav-justified">
         {% if cat_selected == 0 %}
-        <a class="nav-item nav-link" href="{% url 'design' %}">Дизайн</a>
-        <a class="nav-item nav-link " href="{% url 'web_dev' %}">Веб-разработка</a>
-        <a class="nav-item nav-link" href="{% url 'marketing' %}">Маркетинг</a>
-        <a class="nav-item nav-link" href="{% url 'mobile_developing' %}">Мобильная разработка</a>
-        <a class="nav-item nav-link" href="{% url 'help' %}">Помощь</a>
+        <a class="nav-item nav-link link-dark" href="{% url 'design' %}">Дизайн</a>
+        <a class="nav-item nav-link link-dark" href="{% url 'web_dev' %}">Веб-разработка</a>
+        <a class="nav-item nav-link link-dark" href="{% url 'marketing' %}">Маркетинг</a>
+        <a class="nav-item nav-link link-dark" href="{% url 'mobile_developing' %}">Мобильная разработка</a>
+        <a class="nav-item nav-link link-dark" href="{% url 'help' %}">Помощь</a>
         {% elif cat_selected == 1 %}
         <a class="nav-item nav-link bg-dark active" href="{% url 'design' %}">Дизайн</a>
         <a class="nav-item nav-link " href="{% url 'web_dev' %}">Веб-разработка</a>
@@ -40,11 +40,11 @@
         <a class="nav-item nav-link" href="{% url 'mobile_developing' %}">Мобильная разработка</a>
         <a class="nav-item nav-link bg-dark active" href="{% url 'help' %}">Помощь</a>
         {% else %}
-        <a class="nav-item nav-link" href="{% url 'design' %}">Дизайн</a>
-        <a class="nav-item nav-link" href="{% url 'web_dev' %}">Веб-разработка</a>
-        <a class="nav-item nav-link" href="{% url 'marketing' %}">Маркетинг</a>
-        <a class="nav-item nav-link" href="{% url 'mobile_developing' %}">Мобильная разработка</a>
-        <a class="nav-item nav-link" href="{% url 'help' %}">Помощь</a>
+        <a class="nav-item nav-link link-dark" href="{% url 'design' %}">Дизайн</a>
+        <a class="nav-item nav-link link-dark" href="{% url 'web_dev' %}">Веб-разработка</a>
+        <a class="nav-item nav-link link-dark" href="{% url 'marketing' %}">Маркетинг</a>
+        <a class="nav-item nav-link link-dark" href="{% url 'mobile_developing' %}">Мобильная разработка</a>
+        <a class="nav-item nav-link link-dark" href="{% url 'help' %}">Помощь</a>
         {% endif %}
     </nav>
 </div>
