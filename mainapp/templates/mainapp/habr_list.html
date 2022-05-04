@@ -11,7 +11,7 @@
                 <div class="col p-4 d-flex flex-column position-static">
                     <h3 class="mb-0">{{ habr.title }}</h3>
                     <div class="mb-1 text-muted">{{ habr.time_create|date }}, {{ habr.user.get_full_name }}</div>
-                    <p class="card-text mb-auto">{{ habr.content|safe|linebreaks|truncatechars:220 }}</p>
+                    <p class="card-text mb-auto">{{ habr.content|safe|linebreaks|truncatechars:300 }}</p>
                     <a href="{% url 'index:habr' habr.slug %}" class="stretched-link"></a>
                     <div class="card-text mb-auto">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
