@@ -12,7 +12,7 @@
                     <h3 class="mb-0">{{ habr.title }}</h3>
                     <div class="mb-1 text-muted">{{ habr.time_create|date }}, {{ habr.user.get_full_name }}</div>
                     <p class="card-text mb-auto">{{ habr.content|safe|linebreaks|truncatechars:200 }}</p>
-                    <a href="{% url 'index:habr' habr.slug %}" class="stretched-link">Читать хабр</a>
+                    <a href="{% url 'index:habr' habr.slug %}" class="stretched-link"></a>
                 </div>
                 <div class="col-auto d-none d-lg-block">
                     <svg class="bd-placeholder-img" width="200" height="250" xmlns="http://www.w3.org/2000/svg"
