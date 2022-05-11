@@ -29,12 +29,14 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      # Setup key
-      - run: set -eu
-      - run: mkdir "$HOME/.ssh"
-      - run: echo "$" > "$HOME/.ssh/key"
-      - run: chmod 600 "$HOME/.ssh/key"
-      # Deploy
-      - run: rsync -avz -e "ssh -i $HOME/.ssh/key -o StrictHostKeyChecking=no" . miraving2@4t-habr.ru:/home/miraving2/code/project2/habr
+    - name: Install SSH Key
+      uses: shimataro/ssh-key-action@v3
+      with:
+        key: ${{ secrets.SECRET_KEY }}
+        known_hosts: 'just-a-placeholder-so-we-dont-get-errors'
+  - name: Adding Known Hosts
+    run: ssh-keyscan -H ${{ secrets.SSH_HOST }} >> ~/.ssh/known_hosts        
+  - name: Deploy with rsync
+    run: rsync -avz -verbose . ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:/home/code/project2/habr/
+
     
