@@ -36,4 +36,5 @@ jobs:
       - run: echo "$" > "$HOME/.ssh/key"
       - run: chmod 600 "$HOME/.ssh/key"
       # Deploy
-      - run: rsync -e "ssh -i $HOME/.ssh/key -o StrictHostKeyChecking=no" . miraving2@4t-habr.ru:/home/miraving2/code/project2/habr
+      - run: rsync -avz -e "ssh -i $HOME/.ssh/key -o StrictHostKeyChecking=no" . miraving2@4t-habr.ru:/home/miraving2/code/project2/habr
+    
