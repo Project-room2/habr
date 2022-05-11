@@ -36,4 +36,4 @@ jobs:
         key: ${{ secrets.SECRET_NAME }}
         known_hosts: '84.201.185.83'
     - name: Deploy with rsync
-      run: rsync -avz -e "ssh -p 22" --progress . miraving2@$84.201.185.83:/home/code/project2/habr/
+      run: rsync -avz -e "ssh -i ${{ secret.SECRET_NAME }}" --progress . miraving2@$84.201.185.83:/home/code/project2/habr/
