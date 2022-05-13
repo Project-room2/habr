@@ -3,6 +3,7 @@ from django.http import HttpResponseRedirect, request
 from django.shortcuts import render, get_object_or_404
 from django.views.generic import ListView, DetailView
 from .models import *
+from django.db.models import Count
 
 from functools import wraps
 from django.db.models import F
@@ -84,11 +85,11 @@ class IndexView(ListView):
         context['cat_selected'] = 0
         return context
 
-    def get_rating(self, request, cat_slug):
-        section = get_object_or_404(Habr, slug = cat_slug)
-        sort = request.GET.getlist('sort')
-        articles = section.article_set.all().order_by(*sort)
-        return
+    # def get_rating(self, request, cat_slug):
+    #     section = get_object_or_404(Habr, slug = cat_slug)
+    #     sort = request.GET.getlist('sort')
+    #     articles = section.article_set.all().order_by(*sort)
+    #     return
 
 
 def design(request):

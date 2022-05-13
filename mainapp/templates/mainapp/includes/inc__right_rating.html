@@ -20,17 +20,19 @@
             <h4>Лучшие авторы</h4>
             {% for habr in habrs %}
             <ol class="list-unstyled mb-0">
+            {% for author in author %}
                 <li>
-                    {% if habr.user.avatar.url %}
-                    <a href="#"><img src="{{ habr.user.avatar.url }}" width="32" height="32"
-                                     class="mainpage-avatar-img img-thumbnail rounded-circle"></a><a href="#" class="stretched-link link-dark">{{ habr.user.get_full_name}}</a>
+                    {% if user.avatar.url %}
+                    <a href="#"><img src="{{ author.user.avatar.url }}" width="32" height="32"
+                                     class="mainpage-avatar-img img-thumbnail rounded-circle"></a><a href="#" class="stretched-link link-dark">{{ author. }}</a>
                     {% else %}
                     <a href="#"><img src="1{% static 'img/default.png' %}" width="32" height="32"
-                                     class="mainpage-avatar-img img-thumbnail rounded-circle"></a><a href="#" class="stretched-link link-dark">{{ habr.user.get_full_name}}</a>
+                                     class="mainpage-avatar-img img-thumbnail rounded-circle"></a><a href="#" class="stretched-link link-dark">{{ author.title }}</a>
                     {% endif %}
                 </li>
             </ol>
             {% endfor %}
+            </ol>
         </div>
     </div>
 </div>
