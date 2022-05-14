@@ -1,7 +1,7 @@
 from django.core.management import BaseCommand
 from django.contrib.auth.models import Group, Permission
-from userapp.models import User # мы переопредели модель пользователя, поэтому импортируем именно отсюда
-# import logging
+from userapp.models import User, UserProfile # мы переопредели модель пользователя, поэтому импортируем именно отсюда
+import logging
 from django.db import IntegrityError
 
 #  Перечень групп и их разрешений для работы с приложениями проекта
@@ -16,8 +16,18 @@ GROUPS = {
         "session": ["add", "delete", "change", "view"],
 
         # Разрешения для конкретных моделей
+        "comment": ["add", "delete", "change", "view"],
+        "flag": ["add", "delete", "change", "view"],
+        "flaginstance": ["add", "delete", "change", "view"],
+        "follower": ["add", "delete", "change", "view"],
+        "reaction": ["add", "delete", "change", "view"],
+        "reactioninstance": ["add", "delete", "change", "view"],
+        "category": ["add", "delete", "change", "view"],
         "habr": ["add", "delete", "change", "view"],
-        "habrlike": ["add", "delete", "change", "view"],
+        "habr_likes": ["add", "delete", "change", "view"],
+        "habr_views": ["add", "delete", "change", "view"],
+        "ip": ["add", "delete", "change", "view"],
+        "vote": ["add", "delete", "change", "view"],
     },
 
     "Moderator": {
@@ -28,13 +38,13 @@ GROUPS = {
     "Member": {
         # Разрешения для конкретных моделей
         "habr": ["add", "delete", "change", "view"],
-        "habrlike": ["add", "delete", "change", "view"],
+        "habr_likes": ["add", "delete", "change", "view"],
     },
 
     "Guest": {
         # Разрешения для конкретных моделей
         "habr": ["view"],
-        "habrlike": ["view"],
+        "habr_likes": ["view"],
     },
 
 }
@@ -81,6 +91,7 @@ class Command(BaseCommand):
                     if user_name == "admin":
                         new_user, created = User.objects.get_or_create(username=user_name, is_staff=True, is_superuser=True,
                                                                        email=USERS[user_name][1])
+                        player, created = UserProfile.objects.get_or_create(user=new_user)
                     else:
                         new_user, created = User.objects.get_or_create(username=user_name, is_staff=True,
                                                                        email=USERS[user_name][1])

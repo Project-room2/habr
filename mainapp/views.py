@@ -48,6 +48,8 @@ class HabrView(DetailView):
         context = super().get_context_data()
         context['title'] = 'Xabr - ' + str(context['habr'])
         context['cat_selected'] = '0'
+        stuff = get_object_or_404(Habr, slug = self.kwargs['habr_slug'])
+        total_likes = stuff.total_likes()
 
         # Счетчик кол-во открытия хабров
         object = self.get_object()
@@ -57,12 +59,14 @@ class HabrView(DetailView):
         # Считаем лайки
         stuff = get_object_or_404(Habr, slug = self.kwargs['habr_slug'])
         total_likes = stuff.total_likes()
+
         liked = False
         if stuff.likes.filter(id = self.request.user.id).exists():
             liked = True
 
         context['total_likes'] = total_likes
         context['liked'] = liked
+        context['us'] = 5
 
         return context
 
@@ -148,8 +152,3 @@ def LikeView(request, pk):
         post.likes.add(request.user)
         liked = True
     return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
-
-# def get_client_ip(request):
-#     """метод для получения ip"""
-#     ip = request.client_ip
-#     return ip

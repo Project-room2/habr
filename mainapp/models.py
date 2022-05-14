@@ -51,6 +51,7 @@ class Habr(models.Model):
     likes = models.ManyToManyField(User, related_name = 'blog_post')
     like_quantity = models.PositiveIntegerField('кол-во', default = 0)
     habr_view = models.IntegerField('просмотров', default = 1)
+
     comments = GenericRelation(Comment)
 
     class Meta:

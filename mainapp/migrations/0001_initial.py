@@ -4,11 +4,13 @@ import ckeditor_uploader.fields
 from django.db import migrations, models
 
 
+
 class Migration(migrations.Migration):
 
     initial = True
 
     dependencies = [
+
     ]
 
     operations = [
@@ -27,6 +29,7 @@ class Migration(migrations.Migration):
             },
         ),
         migrations.CreateModel(
+
             name='Habr',
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
@@ -38,6 +41,11 @@ class Migration(migrations.Migration):
                 ('is_active', models.BooleanField(default=True, verbose_name='Активна')),
                 ('is_published', models.BooleanField(default=False, verbose_name='Опубликовано')),
                 ('like_quantity', models.PositiveIntegerField(default=0, verbose_name='кол-во')),
+                ('category', models.ForeignKey(on_delete=django.db.models.deletion.PROTECT, to='mainapp.category', verbose_name='Категория')),
+                ('likes', models.ManyToManyField(related_name='blogpost_like', to=settings.AUTH_USER_MODEL)),
+                ('user', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL, verbose_name='Пользователь')),
+                ('views', models.ManyToManyField(blank=True, related_name='habr_views', to='mainapp.ip')),
+
             ],
             options={
                 'verbose_name': 'Хабр',
@@ -57,4 +65,5 @@ class Migration(migrations.Migration):
                 'verbose_name_plural': 'лайки',
             },
         ),
+
     ]
