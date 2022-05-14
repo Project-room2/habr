@@ -7,15 +7,43 @@
 {% load static %}
 
 {% block content %}
+
 <article class="blog-post">
-
-    {% if habr.user.avatar.url %}
-    <a href="#"><img src="{{ habr.user.avatar.url }}" width="32" height="32"
-                     class="mainpage-avatar-img img-thumbnail rounded-circle"></a>
-    {% else %}
-    <a href="#"><img src="http://127.0.0.1:8040/static/img/default.png" width="32" height="32"
-                     class="mainpage-avatar-img img-thumbnail rounded-circle"></a>
-
+    <div>
+        <div class="col d-flex align-items-start ">
+            {% if habr.user.avatar.url %}
+            <a class="link-dark" href="#"><img src="{{ habr.user.avatar.url }}" width="64" height="64"
+                                               class="mainpage-avatar-img img-thumbnail rounded-circle"></a>
+            {% else %}
+            <a class="link-dark" href="#"><img src="{% static '/img/default.png' %}" width="64" height="64"
+                                               class="mainpage-avatar-img img-thumbnail rounded-circle"></a>
+            {% endif %}
+            &nbsp;&nbsp;&nbsp;
+            <div>
+                <h4 class="fw-bold mb-0">{{ habr.user.get_full_name }}</h4>
+                <p>
+                    <time datetime="{{ habr.time_create }}" title="{{ habr.time_create }}">{{ habr.time_create|date }}
+                    </time>
+                </p>
+            </div>
+        </div>
+        <div class="p-5 mb-4 bg-light rounded-3">
+            <h1 class="blog-post-title">{{ habr.title }}</h1>
+            {% if habr.images %}
+            <img class="card-img" src="{{habr.images.url}}" width="10%" height="30%">
+            {% endif %}
+            {{ habr.content|safe }}
+        </div>
+        <div class="card-text mb-auto p-3 mb-2 bg-secondary text-white">
+            <!-- LIKES -->
+            <form action="{% url 'index:like_post' habr.pk %}" method="POST">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-eye"
+                     viewBox="0 0 16 16">
+                    <path d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8zM1.173 8a13.133 13.133 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13.133 13.133 0 0 1 14.828 8c-.058.087-.122.183-.195.288-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5c-2.12 0-3.879-1.168-5.168-2.457A13.134 13.134 0 0 1 1.172 8z"/>
+                    <path d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zM4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0z"/>
+                </svg>
+                {{ habr.habr_view }}&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;
+                {% csrf_token %}
     {% endif %}
     <a href="#">{{ habr.user.get_full_name }}</a>,
     <time datetime="{{ habr.time_create}}"
@@ -29,39 +57,40 @@
     <div><br><br>
         <p>{{ habr.content|safe }}</p></div>
 </article>
-
-
-<!-- LIKES -->
-<form action="{% url 'index:like_post' habr.pk %}" method="POST">
-    {% csrf_token %}
-
-    {% if user.is_authenticated %}
-    {% if liked %}
-    <button class="btn btn-danger btn-sm" type="submit" name="habr_id" value="{{ habr.id }}">
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-heart-fill"
-             viewBox="0 0 16 16">
-            <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"/>
-        </svg>
-    </button>
-    {% else %}
-    <button class="btn btn-primary btn-sm" name="habr_id" type="submit" value="{{ habr.id }}">
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-heartbreak-fill"
-             viewBox="0 0 16 16">
-            <path fill-rule="evenodd"
-                  d="M8.931.586 7 3l1.5 4-2 3L8 15C22.534 5.396 13.757-2.21 8.931.586ZM7.358.77 5.5 3 7 7l-1.5 3 1.815 4.537C-6.533 4.96 2.685-2.467 7.358.77Z"/>
-        </svg>
-    </button>
-    {% endif %}
-    - {{ total_likes }} likes
-    {% else %}
-      <a class="btn btn-danger btn-sm" href="{% url 'userapp:login' %}">
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-heart-fill"
-             viewBox="0 0 16 16">
-            <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"/>
-        </svg>
-    </a> - {{ total_likes }} likes
-    {% endif %}
-</form>
+                {% if user.is_authenticated %}
+                {% if liked %}
+                <button class="btn btn-danger btn-sm" type="submit" name="habr_id" value="{{ habr.id }}">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                         class="bi bi-heart-fill"
+                         viewBox="0 0 16 16">
+                        <path fill-rule="evenodd"
+                              d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"/>
+                    </svg>
+                </button>
+                {% else %}
+                <button class="btn btn-primary btn-sm" name="habr_id" type="submit" value="{{ habr.id }}">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                         class="bi bi-heartbreak-fill"
+                         viewBox="0 0 16 16">
+                        <path fill-rule="evenodd"
+                              d="M8.931.586 7 3l1.5 4-2 3L8 15C22.534 5.396 13.757-2.21 8.931.586ZM7.358.77 5.5 3 7 7l-1.5 3 1.815 4.537C-6.533 4.96 2.685-2.467 7.358.77Z"/>
+                    </svg>
+                </button>
+                {% endif %}
+                {{ total_likes }} likes &nbsp;&nbsp; &nbsp;&nbsp;
+                {% else %}
+                <a class="btn btn-danger btn-sm" href="{% url 'userapp:login' %}">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
+                         class="bi bi-heart-fill"
+                         viewBox="0 0 16 16">
+                        <path fill-rule="evenodd"
+                              d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"/>
+                    </svg>
+                </a> - {{ total_likes }} likes
+                {% endif %}
+            </form>
+        </div>
+</article>
 
 {% render_comments habr request %}
 {% endblock %}

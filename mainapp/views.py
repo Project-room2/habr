@@ -1,18 +1,12 @@
-from django.core.exceptions import ObjectDoesNotExist
-from django.http import Http404, HttpResponseRedirect
-from django.shortcuts import render, redirect, get_object_or_404
-from django.views.generic import ListView, DetailView, CreateView
-
+from django.db import transaction
+from django.http import HttpResponseRedirect, request
+from django.shortcuts import render, get_object_or_404
+from django.views.generic import ListView, DetailView
 from .models import *
+from django.db.models import Count
 
-
-def get_client_ip(request):
-    x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
-    if x_forwarded_for:
-        ip = x_forwarded_for.split(',')[0]
-    else:
-        ip = request.META.get('REMOTE_ADDR')  # В REMOTE_ADDR значение айпи пользователя
-    return ip
+from functools import wraps
+from django.db.models import F
 
 
 def page_not_found_view(request, exception):
@@ -57,6 +51,15 @@ class HabrView(DetailView):
         stuff = get_object_or_404(Habr, slug = self.kwargs['habr_slug'])
         total_likes = stuff.total_likes()
 
+        # Счетчик кол-во открытия хабров
+        object = self.get_object()
+        object.habr_view += 1
+        object.save()
+
+        # Считаем лайки
+        stuff = get_object_or_404(Habr, slug = self.kwargs['habr_slug'])
+        total_likes = stuff.total_likes()
+
         liked = False
         if stuff.likes.filter(id = self.request.user.id).exists():
             liked = True
@@ -71,7 +74,7 @@ class HabrView(DetailView):
 class IndexView(ListView):
     """контроллер, отборажает все активныее и разрешениые к публикации Хабры на главной """
 
-    paginate_by = 2
+    paginate_by = 4
     model = Habr
     allow_empty = True
     template_name = 'mainapp/index.html'
@@ -83,8 +86,14 @@ class IndexView(ListView):
     def get_context_data(self, *, object_list = None, **kwargs):
         context = super().get_context_data()
         context['title'] = 'Xabr - знания это сила!'
-        context['cat_selected'] = '0'
+        context['cat_selected'] = 0
         return context
+
+    # def get_rating(self, request, cat_slug):
+    #     section = get_object_or_404(Habr, slug = cat_slug)
+    #     sort = request.GET.getlist('sort')
+    #     articles = section.article_set.all().order_by(*sort)
+    #     return
 
 
 def design(request):

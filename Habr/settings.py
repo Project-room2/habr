@@ -30,7 +30,9 @@ SECRET_KEY = yamjam()['myproject']['django_secret_key']
 DEBUG = True
 
 # ALLOWED_HOSTS = YamJam.yamjam()['myproject']['ALLOWED_HOSTS']
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['*.4t-habr.ru', '127.0.0.1', '127.0.0.1:8001']
+
+CSRF_TRUSTED_ORIGINS = ['https://4t-habr.ru']
 
 # Application definition
 INSTALLED_APPS = [
@@ -41,6 +43,13 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.github',
+
+     # 'bootstrap_modal_forms',
+
     'adminapp',
     'userapp',
     'mainapp',
@@ -48,7 +57,6 @@ INSTALLED_APPS = [
     'ckeditor_uploader',
     'ckeditor'
 ]
-
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -58,7 +66,16 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'ipaddr.middleware.IPAddrMiddleware',
 ]
+
+AUTHENTICATION_BACKENDS = (
+    "django.contrib.auth.backends.ModelBackend",
+    "allauth.account.auth_backends.AuthenticationBackend",
+)
+
+
+ACCOUNT_EMAIL_VERIFICATION = 'none'
 
 ROOT_URLCONF = 'Habr.urls'
 
@@ -152,7 +169,7 @@ AUTH_USER_MODEL = 'userapp.User'
 # LOGIN_URL = '/userapp/login/'
 LOGIN_URL = 'login'
 
-DOMAIN_NAME = 'http://localhost:8000'
+DOMAIN_NAME = 'http://127.0.0.1:8001'
 EMAIL_HOST = 'localhost'
 EMAIL_PORT = '25'
 EMAIL_HOST_USER = 'admin@habr.local'
@@ -183,4 +200,24 @@ CKEDITOR_CONFIGS = {
  'extraPlugins': 'codesnippet',
   'toolbar':'full',
     },
+}
+
+SOCIALACCOUNT_PROVIDERS = {
+    'github': {
+        'SCOPE': [
+            'user',
+            'email',
+            'repo',
+            'read:org',
+        ],
+    },
+    'google': {
+        'SCOPE': [
+            'profile',
+            'email',
+        ],
+        'AUTH_PARAMS': {
+            'access_type': 'online',
+        }
+    }
 }

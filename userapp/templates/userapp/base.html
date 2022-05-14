@@ -1,4 +1,6 @@
 {% load static %}
+{% load socialaccount %}
+{% get_providers as socialaccount_providers %}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -10,10 +12,13 @@
     <meta name="author" content=""/>
     <title>{{ title|title}}</title>
     <link href="{% static 'css/auth-admin.css' %}" rel="stylesheet"/>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/js/all.min.js"
-            crossorigin="anonymous"></script>
+<!--    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/js/all.min.js"
+             crossorigin="anonymous"></script> ->>
+        <!-- Bootstrap core CSS -->
+    <link href="{% static 'bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+
 </head>
-<body class="bg-primary">
+<body>
 {% block content %}
 
 {% endblock %}
