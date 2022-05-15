@@ -50,6 +50,9 @@
         <a class="nav-item nav-link" href="{% url 'mobile_developing' %}">Мобильная разработка</a>
         <a class="nav-item nav-link" href="{% url 'help' %}">Помощь</a>
         {% endif %}
+        {% if user.is_authenticated %}
+            <a class="nav-item nav-link" href="{% url 'habrapp:create' %}">&#9998</a>
+        {% endif %}
     </nav>
 </div>
     <!-- Конец mainapp/templates/includes/inc__main_menu.html-->

@@ -9,6 +9,7 @@ from mainapp.views import *
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('help/', help, name = 'help'),
+    path('habr/', include('habrapp.urls', namespace='habrapp')),
     path('', include('mainapp.urls', namespace='index')),
     path('design/', design, name='design'),
     path('web_dev/', web_dev, name='web_dev'),
