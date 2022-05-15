@@ -1,26 +1,39 @@
-        <div class="col-md-4">
-            <div class="position-sticky" style="top: 2rem;">
-                <div class="p-4 mb-3 bg-light rounded">
-                    <h4>Команда 4T</h4>
-                    <p class="mb-0">Проект "Xabr".</br> Командная разработка по методологии Agile:Scrum.</p>
-                </div>
-
-                <div class="p-4">
-                    <h4>Лучшие хабры</h4>
-                    <ol class="list-unstyled mb-0">
-                        <li><a href="#">Есть ли жизнь за углом?</a></li>
-                        <li><a href="#">Где живут лимангусы, кто такие лимангусы?</a></li>
-                        <li><a href="#">Сегодня он, а завтра ты! Плечом к пелчу, мы за ценой не постоим</a></li>
-                    </ol>
-                </div>
-
-                <div class="p-4">
-                    <h4>Лучшие авторы</h4>
-                    <ol class="list-unstyled">
-                        <li><a href="#">ivan22</a></li>
-                        <li><a href="#">bober</a></li>
-                        <li><a href="#">klukva</a></li>
-                    </ol>
-                </div>
-            </div>
+{% load static %}
+<div class="col-md-4">
+    <div class="position-sticky" style="top: 2rem;">
+        <div class="p-4 mb-3 bg-light rounded">
+            <h4>Команда 4T</h4>
+            <p class="mb-0">Проект "Xabr".</br> Командная разработка по методологии Agile:Scrum.</p>
         </div>
+
+        <div class="p-4">
+            <h4>Популярные Хабры</h4>
+            {% for habr in object_list %}
+            <ol class="list-unstyled mb-0">
+                <li><a href="{% url 'index:habr' habr.slug %}" class="stretched-link link-dark">{{ habr.title }}</a></li>
+            </ol>
+            {% endfor %}
+
+        </div>
+
+        <div class="p-4">
+            <h4>Лучшие авторы</h4>
+            {% for habr in habrs %}
+            <ol class="list-unstyled mb-0">
+            {% for author in author %}
+                <li>
+                    {% if user.avatar.url %}
+                    <a href="#"><img src="{{ author.user.avatar.url }}" width="32" height="32"
+                                     class="mainpage-avatar-img img-thumbnail rounded-circle"></a><a href="#" class="stretched-link link-dark">{{ author. }}</a>
+                    {% else %}
+                    <a href="#"><img src="1{% static 'img/default.png' %}" width="32" height="32"
+                                     class="mainpage-avatar-img img-thumbnail rounded-circle"></a><a href="#" class="stretched-link link-dark">{{ author.title }}</a>
+                    {% endif %}
+                </li>
+            </ol>
+            {% endfor %}
+            </ol>
+        </div>
+    </div>
+</div>
+<div>

@@ -8,11 +8,12 @@ from comment.models import Comment
 
 
 # Create your models here.
-class Ip(models.Model):  # наша таблица где будут айпи адреса
-    ip = models.CharField(max_length = 100)
+# class Ip(models.Model):
+#     """таблица где будут ip адреса, кто смотрел хабр"""
+#     ip = models.CharField(max_length=100)
 
-    def __str__(self):
-        return self.ip
+# def __str__(self):
+#     return self.ip
 
 
 class Category(models.Model):
@@ -49,6 +50,8 @@ class Habr(models.Model):
     is_published = models.BooleanField(default = False, verbose_name = "Опубликовано")
     likes = models.ManyToManyField(User, related_name = 'blog_post')
     like_quantity = models.PositiveIntegerField('кол-во', default = 0)
+    habr_view = models.IntegerField('просмотров', default = 1)
+
     comments = GenericRelation(Comment)
 
     class Meta:

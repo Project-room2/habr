@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Пасхалка</title>
+    <style>
+        body, #inputcmd {
+            background-color: #333;
+            color: #00ff00;
+            font-family: "andale mono", /* MS WebFont */ "monotype.com", /* MS WebFont, former name */ monaco, /* MacOS */ /* Fallback options */ "courier new", /* Windows, MacOS */ courier, /* Unix+X, MacOS */ monospace;
+        }
+
+        #terminal-window {
+            padding: 10px;
+            display: block;
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0px;
+            left: 0px;
+            background-color: #111;
+            overflow: hidden;
+        }
+
+        #terminal-window:before {
+            content: '';
+            z-index: 4010;
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0px;
+            left: 0px;
+            background: linear-gradient(#444 50%, #111 50%);
+            background-size: 100% 4px;
+            background-repeat: repeat-y;
+            opacity: .14;
+            box-shadow: inset 0px 0px 1px 1px rgba(0, 0, 0, .8);
+            animation: pulse 5s linear infinite;
+        }
+
+        #cursor {
+            color: #00ff00;
+            box-sizing: border-box;
+            border-left: .5em solid;
+        }
+
+        .blink {
+            animation: typing 6s steps(13, end) infinite, blinking 1s step-end infinite;
+        }
+
+        .scanlines {
+            z-index: 4100;
+        }
+
+        .hide {
+            display: none;
+        }
+
+        .scanlines:before {
+            content: '';
+            position: absolute;
+            top: 0px;
+            left: 0px;
+            width: 100%;
+            height: 12px;
+            background: #fff;
+            background: linear-gradient(to bottom, rgba(255, 0, 0, 0) 0%, rgba(255, 250, 250, 1) 50%, rgba(255, 255, 255, 0.98) 51%, rgba(255, 0, 0, 0) 100%); /* W3C */
+            opacity: .1;
+            animation: vline 6.25s linear infinite;
+        }
+
+        #inputcmd {
+            background-color: #111;
+            border: 1px;
+            font-size: 1em;
+            /*hide default cursor*/
+            color: transparent;
+            text-shadow: 0 0 0 #00ff00;
+        }
+
+        #inputcmd:focus {
+            outline: none;
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1.001);
+                opacity: .14;
+            }
+            8% {
+                transform: scale(1.000);
+                opacity: .13;
+            }
+            15% {
+                transform: scale(1.004);
+                opacity: .14;
+            }
+            30% {
+                transform: scale(1.002);
+                opacity: .11;
+            }
+            100% {
+                transform: scale(1.000);
+                opacity: .14;
+            }
+        }
+
+        @keyframes vline {
+            0% {
+                top: 0px;
+            }
+            100% {
+                top: 100%;
+            }
+        }
+
+        @keyframes blinking {
+            from, to {
+                border-color: transparent;
+            }
+            50% {
+                border-color: green;
+            }
+        }
+    </style>
+</head>
+<body>
+<script type="text/javascript">
+// setup vars
+var currentLine = "";
+var typeSpeed = 70;
+var pauseLength = 1000;
+
+// get ref to DOM Elements
+var cursor = $("#cursor");
+var animate = $(".animate");
+var input = $("#inputcmd");
+var output = $("#output");
+
+// set up Event Listeners
+input.keypress(keypressInput);
+$("#terminal-window").click(openKeyboard);
+
+// hide text so we can animate it
+animate.each(function (index) {
+  $(this).addClass("hide");
+});
+
+// make first call to printCharaters() for animation
+var temp = setTimeout(printCharaters, typeSpeed);
+
+// this function animates printing of text inside DOMS with the .animate class.
+function printCharaters() {
+  // check if current line array is empty
+  if (currentLine.length == 0) {
+    // stop cursor from blinking
+    cursor.removeClass("blink");
+
+    // get first line of text and add it to an array
+    currentLine = animate.first().text().split("");
+    currentLine = currentLine.reverse();
+
+    // remove text from dom and unhide element
+    animate.first().html("");
+    animate.first().removeClass("hide");
+    cursor.appendTo(animate.first());
+  }
+
+  // animate typing
+  animate.first().append(currentLine.pop()).append(cursor);
+
+  // check if we just popped the last element of the array off
+  if (currentLine.length == 0) {
+    // remove animated DOM Element from animation
+    animate.first().removeClass("animate");
+    // get new list of DOM Elements to animate
+    animate = $(".animate");
+    // make cursor blink at the end-of-line.
+    cursor.addClass("blink");
+
+    // Animate next DOM Element if any remain
+    if (animate.length > 0) {
+      setTimeout(printCharaters, pauseLength);
+    } else {
+      // all text in the DOM Elements have been animated
+      input.after(cursor);
+      input.focus();
+    }
+  } else {
+    // Animate next character in DOM Element
+    setTimeout(printCharaters, typeSpeed);
+  }
+}
+
+function keypressInput(e) {
+  // received enter key, send cmd and clear input
+  if (e.keyCode == 13) {
+    var command = input.text();
+    output.html(proccessCMD(command));
+    input.html("");
+    e.preventDefault();
+  }
+}
+
+function proccessCMD(cmd) {
+  cmd = cmd.trim().toLowerCase();
+  //there is only one command here. But you get the idea. Plug in your API call here.
+  if (cmd == "--help") {
+    return "Sorry. There are no commands aside from '--help'. But you get the idea.";
+  }
+  return "unknown command. type '--help' for list of commands.";
+}
+
+//open iOS keyboard
+function openKeyboard() {
+  input.focus();
+}
+</script>
+
+<div id="terminal-window">
+    <span id="cursor"></span>
+    <p>
+        <span class="animate">STABLETEC INDUSTRIES (TM) TERMLINK PROTOCOL</span>
+    </p>
+    <p>
+        <span class="animate">ENTER PASSWORD NOW</span>
+    </p>
+    <p>
+        <span class="animate">></span><span class="animate">*******</span>
+        <br>
+        <span class="animate">...</span><span class="animate">OK</span>
+    </p>
+    <p>
+        <span class="animate">></span><span autofocus contenteditable="true" id="inputcmd"></span>
+    </p>
+    <p><span id="output"></span></p>
+</div>
+<div class="scanlines"></div>
+</body>
+</html>

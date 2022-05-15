@@ -8,6 +8,7 @@ from userapp.forms import UserLoginForm, UserRegisterForm, UserProfileForm, User
 from .utils import send_verify_mail
 
 
+
 def verify(request, user_id, hash):
     user = get_object_or_404(User, pk = user_id)
     if user.activation_key == hash and not user.is_activation_key_expired():
