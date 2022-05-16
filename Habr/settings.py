@@ -46,15 +46,12 @@ INSTALLED_APPS = [
     'allauth.socialaccount',
     'allauth.socialaccount.providers.github',
 
-     # 'bootstrap_modal_forms',
-
     'adminapp',
     'userapp',
     'mainapp',
     'comment',
     'ckeditor_uploader',
     'ckeditor',
-    'habrapp',
 ]
 
 MIDDLEWARE = [
@@ -65,7 +62,6 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'ipaddr.middleware.IPAddrMiddleware',
 ]
 
 AUTHENTICATION_BACKENDS = (
@@ -101,18 +97,21 @@ WSGI_APPLICATION = 'Habr.wsgi.application'
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
 
-dbcfg = yamjam()['myproject']['database']
+# dbcfg = yamjam()['myproject']['database']
+#
+# DATABASES = {
+#     'default': {
+#         'ENGINE':dbcfg['engine'],
+#         'NAME': dbcfg['name'],
+#         'USER': dbcfg['user'],
+#         'PASSWORD': dbcfg['password'],
+#         'HOST': dbcfg['host'],
+#         'PORT': dbcfg['port'],
+#     }
+# }
 
 DATABASES = {
     'default': {
-        'ENGINE': dbcfg['engine'],
-        'NAME': dbcfg['name'],
-        'USER': dbcfg['user'],
-        'PASSWORD': dbcfg['password'],
-        'HOST': dbcfg['host'],
-        'PORT': dbcfg['port'],
-    },
-    'sqllite': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
@@ -212,14 +211,4 @@ SOCIALACCOUNT_PROVIDERS = {
             'read:org',
         ],
     },
-    'google': {
-        'SCOPE': [
-            'profile',
-            'email',
-        ],
-        'AUTH_PARAMS': {
-            'access_type': 'online',
-        }
-    }
 }
-
