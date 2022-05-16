@@ -52,6 +52,7 @@ INSTALLED_APPS = [
     'comment',
     'ckeditor_uploader',
     'ckeditor',
+    'habrapp',
 ]
 
 MIDDLEWARE = [
