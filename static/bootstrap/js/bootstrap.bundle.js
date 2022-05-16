@@ -2088,7 +2088,7 @@
 
     var rect = element.getBoundingClientRect();
     var scaleX = 1;
-    var scaleY = 1;
+    var scaleY = 1; 
 
     return {
       width: rect.width / scaleX,
