@@ -7,18 +7,17 @@
         </div>
 
         <div class="p-4">
-            <h4>Популярные Хабры</h4>
-            {% for habr in object_list %}
-            <ol class="list-unstyled mb-0">
-                <li><a href="{% url 'index:habr' habr.slug %}" class="stretched-link link-dark">{{ habr.title }}</a></li>
-            </ol>
+            <h4>Популярные Хабры </h4>
+            <ol class="list-group-item-heading mb-0">
+            {% for art in art %}
+                <li><a href="{% url 'index:habr' art.slug %}" class="stretched-link link-dark">{{ art.title }}</a></li>
             {% endfor %}
+            </ol>
 
         </div>
 
         <div class="p-4">
             <h4>Лучшие авторы</h4>
-            {% for habr in habrs %}
             <ol class="list-unstyled mb-0">
             {% for author in author %}
                 <li>
@@ -30,10 +29,9 @@
                                      class="mainpage-avatar-img img-thumbnail rounded-circle"></a><a href="#" class="stretched-link link-dark">{{ author.title }}</a>
                     {% endif %}
                 </li>
-            </ol>
             {% endfor %}
             </ol>
         </div>
     </div>
 </div>
-<div>
+{{ author }}

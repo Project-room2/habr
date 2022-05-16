@@ -84,9 +84,16 @@ class IndexView(ListView):
         return Habr.objects.filter(is_published = True, is_active = True)
 
     def get_context_data(self, *, object_list = None, **kwargs):
+
         context = super().get_context_data()
         context['title'] = 'Xabr - знания это сила!'
         context['cat_selected'] = 0
+        context['art'] = Habr.objects.filter(is_published = True, is_active = True).order_by('-habr_view')
+        context['author'] = Habr.objects.order_by().values('user').distinct()
+        # values('user').distinct('user')
+        # order_by('user').distinct('user')
+        # annotate(Count('user')).
+
         return context
 
     # def get_rating(self, request, cat_slug):
