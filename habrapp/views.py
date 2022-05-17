@@ -21,9 +21,9 @@ def habr_create(request):
         if 'do_publish' in request.POST:
             id = int(request.POST.get('do_publish', None))
             habr = get_object_or_404(Habr, pk=id)
-            habr.is_published = True
+            habr.is_active = True
             habr.time_update = timezone.now()
-            habr.save(update_fields=["is_published", "time_update"])
+            habr.save(update_fields=["is_active", "time_update"])
             may_published = False
 
         else:
@@ -31,7 +31,7 @@ def habr_create(request):
                 habr = form.save(commit=False)
                 habr.user = request.user
                 habr.is_published = False
-                habr.is_active = True
+                habr.is_active = False
                 habr.slug = slugify(habr.title)
                 if habr.pk is None:
                     habr.time_create = timezone.now()

@@ -1,0 +1,15 @@
+{% extends 'mainapp/base.html' %}
+{% load static %}
+
+{% block css %}
+
+{% endblock %}
+
+{% block content %}
+<h3>{{ content }}</h3>
+    {% for item in object_list %}
+        <p>{{ item.description }}</p>
+    {% empty %}
+    <p>Нет статей</p>
+    {% endfor %}
+{% endblock %}
