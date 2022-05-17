@@ -2,7 +2,8 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
 from django.urls import reverse
 from django.utils import timezone
-from django.template.defaultfilters import slugify
+#  from django.template.defaultfilters import slugify
+from pytils.translit import slugify
 
 from mainapp.models import Habr
 from django.views.generic import ListView, DetailView
@@ -25,7 +26,6 @@ def habr_create(request):
             habr.save(update_fields=["is_published", "time_update"])
             may_published = False
 
-            #  form = HabrEditForm(data=request.POST, instance=habr)
         else:
             if form.is_valid():
                 habr = form.save(commit=False)
@@ -33,12 +33,10 @@ def habr_create(request):
                 habr.is_published = False
                 habr.is_active = True
                 habr.slug = slugify(habr.title)
-                print('1', habr.pk)
                 if habr.pk is None:
                     habr.time_create = timezone.now()
                 habr.time_update = timezone.now()
                 habr.save()
-                print('2', habr.pk)
                 may_published = True
                 newpk = habr.pk
                 #  return HttpResponseRedirect(reverse('habrapp:create'))

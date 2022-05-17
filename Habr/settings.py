@@ -114,7 +114,7 @@ WSGI_APPLICATION = 'Habr.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'NAME': os.path.join(BASE_DIR, 'db2.sqlite3'),
     }
 }
 
@@ -198,7 +198,11 @@ CKEDITOR_CONFIGS = {
         'extraPlugins': 'codesnippet',
         'toolbar': 'full',
     },
-    'content-toolbar': DEFAULT_CONFIG
+    'content-toolbar': {
+        'toolbar': 'full',
+        'height': 300,
+        'width': 1000,  #  DEFAULT_CONFIG
+    }
 }
 
 X_FRAME_OPTIONS = 'SAMEORIGIN'
