@@ -83,10 +83,13 @@ class IndexView(ListView):
     def get_context_data(self, *, object_list = None, **kwargs):
 
         context = super().get_context_data()
+
+        author = Habr.objects.order_by().values('user').distinct()
         context['title'] = 'Xabr - знания это сила!'
         context['cat_selected'] = 0
-        context['art'] = Habr.objects.filter(is_published = True, is_active = True).order_by('-habr_view')
-        context['author'] = Habr.objects.order_by().values('user').distinct()
+        context['art'] = Habr.objects.filter(is_published = True, is_active = True).order_by('-habr_view')[:5]
+        context['author'] = author
+        context['best_author'] = Habr.objects.filter(user__blog_post__habr_view = 1)
         return context
 
 

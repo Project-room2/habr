@@ -26,7 +26,7 @@
                                      class="mainpage-avatar-img img-thumbnail rounded-circle"></a><a href="#" class="stretched-link link-dark">{{ author.get_full_name }}</a>
                     {% else %}
                     <a href="#"><img src="1{% static 'img/default.png' %}" width="32" height="32"
-                                     class="mainpage-avatar-img img-thumbnail rounded-circle"></a><a href="#" class="stretched-link link-dark">{{ user.id }} !s</a>
+                                     class="mainpage-avatar-img img-thumbnail rounded-circle"></a><a href="#" class="stretched-link link-dark"> !s</a>
                     {% endif %}
                 </li>
             {% endfor %}
@@ -35,4 +35,4 @@
     </div>
 </div>
 {{ author }}
-{{ user }}
+{{ best_author }}
