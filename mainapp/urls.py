@@ -1,5 +1,4 @@
 from django.views.generic import TemplateView
-
 import mainapp.views as mainapp
 from django.urls import path
 from .views import *

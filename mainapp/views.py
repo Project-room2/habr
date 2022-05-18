@@ -22,8 +22,12 @@ class SectionView(ListView):
 
     def get_context_data(self, *, object_list = None, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['title'] = str(context['habr'][0].category) + ' - Xabr '
-        context['cat_selected'] = context['habr'][0].category.id
+        if len(context['habr']) > 0:
+            context['title'] = str(context['habr'][0].category) + ' - Xabr '
+            context['cat_selected'] = context['habr'][0].category.id
+        else:
+            context['title'] = 'Ищем автора для этого раздела!'
+            context['cat_selected'] = ''
         return context
 
 
@@ -123,9 +127,9 @@ def marketing(request):
     """ Функция рендерит раздел "Маркетинг", включая SEO-разметку """
 
     context = {
-        'title': 'Маркетинг - Xabr',
-        'marketing': 'selected',
-        'content': 'Хабры по Маркетингу',
+        'title': 'Мобильная разработка - Xabr',
+        'mobile_developing': 'selected',
+        'content': 'Хабры по Мобильной разработке',
     }
     return render(request, 'mainapp/index.html', context = context)
 
