@@ -1,4 +1,4 @@
-from django.forms import ModelForm, Textarea, TextInput, Select, Form
+from django.forms import ModelForm, TextInput, Select
 
 from mainapp.models import Habr
 from ckeditor_uploader.fields import RichTextUploadingFormField
