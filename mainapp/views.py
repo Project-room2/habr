@@ -127,9 +127,9 @@ def marketing(request):
     """ Функция рендерит раздел "Маркетинг", включая SEO-разметку """
 
     context = {
-        'title': 'Мобильная разработка - Xabr',
-        'mobile_developing': 'selected',
-        'content': 'Хабры по Мобильной разработке',
+        'title': 'Дизайн - Xabr',
+        'design': 'selected',
+        'content': 'Хабры про дизайн',
     }
     return render(request, 'mainapp/index.html', context = context)
 
