@@ -25,12 +25,15 @@ SECRET_KEY = yamjam()['myproject']['django_secret_key']
 
 # SECURITY WARNING: don't run with debug turned on in production!
 # DEBUG = YamJam.yamjam()['myproject']['DEBUG']
-DEBUG = True
+DEBUG = False
+
+# Принудительная переадресация http на https
+SECURE_SSL_REDIRECT = True
 
 # ALLOWED_HOSTS = YamJam.yamjam()['myproject']['ALLOWED_HOSTS']
-ALLOWED_HOSTS = ['*.4t-habr.ru', '127.0.0.1', '127.0.0.1:8001']
+ALLOWED_HOSTS = ['*.4t-habr.ru']
 
-CSRF_TRUSTED_ORIGINS = ['https://4t-habr.ru']
+CSRF_TRUSTED_ORIGINS = ['https://*.4t-habr.ru']
 
 # Application definition
 INSTALLED_APPS = [
