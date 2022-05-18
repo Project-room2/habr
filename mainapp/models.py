@@ -1,4 +1,3 @@
-from ckeditor.fields import RichTextField
 from ckeditor_uploader.fields import RichTextUploadingField
 from django.db import models
 from django.urls import reverse
@@ -7,17 +6,8 @@ from django.contrib.contenttypes.fields import GenericRelation
 from comment.models import Comment
 
 
-# Create your models here.
-# class Ip(models.Model):
-#     """таблица где будут ip адреса, кто смотрел хабр"""
-#     ip = models.CharField(max_length=100)
-
-# def __str__(self):
-#     return self.ip
-
-
 class Category(models.Model):
-    """модель категории поста"""
+    """ Модель категории поста"""
 
     objects = None
     name = models.CharField(max_length = 100, unique = True, db_index = True, verbose_name = 'название категории')
@@ -37,7 +27,7 @@ class Category(models.Model):
 
 
 class Habr(models.Model):
-    """ модель хабра (статьи)"""
+    """ Модель хабра (статьи) """
 
     title = models.CharField(max_length = 256, blank = False, verbose_name = 'Название статьи')
     slug = models.SlugField(max_length = 255, unique = True, db_index = True, verbose_name = "URL")
@@ -61,10 +51,9 @@ class Habr(models.Model):
 
     def __str__(self):
         return self.title
-        # return f"{self.short_description} ({self.category.name} {self.is_active} {self.slug} {self.id_user})"
 
-    def get_absolute_url(self):
-        # return reverse('post', kwargs = {'habr_slug': self.slug})
+    @staticmethod
+    def get_absolute_url():
         return reverse('post')
 
     def total_likes(self):
@@ -72,7 +61,7 @@ class Habr(models.Model):
 
 
 class Like(models.Model):
-    """модель лайков к постам"""
+    """ Модель лайков к постам"""
     user = models.ForeignKey(User, on_delete = models.CASCADE)
     slug = models.SlugField(max_length = 255, unique = True, db_index = True, verbose_name = 'URL')
     is_active = models.BooleanField(verbose_name = 'активна', default = True)

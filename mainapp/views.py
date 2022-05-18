@@ -1,12 +1,7 @@
-from django.db import transaction
-from django.http import HttpResponseRedirect, request
+from django.http import HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
 from django.views.generic import ListView, DetailView
 from .models import *
-from django.db.models import Count
-
-from functools import wraps
-from django.db.models import F
 
 
 def page_not_found_view(request, exception):
@@ -14,7 +9,7 @@ def page_not_found_view(request, exception):
 
 
 class SectionView(ListView):
-    """контроллер, отборажает активные и разрешенные к публикации Хабры выбранного раздела"""
+    """ Контроллер, отборажает активные и разрешенные к публикации Хабры выбранного раздела """
 
     model = Habr
     paginate_by = 2
@@ -48,8 +43,6 @@ class HabrView(DetailView):
         context = super().get_context_data()
         context['title'] = 'Xabr - ' + str(context['habr'])
         context['cat_selected'] = '0'
-        stuff = get_object_or_404(Habr, slug = self.kwargs['habr_slug'])
-        total_likes = stuff.total_likes()
 
         # Счетчик кол-во открытия хабров
         object = self.get_object()
@@ -72,7 +65,7 @@ class HabrView(DetailView):
 
 
 class IndexView(ListView):
-    """контроллер, отборажает все активныее и разрешениые к публикации Хабры на главной """
+    """ Контроллер, отображает все активныее и разрешениые к публикации Хабры на главной """
 
     paginate_by = 4
     model = Habr
@@ -90,20 +83,12 @@ class IndexView(ListView):
         context['cat_selected'] = 0
         context['art'] = Habr.objects.filter(is_published = True, is_active = True).order_by('-habr_view')
         context['author'] = Habr.objects.order_by().values('user').distinct()
-        # values('user').distinct('user')
-        # order_by('user').distinct('user')
-        # annotate(Count('user')).
-
         return context
-
-    # def get_rating(self, request, cat_slug):
-    #     section = get_object_or_404(Habr, slug = cat_slug)
-    #     sort = request.GET.getlist('sort')
-    #     articles = section.article_set.all().order_by(*sort)
-    #     return
 
 
 def design(request):
+    """ Функция рендерит раздел "Дизайн", включая SEO-разметку """
+
     context = {
         'title': 'Дизайн - Xabr"',
         'design': 'selected',
@@ -113,6 +98,8 @@ def design(request):
 
 
 def web_dev(request):
+    """ Функция рендерит раздел "Веб-разработку", включая SEO-разметку """
+
     context = {
         'title': 'Веб-разработка - Xabr"',
         'web_dev': 'selected',
@@ -122,6 +109,8 @@ def web_dev(request):
 
 
 def mobile_developing(request):
+    """ Функция рендерит раздел "Мобильная разработка", включая SEO-разметку """
+
     context = {
         'title': 'Мобильная разработка - Xabr',
         'mobile_developing': 'selected',
@@ -131,6 +120,8 @@ def mobile_developing(request):
 
 
 def marketing(request):
+    """ Функция рендерит раздел "Маркетинг", включая SEO-разметку """
+
     context = {
         'title': 'Маркетинг - Xabr',
         'marketing': 'selected',
@@ -140,6 +131,8 @@ def marketing(request):
 
 
 def help(request):
+    """ Функция рендерит раздел "Помощь", включая SEO-разметку """
+
     context = {
         'title': 'Помощь - Xabr',
         'content': 'Краткая документация к сайту',
@@ -149,7 +142,8 @@ def help(request):
 
 
 def LikeView(request, pk):
-    """функция проставления лайка/дизлайка"""
+    """ Функция проставления лайка/дизлайка"""
+
     post = get_object_or_404(Habr, id = request.POST.get('habr_id'))
     liked = False
     if post.likes.filter(id = request.user.id).exists():

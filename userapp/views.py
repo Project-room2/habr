@@ -3,10 +3,9 @@ from django.contrib import auth
 from django.urls import reverse
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponse, Http404
 from userapp.forms import UserLoginForm, UserRegisterForm, UserProfileForm, UserProfileEditForm
+from .models import User
 from .utils import send_verify_mail
-
 
 
 def verify(request, user_id, hash):

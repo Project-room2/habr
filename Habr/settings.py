@@ -10,9 +10,10 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 
-from pathlib import Path
-from YamJam import yamjam
 import os
+from pathlib import Path
+
+from YamJam import yamjam
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -25,15 +26,15 @@ SECRET_KEY = yamjam()['myproject']['django_secret_key']
 
 # SECURITY WARNING: don't run with debug turned on in production!
 # DEBUG = YamJam.yamjam()['myproject']['DEBUG']
-DEBUG = False
+DEBUG = True
 
 # Принудительная переадресация http на https
-SECURE_SSL_REDIRECT = True
+# SECURE_SSL_REDIRECT = True
 
 # ALLOWED_HOSTS = YamJam.yamjam()['myproject']['ALLOWED_HOSTS']
-ALLOWED_HOSTS = ['*.4t-habr.ru']
+ALLOWED_HOSTS = ['*.4t-habr.ru', '127.0.0.1']
 
-CSRF_TRUSTED_ORIGINS = ['https://*.4t-habr.ru']
+CSRF_TRUSTED_ORIGINS = ['https://*.4t-habr.ru', 'http://127.0.0.1:8000']
 
 # Application definition
 INSTALLED_APPS = [
@@ -73,7 +74,6 @@ AUTHENTICATION_BACKENDS = (
     "allauth.account.auth_backends.AuthenticationBackend",
 )
 
-
 ACCOUNT_EMAIL_VERIFICATION = 'none'
 
 ROOT_URLCONF = 'Habr.urls'
@@ -81,8 +81,7 @@ ROOT_URLCONF = 'Habr.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'templates']
-        ,
+        'DIRS': [BASE_DIR/'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -117,7 +116,7 @@ WSGI_APPLICATION = 'Habr.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db2.sqlite3'),
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
 
@@ -186,10 +185,10 @@ EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
 EMAIL_FILE_PATH = 'tmp/email-messages/'
 
 COMMENT_FLAG_REASONS = [
-    (1, ('Spam | Exists only to promote a service')),
-    (2, ('Abusive | Intended at promoting hatred')),
-    (3, ('Racist | Sick mentality')),
-    (4, ('Whatever | Your reason')),
+    (1, 'Spam | Exists only to promote a service'),
+    (2, 'Abusive | Intended at promoting hatred'),
+    (3, 'Racist | Sick mentality'),
+    (4, 'Whatever | Your reason'),
 ]
 
 CKEDITOR_UPLOAD_PATH = 'uploads/'
@@ -204,7 +203,7 @@ CKEDITOR_CONFIGS = {
     'content-toolbar': {
         'toolbar': 'full',
         'height': 300,
-        'width': 1000,  #  DEFAULT_CONFIG
+        'width': 1000,  # DEFAULT_CONFIG
     }
 }
 

@@ -1,15 +1,8 @@
-from django.http import HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
-from django.urls import reverse
 from django.utils import timezone
-#  from django.template.defaultfilters import slugify
 from pytils.translit import slugify
-
 from mainapp.models import Habr
-from django.views.generic import ListView, DetailView
-
 from .forms import HabrEditForm
-# Create your views here.
 
 
 def habr_create(request):
