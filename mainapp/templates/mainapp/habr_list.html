@@ -59,8 +59,7 @@
                         {% for p in paginator.page_range %}
                             {% if page_obj.number == p %}
                                 <li class="page-item active bg-secondary text-whit" aria-current="page"><a
-                                        class="page-link" href="?page={{ p }}">{{ p
-                                        }}</a></li>
+                                        class="page-link" href="?page={{ p }}">{{ p }}</a></li>
                             {% elif p >= page_obj.number|add:-2 and p <= page_obj.number|add:2 %}
                                 <li class="page-item">
                                     <a class="page-link bg-secondary text-whit" href="?page={{ p }}">{{ p }}</a>
@@ -81,7 +80,8 @@
         <article class="blog-post">
             <div>
                 <div class="p-5 mb-4 rounded-3">
-                    <h1 class="blog-post-title">Станьте первым автором этого раздела!<br><br> Вас точно ждет успех!</h1><br/><br/>
+                    <h1 class="blog-post-title">Станьте первым автором этого раздела!<br><br> Вас точно ждет успех!</h1>
+                    <br/><br/>
                     <button type="button" class="btn btn-secondary btn-lg">Написать Хабр</button>
                 </div>
             </div>

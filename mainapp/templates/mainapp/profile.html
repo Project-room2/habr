@@ -1,0 +1,46 @@
+<!-- Начало templates/mainapp/habr.html -->
+<!-- Отображение выбранного Хабра -->
+{% extends 'mainapp/base.html' %}
+{% load comment_tags %}  {# Loading the template tag #}
+{% render_comments obj request %}  {# Render all the comments belong to the passed object "obj" #}
+# {% include_bootstrap %} {# Include bootstrap 4.1.1 - remove this line if BS is already used in your project #}
+{% load static %}
+
+{% block content %}
+
+    <article class="blog-post">
+        <div>
+            <div class="col d-flex align-items-start ">
+
+                {% if object.avatar.url %}
+                    <img src="{{ object.avatar.url }}" width="64" height="64"
+                         class="mainpage-avatar-img img-thumbnail rounded-circle">
+                {% else %}
+                    <a class="link-dark" href="#"><img src="{% static '/img/default.png' %}" width="64" height="64"
+                                                       class="mainpage-avatar-img img-thumbnail rounded-circle"></a>
+                {% endif %}
+                &nbsp;&nbsp;&nbsp;
+                <div>
+                    <h4 class="fw-bold mb-0">{{ object.get_full_name }}</h4> мне {{ object.age }} лет<br>
+                    на сайте с {{ object.date_joined }}<br><br><br>
+                </div>
+            </div>
+            <div class="row mb-2">
+                <div class="col-12">
+                    <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-200 position-relative">
+                        <div class="col p-4 d-flex flex-column position-static">
+                            {{ habr }}
+                            {% for Habr in objects %}
+                            <h3 class="mb-0">{{ author.title }}</h3>
+                            <p class="card-text mb-auto">{{ habr.content|safe|linebreaks|truncatechars:300 }}</p>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </article>
+
+
+{% endblock %}
+<!-- Конец templates/mainapp/habr_list.html -->

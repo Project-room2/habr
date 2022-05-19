@@ -1,6 +1,9 @@
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, request
 from django.shortcuts import render, get_object_or_404
+from django.utils import timezone
 from django.views.generic import ListView, DetailView
+
+import userapp.models
 from .models import *
 
 
@@ -12,7 +15,7 @@ class SectionView(ListView):
     """ Контроллер, отборажает активные и разрешенные к публикации Хабры выбранного раздела """
 
     model = Habr
-    paginate_by = 2
+    paginate_by = 4
     allow_empty = True
     template_name = 'mainapp/habr_list.html'
     context_object_name = 'habr'
@@ -23,8 +26,11 @@ class SectionView(ListView):
     def get_context_data(self, *, object_list = None, **kwargs):
         context = super().get_context_data(**kwargs)
         if len(context['habr']) > 0:
+            cat_selected = context['habr'][0].category.id
             context['title'] = str(context['habr'][0].category) + ' - Xabr '
             context['cat_selected'] = context['habr'][0].category.id
+            context['art'] = Habr.objects.filter(is_published = True, is_active = True, category = cat_selected).order_by('-habr_view')[:5]
+            context['author'] = Habr.objects.filter(category = cat_selected).order_by().values('user').distinct()
         else:
             context['title'] = 'Ищем автора для этого раздела!'
             context['cat_selected'] = ''
@@ -84,12 +90,24 @@ class IndexView(ListView):
 
         context = super().get_context_data()
 
-        author = Habr.objects.order_by().values('user').distinct()
         context['title'] = 'Xabr - знания это сила!'
         context['cat_selected'] = 0
         context['art'] = Habr.objects.filter(is_published = True, is_active = True).order_by('-habr_view')[:5]
-        context['author'] = author
-        context['best_author'] = Habr.objects.filter(user__blog_post__habr_view = 1)
+        context['author'] = Habr.objects.order_by().values('user').distinct()
+        return context
+
+
+class UserView(DetailView):
+    """ Функция публичного профиля автора Хабра  """
+
+    template_name = 'mainapp/profile.html'
+    model = User
+    context_object_name = 'profile'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['habr'] = Habr.objects.all()
+        context['title'] = 'Профиль автора'
         return context
 
 
@@ -149,7 +167,7 @@ def help(request):
 
 
 def LikeView(request, pk):
-    """ Функция проставления лайка/дизлайка"""
+    """ Функция проставления лайка/дизлайка """
 
     post = get_object_or_404(Habr, id = request.POST.get('habr_id'))
     liked = False
