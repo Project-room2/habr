@@ -2,7 +2,7 @@
 <header class="blog-header py-3">
     <div class="row flex-nowrap justify-content-between align-items-center">
         <div class="col-4 pt-1">
-            <a class="link-secondary" href="#">Subscribe</a>
+            <!-- <a class="link-secondary" href="#">Subscribe</a> -->
         </div>
         <div class="col-4 text-center">
             <a class="blog-header-logo text-dark" href="/">XABR</a>
@@ -17,7 +17,7 @@
                     {% if user.is_authenticated %}
                     <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" id="dropdownUser1"
                        data-bs-toggle="dropdown" aria-expanded="false">
-                        {% if habr.user.avatar.url %}
+                        {% if user.avatar.url %}
                         <img src="{{ user.avatar.url }}" width="32" height="32"
                              class="mainpage-avatar-img img-thumbnail rounded-circle">
                         {% else %}
@@ -42,4 +42,5 @@
                 </div>
             </div>
         </div>
+    </div>
 </header>

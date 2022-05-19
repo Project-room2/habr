@@ -7,7 +7,7 @@ from comment.models import Comment
 
 
 class Category(models.Model):
-    """ Модель категории поста"""
+    """ Модель категории поста """
 
     objects = None
     name = models.CharField(max_length = 100, unique = True, db_index = True, verbose_name = 'название категории')
@@ -61,7 +61,7 @@ class Habr(models.Model):
 
 
 class Like(models.Model):
-    """ Модель лайков к постам"""
+    """ Модель лайков к постам """
     user = models.ForeignKey(User, on_delete = models.CASCADE)
     slug = models.SlugField(max_length = 255, unique = True, db_index = True, verbose_name = 'URL')
     is_active = models.BooleanField(verbose_name = 'активна', default = True)

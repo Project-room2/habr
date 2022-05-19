@@ -1,5 +1,8 @@
+from django.views.generic import TemplateView
 import mainapp.views as mainapp
 from django.urls import path
+
+from . import views
 from .views import *
 
 app_name = 'mainapp'
@@ -9,4 +12,10 @@ urlpatterns = [
     path('habr/<slug:habr_slug>/', HabrView.as_view(), name = 'habr'),
     path('<slug:cat_slug>/', SectionView.as_view(), name = 'section'),
     path('like/<int:pk>/', mainapp.LikeView, name='like_post'),
+    # path('public/profile/', mainapp.Profile, name = 'profile'),
+    path('profile/<int:pk>/', UserView.as_view(), name='profile'),
+    path(
+        "robots.txt",
+        TemplateView.as_view(template_name = "robots.txt", content_type = "text/plain"),
+    ),
 ]

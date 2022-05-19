@@ -11,8 +11,8 @@
 <article class="blog-post">
     <div>
         <div class="col d-flex align-items-start ">
-            {% if habr.user.avatar.url %}
-            <a class="link-dark" href="#"><img src="{{ habr.user.avatar.url }}" width="64" height="64"
+            {% if object.user.avatar.url %}
+            <a class="link-dark" href="{% url 'mainapp:profile' object.user.id %}"><img src="{{ object.user.avatar.url }}" width="64" height="64"
                                                class="mainpage-avatar-img img-thumbnail rounded-circle"></a>
             {% else %}
             <a class="link-dark" href="#"><img src="{% static '/img/default.png' %}" width="64" height="64"
@@ -20,19 +20,19 @@
             {% endif %}
             &nbsp;&nbsp;&nbsp;
             <div>
-                <h4 class="fw-bold mb-0">{{ habr.user.get_full_name }}</h4>
+                <h4 class="fw-bold mb-0">{{ object.user.get_full_name }}</h4>
                 <p>
-                    <time datetime="{{ habr.time_create }}" title="{{ habr.time_create }}">{{ habr.time_create|date }}
+                    <time datetime="{{ object.time_create }}" title="{{ object.time_create }}">{{ object.time_create|date }}
                     </time>
                 </p>
             </div>
         </div>
         <div class="p-5 mb-4 bg-light rounded-3">
-            <h1 class="blog-post-title">{{ habr.title }}</h1>
+            <h1 class="blog-post-title">{{ object.title }}</h1>
             {% if habr.images %}
-            <img class="card-img" src="{{habr.images.url}}" width="10%" height="30%">
+            <img class="card-img" src="{{object.images.url}}" width="10%" height="30%">
             {% endif %}
-            {{ habr.content|safe }}
+            {{ object.content|safe }}
         </div>
         <div class="card-text mb-auto p-3 mb-2 bg-secondary text-white">
             <!-- LIKES -->
@@ -42,7 +42,7 @@
                     <path d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8zM1.173 8a13.133 13.133 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13.133 13.133 0 0 1 14.828 8c-.058.087-.122.183-.195.288-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5c-2.12 0-3.879-1.168-5.168-2.457A13.134 13.134 0 0 1 1.172 8z"/>
                     <path d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zM4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0z"/>
                 </svg>
-                {{ habr.habr_view }}&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;
+                {{ object.habr_view }}&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;
                 {% csrf_token %}
 
                 {% if user.is_authenticated %}
