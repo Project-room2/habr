@@ -8,7 +8,6 @@ on:
 
 jobs:
   deploy:
-  
     runs-on: ubuntu-latest
     steps:
     - name: Install SSH Key
@@ -16,7 +15,9 @@ jobs:
       with:
         key: ${{ secrets.SSH_PRIVATE_KEY }}
         known_hosts: '84.201.185.83'
-    - name: Deploy with rsync
-      run: rsync -av -e "ssh -i ~/.ssh/id_rsa" ./Habr miraving2@84.201.185.83
     - name: Test ssh
       run: ssh -i ~/.ssh/id_rsa" miraving2@84.201.185.83
+
+    - name: Deploy with rsync
+      run: rsync -av -e "ssh -i ~/.ssh/id_rsa" ./Habr miraving2@84.201.185.83:/home/miraving2/code
+      
