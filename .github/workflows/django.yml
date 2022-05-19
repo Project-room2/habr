@@ -16,5 +16,5 @@ jobs:
         key: ${{ secrets.SSH_PRIVATE_KEY }}
         known_hosts: '84.201.185.83'
     - name: Deploy with rsync
-      run: rsync -e ssh . miraving2@84.201.185.83:/home/miraving2/code
+      run: rsync -e 'ssh -i id_rsa'. miraving2@84.201.185.83:/home/miraving2/code
       
