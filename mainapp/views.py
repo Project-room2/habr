@@ -2,6 +2,7 @@ from django.http import HttpResponseRedirect, request
 from django.shortcuts import render, get_object_or_404
 from django.utils import timezone
 from django.views.generic import ListView, DetailView
+from django.db.models import Q
 
 import userapp.models
 from .models import *
@@ -84,7 +85,17 @@ class IndexView(ListView):
     context_object_name = 'habrs'
 
     def get_queryset(self):
-        return Habr.objects.filter(is_published = True, is_active = True)
+        # search_post = 'Тест'
+        # search_post = request.GET.get('search')
+        search_post = self.request.GET.get('search')
+
+        if search_post:
+            posts = Habr.objects.filter(Q(title__icontains = search_post), is_published = True, is_active = True)
+        else:
+            # If not searched, return def   ault posts
+            posts = Habr.objects.filter(is_published = True, is_active = True)
+
+        return posts
 
     def get_context_data(self, *, object_list = None, **kwargs):
 

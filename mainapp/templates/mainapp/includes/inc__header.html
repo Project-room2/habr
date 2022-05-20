@@ -2,56 +2,45 @@
 <header class="blog-header py-3">
     <div class="row flex-nowrap justify-content-between align-items-center">
         <div class="col-4 pt-1">
-            <!-- <a class="link-secondary" href="#">Subscribe</a> -->
+            <a class="link-secondary" href="#">Subscribe</a>
         </div>
         <div class="col-4 text-center">
-            <a class="blog-header-logo text-dark nav-link" href="/">XABR</a>
+            <a class="blog-header-logo text-dark" href="/">XABR</a>
         </div>
         <div class="col-4 d-flex justify-content-end align-items-center">
             <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
-                <form class="col-12 col-lg-auto mb-3 mb-lg-1 me-lg-4">
-                    <input type="search" class="form-control" placeholder="Search..." aria-label="Search">
+                <form class="form-inline my-2 my-lg-0" action="{% url 'mainapp:index' %}">
+                    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search"
+                           name="search">
                 </form>
-
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 <div class="dropdown text-end">
                     {% if user.is_authenticated %}
-                        <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" id="dropdownUser1"
-                           data-bs-toggle="dropdown" aria-expanded="false">
-                            {% if user.avatar.url %}
-                                <img src="{{ user.avatar.url }}" width="32" height="32"
-                                     class="mainpage-avatar-img img-thumbnail rounded-circle">
-                            {% else %}
+                    <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" id="dropdownUser1"
+                       data-bs-toggle="dropdown" aria-expanded="false">
+                        {% if habr.user.avatar.url %}
+                        <img src="{{ user.avatar.url }}" width="32" height="32"
+                             class="mainpage-avatar-img img-thumbnail rounded-circle">
+                        {% else %}
 
-                                <img src="{% static 'img/default.png' %}" width="32" height="32"
-                                     class="mainpage-avatar-img img-thumbnail rounded-circle">
-                            {% endif %}
-                        </a>
+                        <img src="{% static '/img/default.png' %}" width="32" height="32"
+                             class="mainpage-avatar-img img-thumbnail rounded-circle">
+                        {% endif %}
+                    </a>
 
-                        <ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1">
-                            <li><a class="dropdown-item" href="{% url 'userapp:profile' %}">Профиль</a></li>
-                            <li><a class="dropdown-item" href="#">Уведомления</a></li>
-                            <li><a class="dropdown-item" href="#">Мой Хабр</a></li>
-                            <li>
-                                <hr class="dropdown-divider">
-                            </li>
-                            <li><a class="dropdown-item" href="{% url 'userapp:logout' %}">Выйти</a></li>
-                        </ul>
+                    <ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1">
+                        <li><a class="dropdown-item" href="{% url 'userapp:profile' %}">Профиль</a></li>
+                        <li><a class="dropdown-item" href="#">Уведомления</a></li>
+                        <li><a class="dropdown-item" href="#">Мой Хабр</a></li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li><a class="dropdown-item" href="{% url 'userapp:logout' %}">Выйти</a></li>
+                    </ul>
                     {% else %}
-                        <a class="btn btn-sm btn-outline-secondary" href="{% url 'userapp:login' %}">Войти</a>
+                    <a class="btn btn-sm btn-outline-secondary" href="{% url 'userapp:login' %}">Войти</a>
                     {% endif %}
                 </div>
-                {% if user.is_authenticated %}
-                    <a class="nav-item nav-link" href="{% url 'habrapp:create' %}">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
-                             class="bi bi-pencil-square" viewBox="0 0 16 16">
-                            <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
-                            <path fill-rule="evenodd"
-                                  d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
-                        </svg>
-                    </a>
-                {% endif %}
             </div>
         </div>
-    </div>
 </header>
-
