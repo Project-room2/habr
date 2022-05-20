@@ -1,3 +1,4 @@
+from ckeditor.fields import RichTextField
 from ckeditor_uploader.fields import RichTextUploadingField
 from django.db import models
 from django.urls import reverse
@@ -6,8 +7,17 @@ from django.contrib.contenttypes.fields import GenericRelation
 from comment.models import Comment
 
 
+# Create your models here.
+# class Ip(models.Model):
+#     """таблица где будут ip адреса, кто смотрел хабр"""
+#     ip = models.CharField(max_length=100)
+
+# def __str__(self):
+#     return self.ip
+
+
 class Category(models.Model):
-    """ Модель категории поста """
+    """модель категории поста"""
 
     objects = None
     name = models.CharField(max_length = 100, unique = True, db_index = True, verbose_name = 'название категории')
@@ -27,8 +37,9 @@ class Category(models.Model):
 
 
 class Habr(models.Model):
-    """ Модель хабра (статьи) """
+    """ модель хабра (статьи)"""
 
+    objects = None
     title = models.CharField(max_length = 256, blank = False, verbose_name = 'Название статьи')
     slug = models.SlugField(max_length = 255, unique = True, db_index = True, verbose_name = "URL")
     content = RichTextUploadingField(blank = False, verbose_name = 'Текст статьи')
@@ -41,7 +52,6 @@ class Habr(models.Model):
     likes = models.ManyToManyField(User, related_name = 'blog_post')
     like_quantity = models.PositiveIntegerField('кол-во', default = 0)
     habr_view = models.IntegerField('просмотров', default = 1)
-
     comments = GenericRelation(Comment)
 
     class Meta:
@@ -51,16 +61,18 @@ class Habr(models.Model):
 
     def __str__(self):
         return self.title
+        # return f"{self.short_description} ({self.category.name} {self.is_active} {self.slug} {self.id_user})"
 
     def get_absolute_url(self):
-        return reverse('post', kwargs={'slug': self.slug})
+        # return reverse('post', kwargs = {'habr_slug': self.slug})
+        return reverse('post')
 
     def total_likes(self):
         return self.likes.count()
 
 
 class Like(models.Model):
-    """ Модель лайков к постам """
+    """модель лайков к постам"""
     user = models.ForeignKey(User, on_delete = models.CASCADE)
     slug = models.SlugField(max_length = 255, unique = True, db_index = True, verbose_name = 'URL')
     is_active = models.BooleanField(verbose_name = 'активна', default = True)

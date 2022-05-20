@@ -10,13 +10,14 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 
-import os
 from pathlib import Path
-
 from YamJam import yamjam
+import os
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
@@ -28,13 +29,10 @@ SECRET_KEY = yamjam()['myproject']['django_secret_key']
 # DEBUG = YamJam.yamjam()['myproject']['DEBUG']
 DEBUG = True
 
-# Принудительная переадресация http на https
-# SECURE_SSL_REDIRECT = True
-
 # ALLOWED_HOSTS = YamJam.yamjam()['myproject']['ALLOWED_HOSTS']
-ALLOWED_HOSTS = ['*.4t-habr.ru', '127.0.0.1']
+ALLOWED_HOSTS = ['*.4t-habr.ru', '127.0.0.1', '127.0.0.1:8000']
 
-CSRF_TRUSTED_ORIGINS = ['https://*.4t-habr.ru', 'http://127.0.0.1:8000']
+CSRF_TRUSTED_ORIGINS = ['http://127.0.0.1']
 
 # Application definition
 INSTALLED_APPS = [
@@ -50,14 +48,16 @@ INSTALLED_APPS = [
     'allauth.socialaccount',
     'allauth.socialaccount.providers.github',
 
+    # 'bootstrap_modal_forms',
+
     'adminapp',
     'userapp',
     'mainapp',
     'comment',
     'ckeditor_uploader',
     'ckeditor',
-    'habrapp',
-]
+
+    ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -67,12 +67,14 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'ipaddr.middleware.IPAddrMiddleware',
 ]
 
 AUTHENTICATION_BACKENDS = (
     "django.contrib.auth.backends.ModelBackend",
     "allauth.account.auth_backends.AuthenticationBackend",
 )
+
 
 ACCOUNT_EMAIL_VERIFICATION = 'none'
 
@@ -81,7 +83,8 @@ ROOT_URLCONF = 'Habr.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR/'templates'],
+        'DIRS': [BASE_DIR / 'templates']
+        ,
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -95,6 +98,7 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'Habr.wsgi.application'
+
 
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
@@ -138,6 +142,7 @@ AUTH_PASSWORD_VALIDATORS = [
     # },
 ]
 
+
 # Internationalization
 # https://docs.djangoproject.com/en/4.0/topics/i18n/
 LANGUAGE_CODE = 'ru'
@@ -149,6 +154,7 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
+
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
@@ -164,7 +170,8 @@ MEDIA_URL = '/media/'
 
 AUTH_USER_MODEL = 'userapp.User'
 
-LOGIN_URL = '/userapp/login/'
+# LOGIN_URL = '/userapp/login/'
+LOGIN_URL = 'login'
 
 DOMAIN_NAME = 'http://127.0.0.1:8001'
 EMAIL_HOST = 'localhost'
@@ -184,29 +191,20 @@ EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
 EMAIL_FILE_PATH = 'tmp/email-messages/'
 
 COMMENT_FLAG_REASONS = [
-    (1, 'Spam | Exists only to promote a service'),
-    (2, 'Abusive | Intended at promoting hatred'),
-    (3, 'Racist | Sick mentality'),
-    (4, 'Whatever | Your reason'),
+    (1, ('Spam | Exists only to promote a service')),
+    (2, ('Abusive | Intended at promoting hatred')),
+    (3, ('Racist | Sick mentality')),
+    (4, ('Whatever | Your reason')),
 ]
 
 CKEDITOR_UPLOAD_PATH = 'uploads/'
 
-from ckeditor.configs import DEFAULT_CONFIG  # noqa
-
 CKEDITOR_CONFIGS = {
-    'default': {
-        'extraPlugins': 'codesnippet',
-        'toolbar': 'full',
+ 'default' : {
+ 'extraPlugins': 'codesnippet',
+  'toolbar':'full',
     },
-    'content-toolbar': {
-        'toolbar': 'full',
-        'height': 300,
-        'width': 1000,  # DEFAULT_CONFIG
-    }
 }
-
-X_FRAME_OPTIONS = 'SAMEORIGIN'
 
 SOCIALACCOUNT_PROVIDERS = {
     'github': {
@@ -217,17 +215,13 @@ SOCIALACCOUNT_PROVIDERS = {
             'read:org',
         ],
     },
+    'google': {
+        'SCOPE': [
+            'profile',
+            'email',
+        ],
+        'AUTH_PARAMS': {
+            'access_type': 'online',
+        }
+    }
 }
-
-COMMENT_ALLOW_SUBSCRIPTION = True
-COMMENT_ALLOW_BLOCKING_USERS = True
-COMMENT_ALLOW_MODERATOR_TO_BLOCK = True
-COMMENT_ALLOW_MARKDOWN = True
-COMMENT_FLAGS_ALLOWED = True
-COMMENT_USE_GRAVATAR = False
-COMMENT_ALLOW_TRANSLATION = True
-
-LANGUAGE_CODE = 'ru'
-
-LOCALE_PATHS = (
-    '/home/miraving2/code/project2/habr/locale', )
