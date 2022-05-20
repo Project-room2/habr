@@ -52,9 +52,8 @@ class Habr(models.Model):
     def __str__(self):
         return self.title
 
-    @staticmethod
-    def get_absolute_url():
-        return reverse('post')
+    def get_absolute_url(self):
+        return reverse('post', kwargs={'slug': self.slug})
 
     def total_likes(self):
         return self.likes.count()
