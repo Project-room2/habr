@@ -1,0 +1,18 @@
+{% extends 'mainapp/base.html' %}
+{% load static %}
+
+{% block css %}
+
+{% endblock %}
+
+{% block content %}
+    <h1>Новая статья</h1>
+    <form method="POST" class="habr-form">{% csrf_token %}
+        {{ form.media }}
+        {{ form.as_p }}
+        <button type="submit" class="save btn btn-default">Сохранить</button>
+        {% if may_published %}
+            <button type="submit" class="save btn btn-default" name="do_publish" value={{ newpk }}>Запросить публикацию</button>
+        {% endif %}
+    </form>
+{% endblock %}

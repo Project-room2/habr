@@ -4,6 +4,7 @@
 {% load comment_tags %}  {# Loading the template tag #}
 {% load static %}
 {% load i18n %}
+{% include_bootstrap %}
 
 {% block content %}
 
@@ -14,7 +15,7 @@
             <a class="link-dark" href="{% url 'mainapp:profile' object.user.id %}"><img src="{{ object.user.avatar.url }}" width="64" height="64"
                                                class="mainpage-avatar-img img-thumbnail rounded-circle"></a>
             {% else %}
-            <a class="link-dark" href="#"><img src="{% static '/img/default.png' %}" width="64" height="64"
+            <a class="link-dark" href="{% url 'mainapp:profile' object.user.id %}"><img src="{% static 'img/default.png' %}" width="64" height="64"
                                                class="mainpage-avatar-img img-thumbnail rounded-circle"></a>
             {% endif %}
             &nbsp;&nbsp;&nbsp;

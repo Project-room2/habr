@@ -51,54 +51,14 @@
 </head>
 <body>
 
-<div class="container">
+<div class="container ">
     <!-- Heder menu -->
     {% include 'mainapp/includes/inc__header.html' %}
     <!-- Section menu -->
     {% include 'mainapp/includes/inc__main_menu.html' %}
-</div>
 
 <!-- Section header -->
 <main class="container">
-    {% if cat_selected == 0 %}
-        <div class="p-10 p-md-4 mb-10 rounded bg-secondary text-white">
-            <div class="col-md-6 px-0 ">
-                <h1 class="display-6 ">ВСЕ ПОТОКИ ХАБРОВ</h1>
-            </div>
-        </div>
-    {% elif cat_selected == 1 %}
-        <div class="p-10 p-md-4 mb-10 rounded bg-secondary text-white">
-            <div class="col-md-8 px-0">
-                <h1 class="display-6">ХАБРЫ ПРО ДИЗАЙН</h1>
-            </div>
-        </div>
-    {% elif cat_selected == 2 %}
-        <div class="p-10 p-md-4 mb-10 rounded bg-secondary text-white">
-            <div class="col-md-8 px-0">
-                <h1 class="display-6">ХАБРЫ ПРО ВЕБ-РАЗРАБОТКУ</h1>
-            </div>
-        </div>
-    {% elif cat_selected == 3 %}
-        <div class="p-10 p-md-4 mb-10 rounded bg-secondary text-white">
-            <div class="col-md-8 px-0">
-                <h1 class="display-6">ХАБРЫ О МАРКЕТИНГЕ</h1>
-            </div>
-        </div>
-    {% elif cat_selected == 4 %}
-        <div class="p-10 p-md-4 mb-10 rounded bg-secondary text-white">
-            <div class="col-md-8 px-0">
-                <h1 class="display-6">ХАБРЫ ПРО МОБИЛЬНУЮ РАЗРАБОТКУ</h1>
-            </div>
-        </div>
-    {% elif cat_selected == 5 %}
-        <div class="p-10 p-md-4 mb-10 rounded bg-secondary text-white">
-            <div class="col-md-8 px-0">
-                <h1 class="display-6">ПОМОЩЬ</h1>
-            </div>
-        </div>
-    {% endif %}
-
-
     <BR><BR>
     {% block content %}
 
