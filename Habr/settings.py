@@ -164,8 +164,7 @@ MEDIA_URL = '/media/'
 
 AUTH_USER_MODEL = 'userapp.User'
 
-# LOGIN_URL = '/userapp/login/'
-LOGIN_URL = 'login'
+LOGIN_URL = '/userapp/login/'
 
 DOMAIN_NAME = 'http://127.0.0.1:8001'
 EMAIL_HOST = 'localhost'
@@ -219,3 +218,16 @@ SOCIALACCOUNT_PROVIDERS = {
         ],
     },
 }
+
+COMMENT_ALLOW_SUBSCRIPTION = True
+COMMENT_ALLOW_BLOCKING_USERS = True
+COMMENT_ALLOW_MODERATOR_TO_BLOCK = True
+COMMENT_ALLOW_MARKDOWN = True
+COMMENT_FLAGS_ALLOWED = True
+COMMENT_USE_GRAVATAR = False
+COMMENT_ALLOW_TRANSLATION = True
+
+LANGUAGE_CODE = 'ru'
+
+LOCALE_PATHS = (
+    '/home/miraving2/code/project2/habr/locale', )
