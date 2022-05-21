@@ -13,7 +13,7 @@ class HabrEditForm(ModelForm):
             'title': TextInput(attrs={'style': 'width: 1000px;', 'class': 'form-control', 'required': True}),
             'category': Select(attrs={'style': 'width: 200px;', 'class': 'form-control', 'required': True}),
             'content': RichTextUploadingFormField(
-               # config_name="content-toolbar"
+                # config_name="content-toolbar"
             )
         }
 
