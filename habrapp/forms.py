@@ -1,6 +1,7 @@
 from django.forms import ModelForm, TextInput, Select
 
 from mainapp.models import Habr
+from ckeditor.fields import RichTextField
 from ckeditor_uploader.fields import RichTextUploadingFormField
 
 
@@ -12,9 +13,7 @@ class HabrEditForm(ModelForm):
         widgets = {
             'title': TextInput(attrs={'style': 'width: 1000px;', 'class': 'form-control', 'required': True}),
             'category': Select(attrs={'style': 'width: 200px;', 'class': 'form-control', 'required': True}),
-            'content': RichTextUploadingFormField(
-                # config_name="content-toolbar"
-            )
+            'content': RichTextUploadingFormField(),
         }
 
     def __init__(self, *args, **kwargs):
