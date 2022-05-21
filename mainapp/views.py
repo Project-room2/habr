@@ -25,7 +25,7 @@ class IndexView(ListView):
         """ Отрисовываем главную страницу, если была задействована форма поиска - результат поиска по всем хабрам """
         search_post = self.request.GET.get('search')
         if search_post:
-                posts = Habr.objects.filter(Q(title__icontains = search_post) & Q(content__icontains = search_post), is_published = True, is_active = True)
+                posts = Habr.objects.filter(Q(title__icontains = search_post)&Q(content__icontains = search_post), is_published = True, is_active = True)
         else:
             # If not searched, return def   ault posts
             posts = Habr.objects.filter(is_published = True, is_active = True)

@@ -7,15 +7,6 @@ from django.contrib.contenttypes.fields import GenericRelation
 from comment.models import Comment
 
 
-# Create your models here.
-# class Ip(models.Model):
-#     """таблица где будут ip адреса, кто смотрел хабр"""
-#     ip = models.CharField(max_length=100)
-
-# def __str__(self):
-#     return self.ip
-
-
 class Category(models.Model):
     """модель категории поста"""
 
@@ -61,7 +52,6 @@ class Habr(models.Model):
 
     def __str__(self):
         return self.title
-        # return f"{self.short_description} ({self.category.name} {self.is_active} {self.slug} {self.id_user})"
 
     def get_absolute_url(self):
         # return reverse('post', kwargs = {'habr_slug': self.slug})
