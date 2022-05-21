@@ -1,37 +1,39 @@
 {% load static %}
 <div class="col-md-4">
     <div class="position-sticky" style="top: 2rem;">
-        <div class="p-4 mb-3 bg-light rounded">
-            <h4>Команда 4T</h4>
-            <p class="mb-0">Проект "Xabr".</br> Командная разработка по методологии Agile:Scrum.</p>
-        </div>
 
-        <div class="p-4">
-            <h4>Популярные Хабры</h4>
-            {% for art in object_list %}
-            <ol class="list-unstyled mb-0">
-                <li><a href="{% url 'index:habr' art.slug %}" class="stretched-link link-dark">{{ art.title }}</a></li>
-            </ol>
-            {% endfor %}
 
-        </div>
+        {% if art %}
+            <div class="p-4">
+                <h4>Популярные Хабры </h4>
+                <ol class="list-group-item-heading">
+                    {% for art in art %}
+                        <li><a href="{% url 'index:habr' art.slug %}"
+                               class="stretched-link link-dark">{{ art.title }}</a></li>
+                    {% endfor %}
+                </ol>
+            </div>
+        {% endif %}
 
-        <div class="p-4">
-            <h4>Лучшие авторы</h4>
-            {% for art in object_list %}
-            <ol class="list-unstyled mb-0">
-                <li>
-                    {% if art.user.avatar.url %}
-                    <a href="#"><img src="{{ art.user.avatar.url }}" width="32" height="32"
-                                     class="mainpage-avatar-img img-thumbnail rounded-circle"></a><a href="#" class="stretched-link link-dark">{{ art.user.get_full_name}}</a>
-                    {% else %}
-                    <a href="#"><img src="1{% static 'img/default.png' %}" width="32" height="32"
-                                     class="mainpage-avatar-img img-thumbnail rounded-circle"></a><a href="#" class="stretched-link link-dark">{{ art.user.get_full_name}}</a>
-                    {% endif %}
-                </li>
-            </ol>
-            {% endfor %}
-        </div>
+        {% if author %}
+            <div class="p-4">
+                <h4>Лучшие авторы</h4>
+                <ol class="list-group-item-heading">
+                    {% for author in author %}
+                        <li>
+                            {% if habr.user.avatar.url %}
+                                <a href="#"><img src="{{ author.user.avatar.url }}" width="32" height="32"
+                                                 class="mainpage-avatar-img img-thumbnail rounded-circle"></a>
+                                <a href="#" class="stretched-link link-dark">{{ author.get_full_name }}</a>
+                            {% else %}
+                                <a href="#"><img src="{% static 'img/default.png' %}" width="32" height="32"
+                                                 class="mainpage-avatar-img img-thumbnail rounded-circle"></a>
+                                <a href="#" class="stretched-link link-dark"></a>
+                            {% endif %}
+                        </li>
+                    {% endfor %}
+                </ol>
+            </div>
+        {% endif %}
     </div>
 </div>
-<div>
