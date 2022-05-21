@@ -6,11 +6,11 @@
 {% endblock %}
 
 {% block content %}
-    <h1>Новая статья</h1>
+    <h1>Новый хабр</h1>
     <form method="POST" class="habr-form">{% csrf_token %}
         {{ form.media }}
         {{ form.as_p }}
-        <button type="submit" class="save btn btn-default">Сохранить</button>
+        <button type="button" class="btn btn-outline-success">Сохранить</button>
         {% if may_published %}
             <button type="submit" class="save btn btn-default" name="do_publish" value={{ newpk }}>Запросить публикацию</button>
         {% endif %}

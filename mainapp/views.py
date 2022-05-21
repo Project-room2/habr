@@ -1,15 +1,45 @@
-from django.http import HttpResponseRedirect, request
-from django.shortcuts import render, get_object_or_404
-from django.utils import timezone
-from django.views.generic import ListView, DetailView
-from django.db.models import Q
-
 import userapp.models
+from django.db.models import Q
+from django.http import HttpResponseRedirect, request
+from django.shortcuts import get_object_or_404, render
+from django.utils import timezone
+from django.views.generic import DetailView, ListView
 from .models import *
 
 
 def page_not_found_view(request, exception):
     return render(request, 'mainapp/404.html', {'path': request.path}, status = 404)
+
+
+class IndexView(ListView):
+    """ Контроллер, отображает все активныее и разрешениые к публикации Хабры на главной """
+
+    paginate_by = 4
+    model = Habr
+    allow_empty = True
+    template_name = 'mainapp/index.html'
+    context_object_name = 'habrs'
+
+
+    def get_queryset(self):
+        """ Отрисовываем главную страницу, если была задействована форма поиска - результат поиска по всем хабрам """
+        search_post = self.request.GET.get('search')
+        if search_post:
+            posts = Habr.objects.filter(Q(title__icontains = search_post), is_published = True, is_active = True)
+        else:
+            # If not searched, return def   ault posts
+            posts = Habr.objects.filter(is_published = True, is_active = True)
+        return posts
+
+    def get_context_data(self, *, object_list = None, **kwargs):
+
+        context = super().get_context_data()
+
+        context['title'] = 'Xabr - знания это сила!'
+        context['cat_selected'] = 0
+        context['art'] = Habr.objects.filter(is_published = True, is_active = True).order_by('-habr_view')[:5]
+        context['author'] = Habr.objects.order_by().values('user').distinct()
+        return context
 
 
 class SectionView(ListView):
@@ -21,8 +51,17 @@ class SectionView(ListView):
     template_name = 'mainapp/habr_list.html'
     context_object_name = 'habr'
 
+
     def get_queryset(self):
-        return Habr.objects.filter(category__slug = self.kwargs['cat_slug'], is_published = True, is_active = True)
+        """ Отрисовываем раздел, если была задействована форма поиска - результат поиска по всем хабрам """
+        search_post = self.request.GET.get('search')
+        if search_post:
+            posts = Habr.objects.filter(Q(title__icontains = search_post), is_published = True, is_active = True)
+        else:
+            # If not searched, return def   ault posts
+            posts = Habr.objects.filter(category__slug = self.kwargs['cat_slug'], is_published = True, is_active = True)
+        return posts
+
 
     def get_context_data(self, *, object_list = None, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -30,7 +69,8 @@ class SectionView(ListView):
             cat_selected = context['habr'][0].category.id
             context['title'] = str(context['habr'][0].category) + ' - Xabr '
             context['cat_selected'] = context['habr'][0].category.id
-            context['art'] = Habr.objects.filter(is_published = True, is_active = True, category = cat_selected).order_by('-habr_view')[:5]
+            context['art'] = Habr.objects.filter(is_published = True, is_active = True,
+                                                 category = cat_selected).order_by('-habr_view')[:5]
             context['author'] = Habr.objects.filter(category = cat_selected).order_by().values('user').distinct()
         else:
             context['title'] = 'Ищем автора для этого раздела!'
@@ -48,7 +88,13 @@ class HabrView(DetailView):
     context_object_name = 'habr'
 
     def get_queryset(self):
-        return Habr.objects.filter(is_published = True, is_active = True)
+        """ Отрисовываем хабр, если была задействована форма поиска - результат поиска по всем хабрам """
+        search_post = self.request.GET.get('search')
+        if search_post:
+            posts = Habr.objects.filter(Q(title__icontains = search_post), is_published = True, is_active = True)
+        else:
+            posts = Habr.objects.filter(is_published = True, is_active = True)
+        return posts
 
     def get_context_data(self, *, object_list = None, **kwargs):
         context = super().get_context_data()
@@ -72,39 +118,6 @@ class HabrView(DetailView):
         context['liked'] = liked
         context['us'] = 5
 
-        return context
-
-
-class IndexView(ListView):
-    """ Контроллер, отображает все активныее и разрешениые к публикации Хабры на главной """
-
-    paginate_by = 4
-    model = Habr
-    allow_empty = True
-    template_name = 'mainapp/index.html'
-    context_object_name = 'habrs'
-
-    def get_queryset(self):
-        # search_post = 'Тест'
-        # search_post = request.GET.get('search')
-        search_post = self.request.GET.get('search')
-
-        if search_post:
-            posts = Habr.objects.filter(Q(title__icontains = search_post), is_published = True, is_active = True)
-        else:
-            # If not searched, return def   ault posts
-            posts = Habr.objects.filter(is_published = True, is_active = True)
-
-        return posts
-
-    def get_context_data(self, *, object_list = None, **kwargs):
-
-        context = super().get_context_data()
-
-        context['title'] = 'Xabr - знания это сила!'
-        context['cat_selected'] = 0
-        context['art'] = Habr.objects.filter(is_published = True, is_active = True).order_by('-habr_view')[:5]
-        context['author'] = Habr.objects.order_by().values('user').distinct()
         return context
 
 
