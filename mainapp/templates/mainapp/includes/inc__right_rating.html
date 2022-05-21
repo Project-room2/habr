@@ -8,8 +8,8 @@
                 <h4>Популярные Хабры </h4>
                 <ol class="list-group-item-heading">
                     {% for art in art %}
-                        <li><a href="{% url 'index:habr' art.slug %}"
-                               class="stretched-link link-dark">{{ art.title }}</a></li>
+                        <li><a href="{% url 'mainapp:habr' art.slug %}"
+                               class="stretched-link link-dark">{{ art.title }} {{art.slug}}</a></li>
                     {% endfor %}
                 </ol>
             </div>
