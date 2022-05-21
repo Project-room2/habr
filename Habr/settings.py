@@ -173,10 +173,10 @@ AUTH_USER_MODEL = 'userapp.User'
 # LOGIN_URL = '/userapp/login/'
 LOGIN_URL = 'login'
 
-DOMAIN_NAME = 'http://127.0.0.1:8001'
+DOMAIN_NAME = '4t-habr.ru'
 EMAIL_HOST = 'localhost'
 EMAIL_PORT = '25'
-EMAIL_HOST_USER = 'admin@habr.local'
+EMAIL_HOST_USER = 'i@4t-habr.ru'
 EMAIL_HOST_PASSWORD = 'admin'
 EMAIL_USE_SSL = True
 
