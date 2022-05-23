@@ -6,13 +6,21 @@
 {% endblock %}
 
 {% block content %}
-    <h1>Новый хабр</h1>
+    {% if newpk is None %}
+        <h1>Новый хабр</h1>
+    {% else %}
+        <h1>Редактирование хабра</h1>
+    {% endif %}
     <form method="POST" class="habr-form">{% csrf_token %}
         {{ form.media }}
         {{ form.as_p }}
-        <button type="button" class="btn btn-outline-success">Сохранить</button>
+        {% if save_is_active %}
+            <button type="submit" class="btn btn-outline-success">Сохранить</button>
+        {% else %}
+            <button disabled type="submit" class="btn btn-outline-success">Сохранить</button>
+        {% endif %}
         {% if may_published %}
-            <button type="submit" class="save btn btn-default" name="do_publish" value={{ newpk }}>Запросить публикацию</button>
+            <button type="submit" class="btn btn-outline-success" name="do_publish" value={{ newpk }}>Запросить публикацию</button>
         {% endif %}
     </form>
 {% endblock %}
