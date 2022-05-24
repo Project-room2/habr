@@ -50,23 +50,22 @@
     <link href="{% static 'bootstrap/blog.css' %}" rel="stylesheet">
 </head>
 <body>
-
 <div class="container ">
     <!-- Heder menu -->
     {% include 'mainapp/includes/inc__header.html' %}
     <!-- Section menu -->
     {% include 'mainapp/includes/inc__main_menu.html' %}
 
-<!-- Section header -->
-<main class="container">
-    <BR><BR>
-    {% block content %}
+    <!-- Section header -->
+    <main class="container">
+        <BR><BR>
+        {% block content %}
 
-    {% endblock content %}
-    </div>
-    {% block right %}
+        {% endblock content %}
+</div>
+{% block right %}
 
-    {% endblock right %}
+{% endblock right %}
 </main>
 
 <!-- Footer -->
