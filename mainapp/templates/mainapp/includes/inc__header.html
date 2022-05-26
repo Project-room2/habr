@@ -34,7 +34,7 @@
                         <hr class="dropdown-divider">
                     </li>
                     {% if user.is_staff %}
-                    <li><a class="dropdown-item" href="#">Модерирование</a></li>
+                    <li><a class="dropdown-item" href="/admin/">Модерирование</a></li>
                         <hr class="dropdown-divider">
                     <li><a class="dropdown-item" href="{% url 'userapp:logout' %}">Выйти</a></li>
                     {% else %}
