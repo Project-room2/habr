@@ -1,4 +1,4 @@
-from django.shortcuts import render, HttpResponseRedirect, get_object_or_404
+from django.shortcuts import redirect, render, HttpResponseRedirect, get_object_or_404
 from django.contrib import auth
 from django.urls import reverse
 from django.contrib import messages
@@ -7,6 +7,7 @@ from django.http import HttpResponse, Http404
 from userapp.forms import UserLoginForm, UserRegisterForm, UserProfileForm, UserProfileEditForm
 from .models import User
 from .utils import send_verify_mail
+from django.conf import settings
 
 
 
@@ -30,7 +31,8 @@ def login(request):
             user = auth.authenticate(username = username, password = password)
             if user and user.is_active:
                 auth.login(request, user)
-                return HttpResponseRedirect(reverse('mainapp:index'))
+                # return HttpResponseRedirect(reverse('mainapp:index'))
+                return redirect('/login/?next=%s' % request.path)
     else:
         form = UserLoginForm()
     context = {'form': form}

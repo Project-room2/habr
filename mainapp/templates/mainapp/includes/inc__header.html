@@ -36,7 +36,7 @@
                     <li><a class="dropdown-item" href="{% url 'userapp:logout' %}">Выйти</a></li>
                 </ul>
                 {% else %}
-                <a class="btn btn-sm btn-outline-secondary" href="{% url 'userapp:login' %}">Войти</a>
+                <a class="btn btn-sm btn-outline-secondary" href="{% url 'userapp:login' %}?next={% firstof request.path '/' %}">Войти</a>
                 {% endif %}
             </div>
             {% if user.is_authenticated %}
