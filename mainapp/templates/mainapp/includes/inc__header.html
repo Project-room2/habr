@@ -33,10 +33,16 @@
                     <li>
                         <hr class="dropdown-divider">
                     </li>
+                    {% if user.is_staff %}
+                    <li><a class="dropdown-item" href="/admin/">Модерирование</a></li>
+                        <hr class="dropdown-divider">
                     <li><a class="dropdown-item" href="{% url 'userapp:logout' %}">Выйти</a></li>
+                    {% else %}
+                    <li><a class="dropdown-item" href="{% url 'userapp:logout' %}">Выйти</a></li>
+                    {% endif %}
                 </ul>
                 {% else %}
-                <a class="btn btn-sm btn-outline-secondary" href="{% url 'userapp:login' %}">Войти</a>
+                <a class="btn btn-sm btn-outline-secondary" href="{% url 'userapp:login' %}?next={% firstof request.path '/' %}">Войти</a>
                 {% endif %}
             </div>
             {% if user.is_authenticated %}

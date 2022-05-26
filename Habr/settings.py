@@ -48,8 +48,6 @@ INSTALLED_APPS = [
     'allauth.socialaccount',
     'allauth.socialaccount.providers.github',
 
-    # 'bootstrap_modal_forms',
-
     'adminapp',
     'userapp',
     'mainapp',
@@ -95,6 +93,13 @@ TEMPLATES = [
         },
     },
 ]
+
+TEMPLATE_CONTEXT_PROCESSORS = (
+    'django.core.context_processors.auth',
+    'django.core.context_processors.debug',
+    'django.core.context_processors.i18n',
+    'django.core.context_processors.media',
+)
 
 WSGI_APPLICATION = 'Habr.wsgi.application'
 
