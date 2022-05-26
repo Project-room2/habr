@@ -20,10 +20,9 @@
             {% endif %}
             &nbsp;&nbsp;&nbsp;
             <div>
-                <h4 class="fw-bold mb-0">{{ object.user.get_full_name }}</h4>
+                <h4 class="fw-bold mb-0">{{ habr.user.get_full_name }}</h4>
                 <p>
-                    <time datetime="{{ object.time_create }}" title="{{ object.time_create }}">{{ object.time_create|date }}
-                    </time>
+                    <time datetime="{{ object.time_create }}" title="{{ object.time_create }}">{{ object.time_create|date }}</time>| <a href="/{{ object.category.slug }}" class="stretched-link">{{ object.category }}</a>
                 </p>
             </div>
         </div>
@@ -33,8 +32,7 @@
             <img class="card-img" src="{{object.images.url}}" width="10%" height="30%">
             {% endif %}
             {{ object.content|safe }}
-        </div>
-        <div class="card-text mb-auto p-3 mb-2 bg-secondary text-white">
+            <br><br>
             <!-- LIKES -->
             <form action="{% url 'index:like_post' habr.pk %}" method="POST">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-eye"
@@ -89,8 +87,7 @@
                     {% get_comments_count habr user %}
                 {% endif %}
             </form>
+            {% render_comments habr request %}
 </article>
-
-{% render_comments habr request %}
 {% endblock %}
 <!-- Конец templates/mainapp/habr_list.html -->
