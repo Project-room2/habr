@@ -1,0 +1,13 @@
+{% load static %}
+{% block right %}
+<div class="col-md-4">
+    <div class="flex-xl-fill">
+    {% if object.user.avatar.url %}
+    <a href="{% url 'mainapp:profile' object.user.id %}" class="link-dark" ><img src="{{ object.user.avatar.url }}"  width="200" height="200" class="img-fluid rounded mx-auto d-block rounded-circle"></a>
+    {% else %}
+    <a href="{% url 'mainapp:profile' object.user.id %}" class="link-dark" ><img src="{% static 'img/default.png' %}" width="200" height="200" class="img-fluid rounded mx-auto d-block"></a>
+    {% endif %}
+    <h5 class="fw-bold mb-0" align="center"><a href="{% url 'mainapp:profile' object.user.id %}" class="text-dark nav-link display-7">{{ habr.user.get_full_name }}</a></h5><p align="center">на сайте с {{ habr.user.date_joined|date }} </p>&nbsp;&nbsp;&nbsp;
+    </div>
+</div>
+{% endblock right %}
