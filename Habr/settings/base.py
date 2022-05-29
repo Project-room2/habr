@@ -1,3 +1,5 @@
+### Основной файл настроект проекта settings.py - настройки для всех сред
+
 import os
 from pathlib import Path
 from dotenv import load_dotenv

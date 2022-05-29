@@ -1,3 +1,5 @@
+### Настройки для productive, дополняет base.py
+
 from .base import *
 
 DEBUG = False
