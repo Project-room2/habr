@@ -4,8 +4,9 @@ from pytils.translit import slugify
 from mainapp.models import Habr
 from .forms import HabrEditForm
 from django.http import HttpResponseRedirect
+from django.contrib.auth.decorators import login_required
 
-
+@login_required
 def habr_create(request):
 
     newpk = None
