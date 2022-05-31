@@ -34,3 +34,4 @@ traitlets==5.1.1
 wcwidth==0.2.5
 pytils
 django-dotenv
+django-debug-toolbar
