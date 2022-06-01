@@ -126,20 +126,6 @@ class HabrView(DetailView):
     slug_url_kwarg = 'habr_slug'
     context_object_name = 'habr'
 
-    def get_queryset(self):
-        """
-        Отрисовываем хабр, если была задействована форма поиска - результат поиска по всем хабрам
-        The Q object allows you to do an OR query on the title and content fields
-        :return: The get_queryset() method is being returned.
-        """
-
-        search_post = self.request.GET.get('search')
-        if search_post:
-            posts = Habr.objects.filter(Q(title__icontains = search_post) | Q(content__icontains = search_post), is_published = True, is_active = True)
-        else:
-            posts = Habr.objects.filter(is_published = True, is_active = True)
-        return posts
-
     def get_context_data(self, *, object_list = None, **kwargs):
         context = super().get_context_data()
         context['title'] = 'Xabr - ' + str(context['habr'])
@@ -171,6 +157,9 @@ class UserView(DetailView):
     template_name = 'mainapp/profile.html'
     model = User
     context_object_name = 'profile'
+    paginate_by = 4
+    allow_empty = True
+
 
     def get_context_data(self, **kwargs):
         """
@@ -192,8 +181,10 @@ class UserView(DetailView):
         The method django.core.handlers.base.Base
         :return: The context is being returned.
         """
+
+        my_habr = get_object_or_404(Habr, Habr.slug)
         context = super().get_context_data(**kwargs)
-        context['habr'] = Habr.objects.all()
+        context['habrs'] = Habr.objects.filter(user = my_habr.user).order_by('-time_update')
         context['title'] = 'Профиль автора'
         return context
 
