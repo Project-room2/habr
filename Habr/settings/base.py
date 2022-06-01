@@ -182,3 +182,7 @@ SOCIALACCOUNT_PROVIDERS = {
         ],
     },
 }
+
+COMMENTS_APP = "django_comments_xtd"
+COMMENTS_XTD_MODEL = 'mycomments.models.MyComment'
+COMMENTS_XTD_FORM_CLASS = 'mycomments.forms.MyCommentForm'
