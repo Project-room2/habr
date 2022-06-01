@@ -16,7 +16,6 @@ def habr_publish(request, habr_slug):
     habr.is_ask_published = True
     habr.time_update = timezone.now()
     habr.save()
-    print('publish', habr)
     return HttpResponseRedirect(reverse('habrapp:myhabrlist'))
 
 @login_required
@@ -26,7 +25,6 @@ def habr_remove(request, habr_slug):
     habr.is_active = False
     habr.time_update = timezone.now()
     habr.save()
-    print('Remove', habr)
     return HttpResponseRedirect(reverse('habrapp:myhabrlist'))
 
 @login_required
