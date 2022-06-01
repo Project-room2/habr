@@ -8,6 +8,20 @@ from .models import *
 
 
 def page_not_found_view(request, exception):
+    """
+    It renders the 404.html template, passing in the path of the requested page
+
+    :param request: The request object
+    :param exception: The exception raised by the view function
+    :return: The render function is being returned.
+    Question: What is the render function doing?
+    Answer: The render function is taking the request, the template, and the status.
+    Question: What is the template?
+    Answer: The template is the 404.html file.
+    Question: What is the status?
+    Answer: The status is 404.
+    Question: What is the path?
+    """
     return render(request, 'mainapp/404.html', {'path': request.path}, status = 404)
 
 
@@ -22,7 +36,13 @@ class IndexView(ListView):
 
 
     def get_queryset(self):
-        """ Отрисовываем главную страницу, если была задействована форма поиска - результат поиска по всем хабрам """
+        """
+        Отрисовываем главную страницу, если была задействована форма поиска - результат поиска по всем хабрам
+        If the user has searched for something, return the results of the search.
+        Otherwise, return the default posts
+        :return: The get_queryset() method is being returned.
+        """
+
         search_post = self.request.GET.get('search')
         if search_post:
                 posts = Habr.objects.filter(Q(title__icontains = search_post) | Q(content__icontains = search_post), is_published = True, is_active = True)
@@ -32,6 +52,13 @@ class IndexView(ListView):
         return posts
 
     def get_context_data(self, *, object_list = None, **kwargs):
+        """
+        The function takes in a list of objects, and returns a dictionary of context
+
+        :param object_list: The list of objects. If not provided, this will default to model.objects.all()
+        :return: The context is a dictionary mapping template variable names to Python objects.
+        """
+
         context = super().get_context_data()
 
         context['title'] = 'Xabr - знания это сила!'
@@ -52,7 +79,13 @@ class SectionView(ListView):
 
 
     def get_queryset(self):
-        """ Отрисовываем раздел, если была задействована форма поиска - результат поиска по всем хабрам """
+        """
+        Отрисовываем раздел, если была задействована форма поиска - результат поиска по всем хабрам
+        If the user has searched for something, return the results of the search.
+        Otherwise, return the default posts
+        :return: The queryset is being returned.
+        """
+
         search_post = self.request.GET.get('search')
         if search_post:
             posts = Habr.objects.filter(Q(title__icontains = search_post) | Q(content__icontains = search_post), is_published = True, is_active = True)
@@ -63,6 +96,13 @@ class SectionView(ListView):
 
 
     def get_context_data(self, *, object_list = None, **kwargs):
+        """
+        The function takes in a list of objects and returns a dictionary of context data
+
+        :param object_list: The list of objects that the view is operating upon
+        :return: The context is being returned.
+        """
+
         context = super().get_context_data(**kwargs)
         if len(context['habr']) > 0:
             cat_selected = context['habr'][0].category.id
@@ -85,15 +125,6 @@ class HabrView(DetailView):
     template_name = 'mainapp/habr.html'
     slug_url_kwarg = 'habr_slug'
     context_object_name = 'habr'
-
-    def get_queryset(self):
-        """ Отрисовываем хабр, если была задействована форма поиска - результат поиска по всем хабрам """
-        search_post = self.request.GET.get('search')
-        if search_post:
-            posts = Habr.objects.filter(Q(title__icontains = search_post) | Q(content__icontains = search_post), is_published = True, is_active = True)
-        else:
-            posts = Habr.objects.filter(is_published = True, is_active = True)
-        return posts
 
     def get_context_data(self, *, object_list = None, **kwargs):
         context = super().get_context_data()
@@ -126,16 +157,47 @@ class UserView(DetailView):
     template_name = 'mainapp/profile.html'
     model = User
     context_object_name = 'profile'
+    paginate_by = 4
+    allow_empty = True
+
 
     def get_context_data(self, **kwargs):
+        """
+        The function get_context_data() is a method of the class DetailView.
+
+        The method DetailView.get_context_data() is called by the method DetailView.get()
+
+        The method DetailView.get() is called by the method View.dispatch()
+
+        The method View.dispatch() is called by the method View.__call__()
+
+        The method View.__call__() is called by the method View.as_view()
+
+        The method View.as_view() is called by the method django.urls.resolvers.URLResolver.resolve()
+
+        The method django.urls.resolvers.URLResolver.resolve() is called by the method
+        django.core.handlers.base.BaseHandler.get_response()
+
+        The method django.core.handlers.base.Base
+        :return: The context is being returned.
+        """
+
+        my_habr = get_object_or_404(Habr, Habr.slug)
         context = super().get_context_data(**kwargs)
-        context['habr'] = Habr.objects.all()
+        context['habrs'] = Habr.objects.filter(user = my_habr.user).order_by('-time_update')
         context['title'] = 'Профиль автора'
         return context
 
 
 def design(request):
-    """ Функция рендерит раздел "Дизайн", включая SEO-разметку """
+    """
+    Функция рендерит раздел "Дизайн", включая SEO-разметку
+    It renders the "Design" section, including SEO markup
+
+    :param request: The request object is an instance of HttpRequest. It contains metadata about the request, such as the
+    client’s IP address, the URI that was requested, the HTTP method, and so on
+    :return: the rendered template with the context.
+    """
 
     context = {
         'title': 'Дизайн - Xabr"',
@@ -146,7 +208,13 @@ def design(request):
 
 
 def web_dev(request):
-    """ Функция рендерит раздел "Веб-разработку", включая SEO-разметку """
+    """
+    Функция рендерит раздел "Веб-разработку", включая SEO-разметку
+    It renders the "Web Development" section, including SEO markup
+
+    :param request: The request object is an HttpRequest object. It contains metadata about the request
+    :return: a render() function, which is a shortcut for a few things:
+    """
 
     context = {
         'title': 'Веб-разработка - Xabr"',
@@ -157,7 +225,13 @@ def web_dev(request):
 
 
 def mobile_developing(request):
-    """ Функция рендерит раздел "Мобильная разработка", включая SEO-разметку """
+    """
+    Функция рендерит раздел "Мобильная разработка", включая SEO-разметку
+    It renders the "Mobile Development" section, including SEO markup
+
+    :param request: The request object is an HttpRequest object. It contains metadata about the request
+    :return: a response object.
+    """
 
     context = {
         'title': 'Мобильная разработка - Xabr',
@@ -168,7 +242,13 @@ def mobile_developing(request):
 
 
 def marketing(request):
-    """ Функция рендерит раздел "Маркетинг", включая SEO-разметку """
+    """
+    Функция рендерит раздел "Маркетинг", включая SEO-разметку
+    It renders the "Marketing" section, including SEO markup
+
+    :param request: The request object is an HttpRequest object. It contains metadata about the request
+    :return: a response object.
+    """
 
     context = {
         'title': 'Дизайн - Xabr',
@@ -179,7 +259,13 @@ def marketing(request):
 
 
 def help(request):
-    """ Функция рендерит раздел "Помощь", включая SEO-разметку """
+    """
+    Функция рендерит раздел "Помощь", включая SEO-разметку
+    It renders the "Help" section, including SEO markup
+
+    :param request: The initial request
+    :return: a response object with the rendered template.
+    """
 
     context = {
         'title': 'Помощь - Xabr',
@@ -190,7 +276,15 @@ def help(request):
 
 
 def LikeView(request, pk):
-    """ Функция проставления лайка/дизлайка """
+    """
+    Функция проставления лайка/дизлайка
+    If the user has already liked the post, remove the like; otherwise, add a like
+
+    :param request: The request object is the first parameter to all Django views. It contains metadata about the request,
+    such as the HTTP method ("GET" or "POST"), the client's IP address, the query parameters, and more
+    :param pk: The primary key of the post that we want to like
+    :return: the HTTP response with the status code 302.
+    """
 
     post = get_object_or_404(Habr, id = request.POST.get('habr_id'))
     liked = False
