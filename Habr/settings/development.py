@@ -4,8 +4,8 @@ from .base import *
 
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1', '127.0.0.1:8000']
-CSRF_TRUSTED_ORIGINS = ['http://127.0.0.1']
+ALLOWED_HOSTS = ['dev.4t-habr.ru', '127.0.0.1', '127.0.0.1:8000']
+CSRF_TRUSTED_ORIGINS = ['https://dev.4t-habr.ru']
 
 INSTALLED_APPS = INSTALLED_APPS + ['debug_toolbar']
 MIDDLEWARE = ['debug_toolbar.middleware.DebugToolbarMiddleware'] + MIDDLEWARE
