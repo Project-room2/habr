@@ -5,12 +5,12 @@ from .models import *
 
 
 class AdminHabr(admin.ModelAdmin):
-    list_display = ('id', 'title', 'time_create', 'is_active', 'is_published', 'category', 'habr_view')
+    list_display = ('id', 'title', 'time_create', 'is_active', 'is_ask_published', 'is_published', 'category', 'habr_view')
     list_display_links = ('id', 'title')
-    list_editable = ('is_active', 'is_published', 'category',)
+    list_editable = ('is_active', 'is_ask_published', 'is_published', 'category',)
     search_fields = ('title', 'content')
     prepopulated_fields = {'slug': ('title',)}
-    fields = ('time_create', 'time_update', 'title', 'slug', 'category', 'content', 'user', 'is_active', 'is_published', 'likes',)
+    fields = ('time_create', 'time_update', 'title', 'slug', 'category', 'content', 'user', 'is_active', 'is_ask_published', 'is_published', 'likes',)
     readonly_fields = ('time_create', 'time_update')
     save_on_top = True
 

@@ -44,6 +44,7 @@ class Habr(models.Model):
     like_quantity = models.PositiveIntegerField('кол-во', default = 0)
     habr_view = models.IntegerField('просмотров', default = 1)
     comments = GenericRelation(Comment)
+    is_ask_published = models.BooleanField(default=False, verbose_name="Запрошена публикация")
 
     class Meta:
         verbose_name = "Хабр"
