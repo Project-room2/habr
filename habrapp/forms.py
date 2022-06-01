@@ -11,8 +11,8 @@ class HabrEditForm(ModelForm):
         model = Habr  # определяем, какая модель будет использоваться для создания формы
         fields = ('title', 'category', 'content')
         widgets = {
-            'title': TextInput(attrs={'style': 'width: 1000px;', 'class': 'form-control', 'required': True}),
-            'category': Select(attrs={'style': 'width: 200px;', 'class': 'form-control', 'required': True}),
+            'title': TextInput(attrs={'style': 'width: 100%', 'class': 'form-control', 'required': True}),
+            'category': Select(attrs={'style': 'width: 50%', 'class': 'form-control', 'required': True}),
             'content': RichTextUploadingFormField(),
         }
 

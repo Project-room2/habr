@@ -56,7 +56,7 @@ class UserProfileForm(UserChangeForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         for field_name, field in self.fields.items():
-            field.widget.attrs['class'] = 'form-control py-4'
+            field.widget.attrs['class'] = 'form-control py-2'
         self.fields['username'].widget.attrs['readonly'] = True
         self.fields['email'].widget.attrs['readonly'] = True
         self.fields['avatar'].widget.attrs['class'] = 'custom-file-input'
@@ -65,7 +65,7 @@ class UserProfileForm(UserChangeForm):
 class UserProfileEditForm(forms.ModelForm):
     class Meta:
         model = UserProfile
-        fields = ('tagline', 'aboutMe', 'gender')
+        fields = ('gender','aboutMe')
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

@@ -5,6 +5,7 @@ from django.urls import path
 from . import views
 from .views import *
 
+# A namespace for the urls.py file.
 app_name = 'mainapp'
 
 urlpatterns = [

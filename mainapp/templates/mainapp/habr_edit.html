@@ -1,22 +1,28 @@
 {% extends 'mainapp/base.html' %}
 {% load static %}
-
-{% block css %}
-
-{% endblock %}
+{% load i18n %}
 
 {% block content %}
-    {% if edit %}
-        <h1>Редактирование хабра</h1>
-    {% else %}
-        <h1>Новый хабр</h1>
-    {% endif %}
-    <form method="POST" class="habr-form">{% csrf_token %}
-        {{ form.media }}
-        {{ form.as_p }}
-        <button type="submit" class="btn btn-outline-success">Сохранить</button>
-        {% if may_published %}
-            <button type="submit" class="btn btn-outline-success" name="do_publish" value={{ newpk }}>Запросить публикацию</button>
-        {% endif %}
-    </form>
+<div class="row g-5">
+    <div class="col-md-8">
+        <article class="blog-post">
+            {% if edit %}
+            <h1>Редактирование хабра</h1>
+            {% else %}
+            <h1>Новый хабр</h1>
+            {% endif %}
+            <form method="POST" class="habr-form">{% csrf_token %}
+                {{ form.media }}
+                {{ form.as_p }}
+                <button type="submit" class="btn btn-outline-success">Сохранить</button>
+                {% if may_published %}
+                <button type="submit" class="btn btn-outline-success" name="do_publish" value={{ newpk }}>Запросить
+                    публикацию
+                </button>
+                {% endif %}
+            </form>
+    </div>
+    </article>
+    {% include 'mainapp/includes/inc__right_profile.html' %}
+</div>
 {% endblock %}
