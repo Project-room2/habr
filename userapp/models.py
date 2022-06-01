@@ -32,6 +32,11 @@ class User(AbstractUser):
             return False
         return True
 
+    def get_full_name(self):
+        fio = super().get_full_name()
+        if fio == "":
+            return self.username
+        return fio
 
 class UserProfile(models.Model):
     MALE = 'M'
