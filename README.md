@@ -1,3 +1,8 @@
+<img alt="Tests Passing" src="https://github.com/anuraghazra/github-readme-stats/workflows/Test/badge.svg" />
+<img alt="Issues" src="https://img.shields.io/github/issues/Project-room2/github-readme-stats?color=0088ff" />
+<img alt="GitHub pull requests" src="https://img.shields.io/github/issues-pr/Project-room2/github-readme-stats?color=0088ff" />
+
+
 # **ПРОЕКТ "XABR"**
 ___
 ## Сайт обмена полезной информацией и формирование базы знаний для образовательной экосистемы
@@ -15,11 +20,19 @@ ____
 - Вячесоав
 - Дмитрий - https://github.com/dr2moscow | https://t.me/dr2moscow
 
+### :fire: Статистика (Statistic) :
+![GitHub Streak](https://github-readme-streak-stats.herokuapp.com/?user=Project-room2)
 
-### Технический стек
-* Javascript
+![Top Langs](https://github-readme-stats.vercel.app/api/top-langs/?username=Project-room2)
+
+<img src="https://github-readme-stats.vercel.app/api?username=Project-room2&show_icons=true&line_height=27&count_private=true" />
+
+
+
+### Технический стек (Technologies) :
 * Python
-* Postres
+* Postres 
+* Javascript
 * GitHub
 * Django
 * Jenkins
@@ -27,7 +40,7 @@ ____
 * Bootstrap
 * HTML5/CSS3
 
-### Базовая документация к проекту
+### Базовая документация к проекту :
 Основные системные требования:
 
 * Ubuntu 20.04 LTS
@@ -37,7 +50,7 @@ ____
 * Gunicorn 20.1.0
 * Зависимости (Python) из requirements.txt
 
-### Установка необходимого ПО
+### Установка необходимого ПО (Setup) :
 #### Рекомендуемая подготовка системы
 обновляем информацию о репозиториях
 ```
