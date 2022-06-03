@@ -20,7 +20,6 @@ ____
 
 ### :fire: Статистика (Statistic) :
 ![GitHub Streak](https://github-readme-streak-stats.herokuapp.com/?user=Project-room2)
-![Top Langs](https://github-readme-stats.vercel.app/api/top-langs/?username=Project-room2)
 <img src="https://github-readme-stats.vercel.app/api?username=Project-room2&show_icons=true&line_height=27&count_private=true" />
 
 
