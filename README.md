@@ -1,6 +1,4 @@
-<img alt="Issues" src="https://img.shields.io/github/issues/Project-room2/github-readme-stats?color=0088ff" />
-<img alt="GitHub pull requests" src="https://img.shields.io/github/issues-pr/Project-room2/github-readme-stats?color=0088ff" />
-<img alt="GitHub commit activity" src="https://img.shields.io/github/commit-activity/w/Project-room2/habr?style=plastic" />                                             
+<img alt="Issues" src="https://img.shields.io/github/issues/Project-room2/github-readme-stats?color=0088ff" />  <img alt="GitHub pull requests" src="https://img.shields.io/github/issues-pr/Project-room2/github-readme-stats?color=0088ff" />  <img alt="GitHub commit activity" src="https://img.shields.io/github/commit-activity/w/Project-room2/habr?style=plastic" />                                             
 
    
 # **ПРОЕКТ "XABR"**
