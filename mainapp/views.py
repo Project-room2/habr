@@ -164,20 +164,13 @@ class UserView(DetailView):
     def get_context_data(self, **kwargs):
         """
         The function get_context_data() is a method of the class DetailView.
-
         The method DetailView.get_context_data() is called by the method DetailView.get()
-
         The method DetailView.get() is called by the method View.dispatch()
-
         The method View.dispatch() is called by the method View.__call__()
-
         The method View.__call__() is called by the method View.as_view()
-
         The method View.as_view() is called by the method django.urls.resolvers.URLResolver.resolve()
-
         The method django.urls.resolvers.URLResolver.resolve() is called by the method
         django.core.handlers.base.BaseHandler.get_response()
-
         The method django.core.handlers.base.Base
         :return: The context is being returned.
         """
@@ -185,7 +178,6 @@ class UserView(DetailView):
         context['habrs'] = Habr.objects.filter(user_id=context['object'].id).order_by('-time_update')
         context['title'] = 'Профиль автора'
         return context
-
 
 def design(request):
     """
