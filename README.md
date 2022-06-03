@@ -70,7 +70,7 @@ sudo git clone git@github.com:Project-room2/habr.git
 #### Создаем виртуальное окружение (из папки /home/kbook/knackbook)
 ```
 sudo apt-get install python3-venv
-python3 -m venv env
+python -m venv env
 ```  
 
 #### Активируем виртуальное окружение
@@ -159,26 +159,26 @@ nano ./install/env.json
 #### Выполнение миграций и сбор статических файлов проекта
 Выполняем миграции:
 ```
-python3 manage.py makemigrations
+python manage.py makemigrations
 ```
 Собираем статику:
 ```
-python3 manage.py migrate
+python manage.py migrate
 ```
 
 #### Создаем Суперпользователь (администратора проекта)
 ```
-python3 manage.py createsuperuser
+python manage.py createsuperuser
 ```
 
 #### Заполнить базу данных тестовыми данными
 ```
-python3 manage.py loaddata ./install/tests_db.json 
+python manage.py loaddata ./install/tests_db.json 
 ```
 
 #### Тест запуска   проекта
 ```
-python3 manage.py runserver
+python manage.py runserver
 ```
 
 #### Устанавливаем nginx
