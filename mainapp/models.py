@@ -46,6 +46,7 @@ class Habr(models.Model):
     comments = GenericRelation(Comment)
     is_ask_published = models.BooleanField(default=False, verbose_name="Запрошена публикация")
 
+
     class Meta:
         verbose_name = "Хабр"
         verbose_name_plural = "Хабры"
@@ -61,13 +62,3 @@ class Habr(models.Model):
     def total_likes(self):
         return self.likes.count()
 
-
-class Like(models.Model):
-    """модель лайков к постам"""
-    user = models.ForeignKey(User, on_delete = models.CASCADE)
-    slug = models.SlugField(max_length = 255, unique = True, db_index = True, verbose_name = 'URL')
-    is_active = models.BooleanField(verbose_name = 'активна', default = True)
-
-    class Meta:
-        verbose_name = "лайк"
-        verbose_name_plural = "лайки"

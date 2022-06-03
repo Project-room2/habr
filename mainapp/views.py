@@ -64,7 +64,8 @@ class IndexView(ListView):
         context['title'] = 'Xabr - знания это сила!'
         context['cat_selected'] = 0
         context['art'] = Habr.objects.filter(is_published = True, is_active = True).order_by('-habr_view')[:5]
-        context['author'] = Habr.objects.order_by().values('user').distinct()
+        context['art_like'] = Habr.objects.filter(is_published = True, is_active = True)
+        context['art_author'] = Habr.objects.filter(is_published = True, is_active = True)
         return context
 
 
@@ -163,20 +164,24 @@ class UserView(DetailView):
 
     def get_context_data(self, **kwargs):
         """
-        The function get_context_data() is a method of the class DetailView.
-        The method DetailView.get_context_data() is called by the method DetailView.get()
-        The method DetailView.get() is called by the method View.dispatch()
-        The method View.dispatch() is called by the method View.__call__()
-        The method View.__call__() is called by the method View.as_view()
-        The method View.as_view() is called by the method django.urls.resolvers.URLResolver.resolve()
-        The method django.urls.resolvers.URLResolver.resolve() is called by the method
-        django.core.handlers.base.BaseHandler.get_response()
-        The method django.core.handlers.base.Base
+        Выбираем Хабры автора для публичного профиля автора
+        The function get_context_data() is a method of the DetailView class.
+        called by the DetailView class when it needs to get the context data for the template.
+        The context data is a dictionary of data that is passed to the template.
+        The context data is used by the template to render the page.
+        The context data is passed to the template by the DetailView class.
+        The DetailView class calls the get_context_data() method to get the context data.
+        The get_context_data() method is defined in the DetailView class.
+        The DetailView class is a subclass of the View class.
+        The View class is a subclass of the object class.
+        The object class is the base class for all classes.
+        The get_context_data() method is defined in the DetailView class.
+        The DetailView class is a subclass of the View class
         :return: The context is being returned.
         """
         context = super().get_context_data(**kwargs)
         context['habrs'] = Habr.objects.filter(user_id=context['object'].id).order_by('-time_update')
-        context['title'] = 'Профиль автора'
+        context['title'] = 'Профиль автора Хабров'
         return context
 
 def design(request):
