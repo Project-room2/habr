@@ -1,6 +1,10 @@
-<img alt="Tests Passing" src="https://github.com/anuraghazra/github-readme-stats/workflows/Test/badge.svg" />  <img alt="Issues" src="https://img.shields.io/github/issues/Project-room2/github-readme-stats?color=0088ff" />  <img alt="GitHub pull requests" src="https://img.shields.io/github/issues-pr/Project-room2/github-readme-stats?color=0088ff" />
+<img alt="Issues" src="https://img.shields.io/github/issues/Project-room2/github-readme-stats?color=0088ff" />  <img alt="GitHub pull requests" src="https://img.shields.io/github/issues-pr/Project-room2/github-readme-stats?color=0088ff" />
+<img src="https://img.shields.io/pypi/v/Project-room2.svg" />
+<img src="https://img.shields.io/travis/django/Project-room2.svg" />
+<img src="https://img.shields.io/pypi/pyversions/Project-room2.svg" />
+<img src="https://img.shields.io/pypi/djversions/Project-room2.svg" />
 
-
+   
 # **ПРОЕКТ "XABR"**
 ___
 ## Сайт обмена полезной информацией и формирование базы знаний для образовательной экосистемы
