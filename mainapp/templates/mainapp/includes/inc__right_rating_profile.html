@@ -1,13 +1,14 @@
 {% load static %}
 {% block right %}
 <div class="col-md-4">
-    <div class="flex-xl-fill">
     {% if object.avatar.url %}
-    <img src="{{ object.avatar.url }}"  width="200" height="200" class="img-fluid rounded mx-auto d-block rounded-circle">
+    <img src="{{ object.avatar.url }}" width="200" height="200"
+         class="img-fluid rounded mx-auto d-block rounded-circle">
     {% else %}
-    <img src="{% static 'img/default.png' %}" width="200" height="200" class="img-fluid rounded mx-auto d-block">
+    <img src="{% static 'img/default.png' %}" width="200" height="200"
+         class="img-fluid rounded mx-auto d-block rounded-circle">
     {% endif %}
-    <h5 class="fw-bold mb-0" align="center">{{ object.get_full_name }}</h5><p align="center">на сайте с {{ object.date_joined|date }} </p>&nbsp;&nbsp;&nbsp;
-    </div>
+    <h5 class="fw-bold mb-0" align="center">{{ object.get_full_name }}</h5>
+    <p align="center">на сайте с {{ object.date_joined|date }} </p>
 </div>
 {% endblock right %}

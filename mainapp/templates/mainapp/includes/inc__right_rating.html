@@ -2,39 +2,36 @@
 {% block right %}
 
 <div class="col-md-4">
-    <img src="{% static "/img/casino.jpg" %}" class="img-fluid" alt="Реклама Казино">
+    <img src="{% static "/img/casino.jpg" %}" class="img-fluid rounded mx-auto d-block" width=192 height=240 alt="Реклама Казино">
     <div class="position-sticky" style="top: 2rem;">
         {% if art %}
         <div class="p-4">
-            <h4>Популярные Хабры </h4>
+            <h4>Самые читамые Хабры</h4>
             <ol class="list-group-item-heading">
                 {% for art in art %}<li><a href="{% url 'mainapp:habr' art.slug %}" class="link-dark">{{ art.title }}</a></li>
                 {% endfor %}
             </ol>
         </div>
         {% endif %}
-    </div>
-<!--
-        {% if author %}
+
+        {% if art_like %}
         <div class="p-4">
-            <h4>Лучшие авторы</h4>
+            <h4>Лучшие Хабры</h4>
             <ol class="list-group-item-heading">
-                {% for author in author %}
-                <li>
-                    {% if habr.user.avatar.url %}
-                    <img src="{{ author.user.avatar.url }}" width="32" height="32"
-                         class="mainpage-avatar-img img-thumbnail rounded-circle">
-                    {{ author.get_full_name }}
-                    {% else %}
-                    <img src="{% static 'img/default.png' %}" width="32" height="32"
-                         class="mainpage-avatar-img img-thumbnail rounded-circle">
-                    {% endif %}
-                </li>
+                {% for art_like in art_like %}<li><a href="{% url 'mainapp:habr' art_like.slug %}" class="link-dark">{{ art_like.title }} | {{ art_like.likes.count }} likes</a></li>
                 {% endfor %}
             </ol>
         </div>
         {% endif %}
--->
-
+                {% if art %}
+        <div class="p-4">
+            <h4>Самые читамые авторы</h4>
+            <ol class="list-group-item-heading">
+                {% for art_author in art_author %}<li><a href="{% url 'mainapp:habr' art_author.slug %}" class="link-dark"> {{ art_author.title }} | {{ art_author.user.get_full_name }}</a></li> {{ art_author.total_likes }} likes</a></li>
+                {% endfor %}
+            </ol>
+        </div>
+        {% endif %}
+    </div>
 </div>
 {% endblock right %}
