@@ -1,19 +1,25 @@
 from django.test import TestCase
-from django.template.defaultfilters import slugify
 from mainapp.models import Habr, Category
+from userapp.models import User
+from pytils.translit import slugify
+
+# Create your tests here.
+
+class CreateHabrTestCase(TestCase):
 
 
-# class ModelsTestCase(TestCase):
-#     def test_post_has_slug(self):
-#         """Posts are given slugs correctly when saving"""
-#         post = Habr.objects.create(title="Это мой мервый Habr")
-#
-#         post.save()
-#         self.assertEqual(Habr.slug, slugify(Habr.title))
+    def setUp(self):
+        self.cat1 = Category.objects.create(name="TestCategory1", slug=slugify("TestCategory1"))
+        self.cat2 = Category.objects.create(name="TestCategory2", slug=slugify("TestCategory2"))
+        self.user = User.objects.create(username="testuser", is_staff=True, is_superuser=False, email="test@test.com")
 
 
-class ModelsTestCase(TestCase):
-    def test_category_has_slug(self):
-        category = Category.objects.create(name="Тестовая категория")pip install pytest
-        category.save()
-        self.assertEqual(Category.slug, slugify(Category.name))
+    def test_create(self):
+        habr1 = Habr.objects.create(title="Created by CreateHabrTestCase test № 1", content="any",
+                                    category_id=self.cat1.id, user=self.user,
+                                    slug=slugify("Created by CreateHabrTestCase test № 1"))
+        habr2 = Habr.objects.create(title="Created by CreateHabrTestCase test № 2", content="any",
+                                    category_id=self.cat2.id, user=self.user,
+                                    slug=slugify("Created by CreateHabrTestCase test № 2"))
+        cnt = len(Habr.objects.all().filter(title__contains='Created by CreateHabrTestCase test №'))
+        self.assertEqual(2, cnt, 'Habr records creating has failed!')
