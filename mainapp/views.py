@@ -181,10 +181,8 @@ class UserView(DetailView):
         The method django.core.handlers.base.Base
         :return: The context is being returned.
         """
-
-        # my_habr = get_object_or_404(Habr, slug=User)
         context = super().get_context_data(**kwargs)
-        context['habrs'] = Habr.objects.filter(User = self.request.user).order_by('-time_update')
+        context['habrs'] = Habr.objects.filter(user_id=context['object'].id).order_by('-time_update')
         context['title'] = 'Профиль автора'
         return context
 
