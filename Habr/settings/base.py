@@ -94,6 +94,16 @@ USE_I18N = True
 USE_L10N = True
 USE_TZ = True
 
+LANGUAGES = (
+    ('ru', 'Russian'),
+    ('en', 'English'),
+)
+
+# месторасположение файлов перевода
+LOCALE_PATHS = (
+    'locale',
+)
+
 STATIC_URL = '/static/'
 STATICFILES_DIRS = (
     os.path.join('static'),
@@ -103,18 +113,12 @@ MEDIA_ROOT = os.path.join('media')
 MEDIA_URL = '/media/'
 
 AUTH_USER_MODEL = 'userapp.User'
-LOGIN_URL = '/userapp/login/'
+LOGIN_URL = '/userapp/login'
 LOGIN_ERROR_URL = '/'
+LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = LOGIN_URL
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
-
-COMMENT_FLAG_REASONS = [
-    (1, ('Spam | Exists only to promote a service')),
-    (2, ('Abusive | Intended at promoting hatred')),
-    (3, ('Racist | Sick mentality')),
-    (4, ('Whatever | Your reason')),
-]
 
 CKEDITOR_UPLOAD_PATH = 'uploads/'
 CKEDITOR_FILENAME_GENERATOR = 'utils.get_filename'
@@ -183,6 +187,33 @@ SOCIALACCOUNT_PROVIDERS = {
     },
 }
 
-COMMENTS_APP = "django_comments_xtd"
-COMMENTS_XTD_MODEL = 'mycomments.models.MyComment'
-COMMENTS_XTD_FORM_CLASS = 'mycomments.forms.MyCommentForm'
+PROFILE_APP_NAME = 'userapp'
+PROFILE_MODEL_NAME = 'user'
+COMMENT_FLAGS_ALLOWED = 1
+COMMENT_SHOW_FLAGGED = True
+COMMENT_ALLOW_SUBSCRIPTION = True
+COMMENT_ALLOW_BLOCKING_USERS = True
+COMMENT_ALLOW_MODERATOR_TO_BLOCK = True
+COMMENT_ALLOW_MARKDOWN = True
+COMMENT_MARKDOWN_EXTENSIONS = True
+COMMENT_ALLOW_TRANSLATION =  True
+COMMENT_USE_GRAVATAR = False
+COMMENT_FROM_EMAIL = os.environ.get('COMMENT_FROM_EMAIL', 'user@doamin')
+COMMENT_CONTACT_EMAIL = os.environ.get('COMMENT_CONTACT_EMAIL', 'contact@domain')
+COMMENT_SEND_HTML_EMAIL = True
+COMMENT_PER_PAGE = 4
+COMMENT_USE_EMAIL_FIRST_PART_AS_USERNAME = True
+COMMENT_ALLOW_ANONYMOUS = False
+COMMENT_FLAG_REASONS = [
+    (1, (' Spam | Реклама товара или услуг')),
+    (2, (' Оскорбления | Оскорбления, разжигание ненавести')),
+]
+
+
+EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER', 'user@domain')
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD', 'password')
+EMAIL_BACKEND = os.environ.get('EMAIL_BACKEND', 'django.core.mail.backends.console.EmailBackend')
+EMAIL_HOST = os.environ.get('EMAIL_HOST', 'localhost')
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True

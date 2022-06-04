@@ -1,8 +1,6 @@
 from django.views.generic import TemplateView
 import mainapp.views as mainapp
 from django.urls import path
-
-from . import views
 from .views import *
 
 # A namespace for the urls.py file.

@@ -4,6 +4,7 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.db.models.signals import post_save
 from django.dispatch import receiver
+from django.urls import reverse
 from adminapp.models import AppRole
 
 
@@ -21,11 +22,9 @@ class User(AbstractUser):
 
     activation_key_expires = models.DateTimeField(default=default_expire_time)
 
-    # role = models.ForeignKey(AppRole,
-    #                          on_delete=models.CASCADE,
-    #                          verbose_name='Ссылка на роль',
-    #                          default=1
-    #                          )
+    # this method must be defined for appropriate url mapping in comments section
+    def get_absolute_url(self):
+        return reverse('avatar ')
 
     def is_activation_key_expired(self):
         if now() <= self.activation_key_expires:
