@@ -94,6 +94,16 @@ USE_I18N = True
 USE_L10N = True
 USE_TZ = True
 
+LANGUAGES = (
+    ('ru', 'Russian'),
+    ('en', 'English'),
+)
+
+# месторасположение файлов перевода
+LOCALE_PATHS = (
+    'locale',
+)
+
 STATIC_URL = '/static/'
 STATICFILES_DIRS = (
     os.path.join('static'),
@@ -107,14 +117,6 @@ LOGIN_URL = '/userapp/login/'
 LOGIN_ERROR_URL = '/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
-
-COMMENT_FLAG_REASONS = [
-    (1, ('Spam | Exists only to promote a service')),
-    (2, ('Abusive | Intended at promoting hatred')),
-    (3, ('Racist | Sick mentality')),
-    (4, ('Whatever | Your reason')),
-]
 
 CKEDITOR_UPLOAD_PATH = 'uploads/'
 CKEDITOR_FILENAME_GENERATOR = 'utils.get_filename'
@@ -183,6 +185,19 @@ SOCIALACCOUNT_PROVIDERS = {
     },
 }
 
-COMMENTS_APP = "django_comments_xtd"
-COMMENTS_XTD_MODEL = 'mycomments.models.MyComment'
-COMMENTS_XTD_FORM_CLASS = 'mycomments.forms.MyCommentForm'
+PROFILE_APP_NAME = 'userapp'
+PROFILE_MODEL_NAME = 'User'
+COMMENT_FLAGS_ALLOWED = 4
+COMMENT_SHOW_FLAGGED = True
+COMMENT_ALLOW_SUBSCRIPTION = True
+COMMENT_ALLOW_BLOCKING_USERS = True
+COMMENT_ALLOW_MODERATOR_TO_BLOCK = True
+COMMENT_ALLOW_MARKDOWN = True
+COMMENT_MARKDOWN_EXTENSIONS = True
+COMMENT_ALLOW_TRANSLATION =  True
+COMMENT_FLAG_REASONS = [
+    (1, ('Spam | Exists only to promote a service')),
+    (2, ('Abusive | Intended at promoting hatred')),
+    (3, ('Racist | Sick mentality')),
+    (4, ('Whatever | Your reason')),
+]
