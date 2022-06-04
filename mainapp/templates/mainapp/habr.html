@@ -14,7 +14,7 @@
             {% if habr.images %}
             <img class="card-img" src="{{object.images.url}}" width="10%" height="30%">
             {% endif %}
-            {{ object.time_create|date }} | <a href="/{{ object.category.slug }}">{{ object.category }}</a>
+            {{ object.time_create|date }} | <a href="/{{ object.category.slug }}">{{ object.category }} {{ object.habr_view }}</a><br><br>
             <p class="tags">
                 Tags:
                 {% for tag in habr.tags.all %}

@@ -1,6 +1,6 @@
-<img alt="Tests Passing" src="https://github.com/anuraghazra/github-readme-stats/workflows/Test/badge.svg" />  <img alt="Issues" src="https://img.shields.io/github/issues/Project-room2/github-readme-stats?color=0088ff" />  <img alt="GitHub pull requests" src="https://img.shields.io/github/issues-pr/Project-room2/github-readme-stats?color=0088ff" />
+<img alt="Issues" src="https://img.shields.io/github/issues/Project-room2/github-readme-stats?color=0088ff" />  <img alt="GitHub pull requests" src="https://img.shields.io/github/issues-pr/Project-room2/github-readme-stats?color=0088ff" />  <img alt="GitHub commit activity" src="https://img.shields.io/github/commit-activity/w/Project-room2/habr?style=plastic" />                                             
 
-
+   
 # **ПРОЕКТ "XABR"**
 ___
 ## Сайт обмена полезной информацией и формирование базы знаний для образовательной экосистемы
@@ -20,7 +20,6 @@ ____
 
 ### :fire: Статистика (Statistic) :
 ![GitHub Streak](https://github-readme-streak-stats.herokuapp.com/?user=Project-room2)
-![Top Langs](https://github-readme-stats.vercel.app/api/top-langs/?username=Project-room2)
 <img src="https://github-readme-stats.vercel.app/api?username=Project-room2&show_icons=true&line_height=27&count_private=true" />
 
 
@@ -70,7 +69,7 @@ sudo git clone git@github.com:Project-room2/habr.git
 #### Создаем виртуальное окружение (из папки /home/kbook/knackbook)
 ```
 sudo apt-get install python3-venv
-python3 -m venv env
+python -m venv env
 ```  
 
 #### Активируем виртуальное окружение
@@ -159,26 +158,26 @@ nano ./install/env.json
 #### Выполнение миграций и сбор статических файлов проекта
 Выполняем миграции:
 ```
-python3 manage.py makemigrations
+python manage.py makemigrations
 ```
 Собираем статику:
 ```
-python3 manage.py migrate
+python manage.py migrate
 ```
 
 #### Создаем Суперпользователь (администратора проекта)
 ```
-python3 manage.py createsuperuser
+python manage.py createsuperuser
 ```
 
 #### Заполнить базу данных тестовыми данными
 ```
-python3 manage.py loaddata ./install/tests_db.json 
+python manage.py loaddata ./install/tests_db.json 
 ```
 
 #### Тест запуска   проекта
 ```
-python3 manage.py runserver
+python manage.py runserver
 ```
 
 #### Устанавливаем nginx

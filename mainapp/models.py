@@ -47,6 +47,7 @@ class Habr(models.Model):
     comments = GenericRelation(Comment)
     is_ask_published = models.BooleanField(default=False, verbose_name="Запрошена публикация")
 
+
     class Meta:
         verbose_name = "Хабр"
         verbose_name_plural = "Хабры"
@@ -73,3 +74,4 @@ class Like(models.Model):
     class Meta:
         verbose_name = "лайк"
         verbose_name_plural = "лайки"
+
