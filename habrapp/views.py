@@ -7,6 +7,7 @@ from django.http import HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 from django.views.generic import ListView, DeleteView, UpdateView
 from django.urls import reverse, reverse_lazy
+from taggit.models import Tag
 
 
 @login_required
@@ -126,4 +127,3 @@ class HabrListView(ListView):
     #         context['title'] = ''
     #         context['cat_selected'] = ''
     #     return context
-

@@ -35,3 +35,4 @@ wcwidth>=0.2.5
 pytils
 django-dotenv
 django-debug-toolbar
+django-taggit>=0.17.1

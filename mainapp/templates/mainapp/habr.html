@@ -15,6 +15,15 @@
             <img class="card-img" src="{{object.images.url}}" width="10%" height="30%">
             {% endif %}
             {{ object.time_create|date }} | <a href="/{{ object.category.slug }}">{{ object.category }}</a>
+            <p class="tags">
+                Tags:
+                {% for tag in habr.tags.all %}
+                <a href="{% url 'habrapp:habr_list_by_tag' tag.slug %}">
+                    {{ tag.name }}
+                </a>
+                {% if not forloop.last %}, {% endif %}
+                {% endfor %}
+            </p>
             <div class="card mb-4">
                 <div class="card-body">
                     {{ object.content|safe }}

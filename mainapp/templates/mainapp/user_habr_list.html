@@ -38,6 +38,16 @@
                                 {% endif %}
                                 <div class="mb-1 text-muted">{{ habr.time_create|date }}&nbsp;| категория: {{ habr.category }}
                                 </div>
+<!--                                <p class="tags">Tags: {{ habr.tags.all|join:", " }}</p>-->
+                                <p class="tags">
+                                    Tags:
+                                    {% for tag in habr.tags.all %}
+                                        <a href="{% url 'habrapp:habr_list_by_tag' tag.slug %}">
+                                            {{ tag.name }}
+                                        </a>
+                                        {% if not forloop.last %}, {% endif %}
+                                    {% endfor %}
+                                </p>
                                 <p class="card-text mb-auto">{{ habr.content|safe|linebreaks|truncatechars:300 }}</p>
 
                             </div>
