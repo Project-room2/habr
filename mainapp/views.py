@@ -5,7 +5,7 @@ from django.shortcuts import get_object_or_404, render
 from django.utils import timezone
 from django.views.generic import DetailView, ListView
 from .models import *
-
+from taggit.models import Tag
 
 def page_not_found_view(request, exception):
     """
@@ -34,6 +34,8 @@ class IndexView(ListView):
     template_name = 'mainapp/index.html'
     context_object_name = 'habrs'
 
+    tag = None
+    tag_slug = None
 
     def get_queryset(self):
         """
@@ -42,23 +44,28 @@ class IndexView(ListView):
         Otherwise, return the default posts
         :return: The get_queryset() method is being returned.
         """
-
         search_post = self.request.GET.get('search')
         if search_post:
-                posts = Habr.objects.filter(Q(title__icontains = search_post) | Q(content__icontains = search_post), is_published = True, is_active = True)
+            posts = Habr.objects.filter(Q(title__icontains = search_post) | Q(content__icontains = search_post),
+                                            is_published = True, is_active = True)
         else:
-            # If not searched, return def   ault posts
-            posts = Habr.objects.filter(is_published = True, is_active = True)
+            # If not searched, return default posts
+            posts = Habr.objects.filter(is_published=True, is_active=True)
+            # добавляем логику фильтра по тегам
+            self.tag_slug = self.kwargs.get('tag_slug')
+            if self.tag_slug:
+                self.tag = get_object_or_404(Tag, slug=self.tag_slug)
+                posts = posts.filter(tags__in=[self.tag])
+
         return posts
 
-    def get_context_data(self, *, object_list = None, **kwargs):
+    def get_context_data(self, *, object_list=None, **kwargs):
         """
         The function takes in a list of objects, and returns a dictionary of context
 
         :param object_list: The list of objects. If not provided, this will default to model.objects.all()
         :return: The context is a dictionary mapping template variable names to Python objects.
         """
-
         context = super().get_context_data()
 
         context['title'] = 'Xabr - знания это сила!'
@@ -66,6 +73,8 @@ class IndexView(ListView):
         context['art'] = Habr.objects.filter(is_published = True, is_active = True).order_by('-habr_view')[:5]
         context['art_like'] = Habr.objects.filter(is_published = True, is_active = True)
         context['art_author'] = Habr.objects.filter(is_published = True, is_active = True)
+        # логика тегов
+        context['tag'] = self.tag
         return context
 
 

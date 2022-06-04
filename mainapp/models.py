@@ -5,6 +5,7 @@ from django.urls import reverse
 from userapp.models import User
 from django.contrib.contenttypes.fields import GenericRelation
 from comment.models import Comment
+from taggit.managers import TaggableManager
 
 
 class Category(models.Model):
@@ -61,4 +62,16 @@ class Habr(models.Model):
 
     def total_likes(self):
         return self.likes.count()
+
+    tags = TaggableManager()
+
+class Like(models.Model):
+    """модель лайков к постам"""
+    user = models.ForeignKey(User, on_delete = models.CASCADE)
+    slug = models.SlugField(max_length = 255, unique = True, db_index = True, verbose_name = 'URL')
+    is_active = models.BooleanField(verbose_name = 'активна', default = True)
+
+    class Meta:
+        verbose_name = "лайк"
+        verbose_name_plural = "лайки"
 

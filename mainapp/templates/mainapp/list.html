@@ -5,6 +5,9 @@
 {% load i18n %}
 
 {% block content %}
+{% if tag %}
+  <h2>Хабры с тэгом "{{ tag.name }}"</h2>
+{% endif %}
 {% for habr in habrs %}
 <article>
     <div class="row-cols-auto mb-auto">
@@ -15,6 +18,15 @@
                     <h3 class="mb-0">{{ habr.title }}</h3>
                     <div class="mb-1 text-muted">{{ habr.time_create|date }}&nbsp;|&nbsp;{{ habr.user.get_full_name }}
                     </div>
+                    <p class="tags">
+                        Tags:
+                        {% for tag in habr.tags.all %}
+                        <a href="{% url 'habrapp:habr_list_by_tag' tag.slug %}">
+                            {{ tag.name }}
+                        </a>
+                        {% if not forloop.last %}, {% endif %}
+                        {% endfor %}
+                    </p>
                     <p class="card-text mb-auto">{{ habr.content|safe|linebreaks|truncatechars:300 }}</p>
                     <a href="{% url 'index:habr' habr.slug %}" class="stretched-link"></a>
                 </div>
