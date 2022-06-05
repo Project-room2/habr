@@ -10,7 +10,6 @@ load_dotenv(dotenv_path)
 BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.getenv('SECRET_KEY')
 DEFAULT_FROM_EMAIL = os.getenv('DEFAULT_FROM_EMAIL')
-SERVER_EMAIL = os.getenv('SERVER_EMAIL')
 ALLOWED_HOSTS = []
 APPEND_SLASH = True
 
@@ -210,11 +209,3 @@ COMMENT_FLAG_REASONS = [
     (2, (' Оскорбления | Оскорбления, разжигание ненавести')),
 ]
 
-
-EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER', 'user@domain')
-DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
-EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD', 'password')
-EMAIL_BACKEND = os.environ.get('EMAIL_BACKEND', 'django.core.mail.backends.console.EmailBackend')
-EMAIL_HOST = os.environ.get('EMAIL_HOST', 'localhost')
-EMAIL_PORT = 587
-EMAIL_USE_TLS = True

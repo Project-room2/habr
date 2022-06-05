@@ -45,3 +45,9 @@ EMAIL_SUBJECT_PREFIX = "[4t-habr] "
 # EMAIL_HOST_USER = 'i@4t-habr.ru'
 # EMAIL_HOST_PASSWORD = 'admin'
 EMAIL_USE_TLS = True
+EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
+SERVER_EMAIL = os.getenv('SERVER_EMAIL')
+
+EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER', 'user@domain')
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD', 'password')

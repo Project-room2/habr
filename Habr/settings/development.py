@@ -20,4 +20,11 @@ DATABASES = {
 
 ACCOUNT_EMAIL_VERIFICATION = 'none'
 EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
-EMAIL_FILE_PATH = 'tmp/email-messages/'
+SERVER_EMAIL = os.getenv('SERVER_EMAIL')
+
+EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER', 'user@domain')
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD', 'password')
+EMAIL_HOST = os.environ.get('EMAIL_HOST', 'localhost')
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
