@@ -88,10 +88,10 @@ WSGI_APPLICATION = 'Habr.wsgi.application'
 # Password validation
 # https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators
 
-LANGUAGE_CODE = 'ru'
+LANGUAGE_CODE = 'ru-ru'
 TIME_ZONE = 'Europe/Moscow'
 USE_I18N = True
-USE_L10N = True
+USE_L10N = False
 USE_TZ = True
 
 LANGUAGES = (
