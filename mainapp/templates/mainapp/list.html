@@ -4,83 +4,87 @@
 {% load static %}
 {% load i18n %}
 {% block content %}
-{% if tag %}
-  <h2>Хабры с тэгом "{{ tag.name }}"</h2>
-{% endif %}
-{% for habr in habrs %}
-<article>
-    <div class="row-cols-auto mb-auto">
-        <div class="col-12">
-            <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-350 position-relative">
-                <div class="col p-4 d-flex flex-column position-static">
-                    <strong class="d-inline-block mb-2 text-primary text-black-50">{{ habr.category }}</strong>
-                    <h3 class="mb-0">{{ habr.title }}</h3>
-                    <div class="mb-1 text-muted">{{ habr.time_create|date }}&nbsp;|&nbsp;{{ habr.user.get_full_name }}
+    {% if tag %}
+        <h2>Хабры с тэгом "{{ tag.name }}"</h2>
+    {% endif %}
+    {% for habr in habrs %}
+        <article>
+            <div class="row-cols-auto mb-auto">
+                <div class="col-12">
+                    <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-350 position-relative">
+                        <div class="col p-4 d-flex flex-column position-static">
+                            <strong class="d-inline-block mb-2 text-primary text-black-50">{{ habr.category }}</strong>
+                            <h3 class="mb-0">{{ habr.title }}</h3>
+                            <div class="mb-1 text-muted">{{ habr.time_create|date }}&nbsp;|&nbsp;{{ habr.user.get_full_name }}
+                            </div>
+                            <p class="card-text mb-auto">{{ habr.content|safe|linebreaks|truncatechars:300 }}</p>
+                            <a href="{% url 'index:habr' habr.slug %}" class="stretched-link"></a>
+                        </div>
+                        <div class="card-text mb-auto p-3 mb-2">
+                            {% if tag %}
+                            {% else %}
+                             <p>метки:
+                                {% for tag in habr.tags.all %}
+                                    {{ tag.name }}
+                                    {% if not forloop.last %}, {% endif %}
+                                {% endfor %}
+                            </p>
+                            {% endif %}
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                 class="bi bi-eye" viewBox="0 0 16 16">
+                                <path d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8zM1.173 8a13.133 13.133 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13.133 13.133 0 0 1 14.828 8c-.058.087-.122.183-.195.288-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5c-2.12 0-3.879-1.168-5.168-2.457A13.134 13.134 0 0 1 1.172 8z"/>
+                                <path d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zM4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0z"/>
+                            </svg>
+                            {{ habr.habr_view }}&nbsp;&nbsp; &nbsp;&nbsp;
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                 class="bi bi-heart-fill"
+                                 viewBox="0 0 16 16">
+                                <path fill-rule="evenodd"
+                                      d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"/>
+                            </svg>
+                            {{ habr.total_likes }}&nbsp;&nbsp; &nbsp;&nbsp;
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                 class="bi bi-chat-dots" viewBox="0 0 16 16">
+                                <path d="M5 8a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm4 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm3 1a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/>
+                                <path d="m2.165 15.803.02-.004c1.83-.363 2.948-.842 3.468-1.105A9.06 9.06 0 0 0 8 15c4.418 0 8-3.134 8-7s-3.582-7-8-7-8 3.134-8 7c0 1.76.743 3.37 1.97 4.6a10.437 10.437 0 0 1-.524 2.318l-.003.011a10.722 10.722 0 0 1-.244.637c-.079.186.074.394.273.362a21.673 21.673 0 0 0 .693-.125zm.8-3.108a1 1 0 0 0-.287-.801C1.618 10.83 1 9.468 1 8c0-3.192 3.004-6 7-6s7 2.808 7 6c0 3.193-3.004 6-7 6a8.06 8.06 0 0 1-2.088-.272 1 1 0 0 0-.711.074c-.387.196-1.24.57-2.634.893a10.97 10.97 0 0 0 .398-2z"/>
+                            </svg>
+                            {% get_comments_count habr user %}
+                        </div>
                     </div>
-                    <p class="card-text mb-auto">{{ habr.content|safe|linebreaks|truncatechars:300 }}</p>
-                    <a href="{% url 'index:habr' habr.slug %}" class="stretched-link"></a>
-                </div>
-                <div class="card-text mb-auto p-3 mb-2">
-                                       <p>Метки:
-                        {% for tag in habr.tags.all %}
-                            {{ tag.name }}
-                        {% if not forloop.last %}, {% endif %}
-                        {% endfor %}
-                    </p>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                         class="bi bi-eye" viewBox="0 0 16 16">
-                        <path d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8zM1.173 8a13.133 13.133 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13.133 13.133 0 0 1 14.828 8c-.058.087-.122.183-.195.288-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5c-2.12 0-3.879-1.168-5.168-2.457A13.134 13.134 0 0 1 1.172 8z"/>
-                        <path d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zM4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0z"/>
-                    </svg>
-                    {{ habr.habr_view }}&nbsp;&nbsp; &nbsp;&nbsp;
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                         class="bi bi-heart-fill"
-                         viewBox="0 0 16 16">
-                        <path fill-rule="evenodd"
-                              d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"/>
-                    </svg>
-                    {{ habr.total_likes }}&nbsp;&nbsp; &nbsp;&nbsp;
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                         class="bi bi-chat-dots" viewBox="0 0 16 16">
-                        <path d="M5 8a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm4 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm3 1a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/>
-                        <path d="m2.165 15.803.02-.004c1.83-.363 2.948-.842 3.468-1.105A9.06 9.06 0 0 0 8 15c4.418 0 8-3.134 8-7s-3.582-7-8-7-8 3.134-8 7c0 1.76.743 3.37 1.97 4.6a10.437 10.437 0 0 1-.524 2.318l-.003.011a10.722 10.722 0 0 1-.244.637c-.079.186.074.394.273.362a21.673 21.673 0 0 0 .693-.125zm.8-3.108a1 1 0 0 0-.287-.801C1.618 10.83 1 9.468 1 8c0-3.192 3.004-6 7-6s7 2.808 7 6c0 3.193-3.004 6-7 6a8.06 8.06 0 0 1-2.088-.272 1 1 0 0 0-.711.074c-.387.196-1.24.57-2.634.893a10.97 10.97 0 0 0 .398-2z"/>
-                    </svg>
-                    {% get_comments_count habr user %}
                 </div>
             </div>
-        </div>
-    </div>
-</article>
-{% endfor %}
+        </article>
+    {% endfor %}
 
-<div>
-    <br><br>
-    {% if page_obj.has_other_pages %}
-    <nav aria-label="...">
-        <ul class="pagination ">
-            {% if page_obj.has_previous %}
-            <li class="page-item">
-                <a class="page-link link-dark" href="?page={{ page_obj.previous_page_number }}">&lt;</a>
-            </li>
-            {% endif %}
-            {% for p in paginator.page_range %}
-            {% if page_obj.number == p %}
-            <li class="page-item active" aria-current="page"><a class="page-link bg-secondary text-white"
-                                                                href="?page={{ p }}">{{ p }}</a></li>
-            {% elif p >= page_obj.number|add:-2 and p <= page_obj.number|add:2 %}
-            <li class="page-item">
-                <a class="page-link link-dark" href="?page={{ p }}">{{ p }}</a>
-            </li>
-            {% endif %}
-            {% endfor %}
-            {% if page_obj.has_next %}
-            <li class="page-item">
-                <a class="page-link link-dark" href="?page={{ page_obj.next_page_number }}">&gt;</a>
-            </li>
-            {% endif %}
-        </ul>
-    </nav>
-    {% endif %}
-</div>
+    <div>
+        <br><br>
+        {% if page_obj.has_other_pages %}
+            <nav aria-label="...">
+                <ul class="pagination ">
+                    {% if page_obj.has_previous %}
+                        <li class="page-item">
+                            <a class="page-link link-dark" href="?page={{ page_obj.previous_page_number }}">&lt;</a>
+                        </li>
+                    {% endif %}
+                    {% for p in paginator.page_range %}
+                        {% if page_obj.number == p %}
+                            <li class="page-item active" aria-current="page"><a
+                                    class="page-link bg-secondary text-white"
+                                    href="?page={{ p }}">{{ p }}</a></li>
+                        {% elif p >= page_obj.number|add:-2 and p <= page_obj.number|add:2 %}
+                            <li class="page-item">
+                                <a class="page-link link-dark" href="?page={{ p }}">{{ p }}</a>
+                            </li>
+                        {% endif %}
+                    {% endfor %}
+                    {% if page_obj.has_next %}
+                        <li class="page-item">
+                            <a class="page-link link-dark" href="?page={{ page_obj.next_page_number }}">&gt;</a>
+                        </li>
+                    {% endif %}
+                </ul>
+            </nav>
+        {% endif %}
+    </div>
 {% endblock %}
 <!-- Конец mainapp/templates/list.html -->
