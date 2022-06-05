@@ -23,19 +23,26 @@ def verify(request, user_id, hash):
 
 
 def login(request):
-    if request.method == 'POST':
-        form = UserLoginForm(data = request.POST)
-        if form.is_valid():
-            username = request.POST['username']
-            password = request.POST['password']
-            user = auth.authenticate(username = username, password = password)
-            if user and user.is_active:
-                auth.login(request, user)
-                # return HttpResponseRedirect(reverse('mainapp:index'))
-                return redirect('/login/?next=%s' % request.path)
-    else:
-        form = UserLoginForm()
-    context = {'form': form}
+    title = 'вход'
+    login_form = UserLoginForm(data=request.POST or None)
+    next = request.GET['next'] if 'next' in request.GET.keys() else ''
+
+    if request.method == 'POST' and login_form.is_valid():
+        username = request.POST['username']
+        password = request.POST['password']
+
+        user = auth.authenticate(username=username, password=password)
+        if user and user.is_active:
+            auth.login(request, user)
+            if 'next' in request.POST.keys():
+                return HttpResponseRedirect(request.POST['next'])
+            else:
+                return HttpResponseRedirect(reverse('index'))
+    context = {
+        'title': title,
+        'login_form': login_form,
+        'next': next
+    }
     return render(request, 'userapp/login.html', context)
 
 
@@ -66,7 +73,7 @@ def profile(request):
         if form.is_valid() and profile_form.is_valid():
             form.save()
             profile_form.save()
-            return HttpResponseRedirect(reverse('index'))
+            return HttpResponseRedirect(reverse('mainapp:index'))
     else:
         form = UserProfileForm(instance = request.user)
         profile_form = UserProfileEditForm(instance = request.user.userprofile)

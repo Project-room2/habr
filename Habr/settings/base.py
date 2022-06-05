@@ -117,6 +117,7 @@ LOGIN_URL = '/userapp/login'
 LOGIN_ERROR_URL = '/'
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = LOGIN_URL
+DOMAIN_NAME = '4t-habr.ru'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
