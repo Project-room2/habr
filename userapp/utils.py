@@ -4,10 +4,7 @@ from django.conf import settings
 
 
 def send_verify_mail(user):
-    verify_link = reverse('userapp:verify', kwargs={
-        'email': user.email,
-        'activation_key':    user.activation_key,
-    })
+    verify_link = reverse('userapp:verify', args=[user.id, user.activation_key])
 
     title = f'Подтверждение регистрации {user.email}'
 
