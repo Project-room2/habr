@@ -11,16 +11,32 @@ from django.conf import settings
 
 
 
-def verify(request, user_id, hash):
-    user = get_object_or_404(User, pk=user_id)
-    if user.activation_key == hash and not user.is_activation_key_expired():
-        user.is_active = True
-        user.activation_key = None
-        user.save()
-        auth.login(request, user, backend = 'django.contrib.auth.backends.ModelBackend')
-        messages.success(request, 'Вы авторизованы, аккаунт активен')
-    return render(request, 'userapp/verification.html')
+# def verify(request, user_id, hash):
+#     user = get_object_or_404(User, pk=user_id)
+#     if user.activation_key == hash and not user.is_activation_key_expired():
+#         user.is_active = True
+#         user.activation_key = None
+#         user.save()
+#         auth.login(request, user, backend = 'django.contrib.auth.backends.ModelBackend')
+#         messages.success(request, 'Вы авторизованы, аккаунт активен')
+#     return render(request, 'userapp/verification.html')
 
+def verify(request, email, activation_key):
+    try:
+        user = User.objects.get(email=email)
+        if user.activation_key == hash and not user.is_activation_key_expired():
+            user.is_active = True
+            user.activation_key = None
+            user.save()
+            auth.login(request, user, backend='django.contrib.auth.backends.ModelBackend')
+            messages.success(request, 'Вы авторизованы, аккаунт активен')
+            return render(request, 'userapp/verification.html')
+        else:
+            print(f'error activation user: {user}')
+            return render(request, 'userapp/verification.html')
+    except Exception as e:
+        print(f'error activation user : {e.args}')
+        return HttpResponseRedirect(reverse('index'))
 
 def login(request):
     title = 'вход'
