@@ -19,12 +19,16 @@ DATABASES = {
 
 
 ACCOUNT_EMAIL_VERIFICATION = 'none'
-EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+DOMAIN_NAME = '4t-habr.ru'
+MAILER_EMAIL_BACKEND = EMAIL_BACKEND
 SERVER_EMAIL = os.getenv('SERVER_EMAIL')
 
 EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER', 'user@domain')
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD', 'password')
-EMAIL_HOST = os.environ.get('EMAIL_HOST', 'localhost')
-EMAIL_PORT = 587
+EMAIL_HOST = 'localhost'
+EMAIL_PORT = '25'
 EMAIL_USE_TLS = True
+EMAIL_SUBJECT_PREFIX = "[4t-habr] "
+EMAIL_HOST_USER = root
