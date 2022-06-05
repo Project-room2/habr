@@ -23,7 +23,7 @@ class UserLoginForm(AuthenticationForm):
 class UserRegisterForm(UserCreationForm):
     class Meta:
         model = User
-        fields = ('username', 'email', 'first_name', 'last_name', 'password1', 'password2')
+        fields = ('username', 'email', 'first_name', 'last_name', 'password1', 'password2', 'avatar')
 
     def __init__(self, *args, **kwargs):
         super(UserRegisterForm, self).__init__(*args, **kwargs)
@@ -40,6 +40,7 @@ class UserRegisterForm(UserCreationForm):
         user = super().save()
 
         user.is_active = False
+        user.avatar = 'users_avatar/default.jpg'
         salt = hashlib.sha1(str(random.random()).encode('utf8')).hexdigest()
         user.activation_key = hashlib.sha1(str(user.email + salt).encode('utf8')).hexdigest()
         user.save()
