@@ -6,7 +6,7 @@ class AdminHabr(admin.ModelAdmin):
     list_display = ('id', 'title', 'time_create', 'is_active', 'is_ask_published', 'is_published', 'category',
                     'habr_view', 'tags')
     list_display_links = ('id', 'title')
-    list_editable = ('is_active', 'is_ask_published', 'is_published', 'category', 'tags'    )
+    list_editable = ('is_active', 'is_ask_published', 'is_published', 'category', 'tags')
     search_fields = ('title', 'content', 'tags')
     prepopulated_fields = {'slug': ('title',)}
     fields = ('time_create', 'time_update', 'title', 'slug', 'category', 'content', 'user', 'is_active',
