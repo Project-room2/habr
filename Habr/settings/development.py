@@ -31,4 +31,4 @@ EMAIL_HOST = 'localhost'
 EMAIL_PORT = '25'
 EMAIL_USE_TLS = True
 EMAIL_SUBJECT_PREFIX = "[4t-habr] "
-EMAIL_HOST_USER = root
+EMAIL_HOST_USER = 'root'

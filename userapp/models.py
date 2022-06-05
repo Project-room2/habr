@@ -24,7 +24,7 @@ class User(AbstractUser):
 
     # this method must be defined for appropriate url mapping in comments section
     def get_absolute_url(self):
-        return reverse('avatar ')
+        return reverse('avatar')
 
     def is_activation_key_expired(self):
         if now() <= self.activation_key_expires:
