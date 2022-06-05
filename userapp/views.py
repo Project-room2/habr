@@ -53,7 +53,7 @@ def login(request):
             if 'next' in request.POST.keys():
                 return HttpResponseRedirect(request.POST['next'])
             else:
-                return HttpResponseRedirect(reverse('index'))
+                return HttpResponseRedirect(reverse('help'))
     context = {
         'title': title,
         'login_form': login_form,
@@ -66,9 +66,10 @@ def register(request):
     if request.method == 'POST':
         form = UserRegisterForm(data=request.POST)
         if form.is_valid():
-            user = form.save()
-            send_verify_mail(user)
-            messages.success(request, 'Проверьте почту!')
+            form.save()
+            # user = form.save()
+            # send_verify_mail(user)
+            # messages.success(request, 'Проверьте почту!')
             return HttpResponseRedirect(reverse('userapp:login'))
     else:
         form = UserRegisterForm()
