@@ -1,4 +1,4 @@
-{% extends 'userapp/base.html' %}
+{% extends 'mainapp/base.html' %}
 {% load socialaccount %}
 {% get_providers as socialaccount_providers %}
 
@@ -38,23 +38,16 @@
                             <div class="card-header"><h3 class="text-center font-weight-light my-4 ">Авторизация</h3>
                             </div>
                             <div class="card-body">
-                                <form action="{% url 'userapp:login' %}" method="post">
-                                    {% csrf_token %}
-                                    <div class="form-group">
-                                        <label class="small mb-1" for="{{ form.username.id_for_label }}">Имя
-                                            пользователя</label>
-                                        {{ form.username }}
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="small mb-1"
-                                               for={{ form.password.id_for_label }}>Пароль</label>
-                                        {{ form.password }}
-                                    </div>
-                                    <div class="form-group d-flex align-items-center justify-content-between mt-4 mb-0  ">
-                                        <a class="small " href="#">Забыли пароль?</a>
-                                        <input class="btn btn btn-secondary" type="submit" value="Авторизоваться">
-                                    </div>
-                                </form>
+                                <form class="form-horizontal" method="post">
+        {% csrf_token %}
+        {% if next %}
+            <input type="hidden" name="next" value="{{ next }}">
+        {% endif %}
+
+        {{ login_form.as_p }}
+        <br>
+        <input class="form-control" type="submit" value="войти">
+    </form>
                             </div>
                             <div class="card-footer text-center">
                                 <div class="small"><a href="{% url 'userapp:register' %}">Нужен аккаунт?
