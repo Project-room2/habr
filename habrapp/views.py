@@ -81,6 +81,10 @@ def habr_create(request):
                 habr.time_update = timezone.now()
                 habr.is_active = True
                 habr.save()
+                # сохраняем введенные тэги
+                taglist = form.cleaned_data['tags']
+                habr.tags.add(*taglist)
+                habr.save()
                 may_published = True
                 newpk = habr.pk
                 return HttpResponseRedirect(reverse('habrapp:myhabrlist'))

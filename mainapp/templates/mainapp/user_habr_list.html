@@ -24,22 +24,25 @@
                                 {% if habr.is_published %}
                                     <p class="card-text mb-auto" style="color: darkgreen; font-weight:bold">Опубликовано</p>
                                 {% endif %}
-                                {% if not habr.is_published and habr.is_active%}
-                                    <a href="{% url 'habrapp:edit' habr.slug %}">Редактировать</a>
-                                {% endif %}
-                                {% if not habr.is_published and not habr.is_ask_published and habr.is_active%}
-                                    <a href="{% url 'habrapp:publish' habr.slug %}">Запросить публикацию</a>
-                                {% endif %}
-                                {% if not habr.is_published and habr.is_active%}
-                                    <a href="{% url 'habrapp:remove' habr.slug %}">Удалить</a>
-                                {% endif %}
-                                {% if not habr.is_published and not habr.is_active%}
-                                    <a href="{% url 'habrapp:restore' habr.slug %}">Восстановить</a>
+                                {% if not habr.is_published and habr.is_ask_published and habr.is_active%}
+                                    <p class="card-text mb-auto" style="color: darkgreen; font-weight:bold">Запрошена публикация</p>
                                 {% endif %}
                                 <div class="mb-1 text-muted">{{ habr.time_create|date }}&nbsp;| категория: {{ habr.category }}
                                 </div>
                                 <p class="card-text mb-auto">{{ habr.content|safe|linebreaks|truncatechars:300 }}</p>
                                 <a href="{% url 'index:habr' habr.slug %}" class="stretched-link"></a>
+                                {% if not habr.is_published and habr.is_active%}
+                                    <a href="{% url 'habrapp:edit' habr.slug %}" class="stretched-link" style="position: relative;">Редактировать</a>
+                                {% endif %}
+                                {% if not habr.is_published and not habr.is_ask_published and habr.is_active%}
+                                    <a href="{% url 'habrapp:publish' habr.slug %}" class="stretched-link" style="position: relative;">Запросить публикацию</a>
+                                {% endif %}
+                                {% if not habr.is_published and habr.is_active%}
+                                    <a href="{% url 'habrapp:remove' habr.slug %}" class="stretched-link" style="position: relative;">Удалить</a>
+                                {% endif %}
+                                {% if not habr.is_published and not habr.is_active%}
+                                    <a href="{% url 'habrapp:restore' habr.slug %}" class="stretched-link" style="position: relative;">Восстановить</a>
+                                {% endif %}
                                 <p class="tags">
                                     Tags:
                                     {% for tag in habr.tags.all %}
