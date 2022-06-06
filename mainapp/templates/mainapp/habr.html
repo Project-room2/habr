@@ -14,10 +14,14 @@
             {% if habr.images %}
             <img class="card-img" src="{{object.images.url}}" width="10%" height="30%">
             {% endif %}
-            {{ object.time_create|date }} | <a href="/{{ object.category.slug }}">{{ object.category }}</a>
-            <p>
+            {{ object.time_create|date }} | категория: <a href="/{{ object.category.slug }}">
+            {{ object.category }} </a> | автор: {{ object.user.get_full_name }}<br><br>
+            <p class="tags">
+                Tags:
                 {% for tag in habr.tags.all %}
-                 <a class="btn btn-outline-success" href="{% url 'habrapp:habr_list_by_tag' tag.slug %}">{{ tag.name }}</a>
+                <a href="{% url 'habrapp:habr_list_by_tag' tag.slug %}">
+                    {{ tag.name }}
+                </a>
                 {% if not forloop.last %}, {% endif %}
                 {% endfor %}
             </p>
