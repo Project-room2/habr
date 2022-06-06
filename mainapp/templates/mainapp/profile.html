@@ -16,19 +16,19 @@
                         <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-200 position-relative">
                             <div class="col p-4 d-flex flex-column position-static">
                                 <h3 class="mb-0">{{ habr.title }}</h3>
+                                <div class="mb-1 text-muted">{{ habr.time_create|date }}&nbsp;| категория: {{ habr.category }} |&nbsp;автор: {{ habr.user.get_full_name }}
+                                </div>
+                                <p class="card-text mb-auto">{{ habr.content|safe|linebreaks|truncatechars:300 }}</p>
+                                <a href="{% url 'index:habr' habr.slug %}" class="stretched-link"></a>
                                 <p class="tags">
                                     Tags:
                                     {% for tag in habr.tags.all %}
-                                        <a href="{% url 'habrapp:habr_list_by_tag' tag.slug %}">
+                                        <a href="{% url 'habrapp:habr_list_by_tag' tag.slug %}" class="stretched-link" style="position: relative;">
                                             {{ tag.name }}
                                         </a>
                                         {% if not forloop.last %}, {% endif %}
                                     {% endfor %}
                                 </p>
-                                <div class="mb-1 text-muted">{{ habr.time_create|date }}&nbsp;| категория: {{ habr.category }} |&nbsp;автор: {{ habr.user.get_full_name }}
-                                </div>
-                                <p class="card-text mb-auto">{{ habr.content|safe|linebreaks|truncatechars:300 }}</p>
-                                <a href="{% url 'index:habr' habr.slug %}" class="stretched-link"></a>
                             </div>
                             <div class="card-text mb-auto p-3 mb-2">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
