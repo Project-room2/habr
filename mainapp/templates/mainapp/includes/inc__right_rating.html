@@ -11,7 +11,7 @@
         <div class="position-sticky" style="top: 2rem;">
             {% if art %}
                 <div class="p-4">
-                    <h4>Самые читамые Хабры</h4>
+                    <h4>Самые читаемые Хабры</h4>
                     <ol class="list-group-item-heading">
                         {% for art in art %}
                             <li><a href="{% url 'mainapp:habr' art.slug %}" class="link-dark">{{ art.title }}</a></li>

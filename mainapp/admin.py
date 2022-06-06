@@ -4,7 +4,7 @@ from .models import *
 
 class AdminHabr(admin.ModelAdmin):
     list_display = ('id', 'title', 'time_create', 'is_active', 'is_ask_published', 'is_published', 'category',
-                    'habr_view', 'tags')
+                    'habr_view')
     list_display_links = ('id', 'title')
     list_editable = ('is_active', 'is_ask_published', 'is_published', 'category')
     search_fields = ('title', 'content')
@@ -16,8 +16,9 @@ class AdminHabr(admin.ModelAdmin):
 
     def get_form(self, request, obj=None, **kwargs):
         form = super(AdminHabr, self).get_form(request, obj, **kwargs)
-        # form.base_fields['tags'].widget.attrs['style'] = 'width: 80%; pointer-events: none;'
+        form.base_fields['tags'].widget.attrs['style'] = 'width: 80%;'
         form.base_fields['tags'].required = False
+        form.base_fields['likes'].required = False
         return form
 
 class AdminCategory(admin.ModelAdmin):

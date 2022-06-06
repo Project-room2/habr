@@ -8,6 +8,9 @@
 {% if tag %}
   <h2>Хабры с тэгом "{{ tag.name }}"</h2>
 {% endif %}
+{% if not habrs %}
+    <p class="mb-1 text-muted">Нет опубликованных хабров с указанным тэгом.</p>
+{% endif %}
 {% for habr in habrs %}
 <article>
     <div class="row-cols-auto mb-auto">
