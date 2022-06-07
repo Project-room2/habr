@@ -20,30 +20,4 @@
                 </div>
             {% endif %}
 
-            {% if art_like %}
-                <div class="p-4">
-                    <h4>Лучшие Хабры</h4>
-                    <ol class="list-group-item-heading">
-                        {% for art_like in art_like %}
-                            <li><a href="{% url 'mainapp:habr' art_like.slug %}" class="link-dark">{{ art_like.title }}
-                                | {{ art_like.likes.count }} likes</a></li>
-                        {% endfor %}
-                    </ol>
-                </div>
-            {% endif %}
-
-            {% if art_author %}
-                <div class="p-4">
-                    <h4>Самые читамые авторы</h4>
-                    <ol class="list-group-item-heading">
-                        {% for art_author in art_author %}
-                            <li><a href="{% url 'mainapp:habr' art_author.slug %}"
-                                   class="link-dark"> {{ art_author.title }} | {{ art_author.user.get_full_name }}</a>
-                            </li> {{ art_author.total_likes }} likes</a></li>
-                        {% endfor %}
-                    </ol>
-                </div>
-            {% endif %}
-        </div>
-    </div>
 {% endblock right %}
