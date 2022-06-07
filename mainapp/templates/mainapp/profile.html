@@ -23,15 +23,12 @@
                         </div>
                         <div class="card-text mb-auto p-3 mb-2">
                             <p class="tag">
-                                {% if tag %}
+                                {{ tag.name }}
                                     метки:
                                     {% for tag in habr.tags.all %}
                                     <a href="{% url 'habrapp:habr_list_by_tag' tag.slug %}" class="stretched-link" style="position: relative;">{{ tag.name }}</a>
                                     {% if not forloop.last %}, {% endif %}
                                     {% endfor %}
-                                    {% else %}
-
-                                {% endif %}
                             </p>
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                  class="bi bi-eye" viewBox="0 0 16 16">
