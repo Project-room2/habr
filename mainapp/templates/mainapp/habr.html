@@ -14,17 +14,17 @@
             {% if habr.images %}
             <img class="card-img" src="{{object.images.url}}" width="10%" height="30%">
             {% endif %}
-            {{ object.time_create|date }} | категория: <a href="/{{ object.category.slug }}">
-            {{ object.category }} </a> | автор: {{ object.user.get_full_name }}<br><br>
+            {{ object.time_create|date }} | автор: {{ object.user.get_full_name }} | категория: <a href="/{{ object.category.slug }}">
+            {{ object.category }} </a><br>
             <p class="tags">
-                Tags:
+                метки:
                 {% for tag in habr.tags.all %}
                 <a href="{% url 'habrapp:habr_list_by_tag' tag.slug %}">
                     {{ tag.name }}
                 </a>
                 {% if not forloop.last %}, {% endif %}
                 {% endfor %}
-            </p>
+            </p><br>
             <div class="card mb-4">
                 <div class="card-body">
                     {{ object.content|safe }}
