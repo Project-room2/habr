@@ -127,11 +127,11 @@ ALTER ROLE "habr_user" SET CLIENT_ENCODING TO 'UTF8';
 
 Устанавливается уровень изоляции
 ```
-ALTER ROLE "habr" SET default_transaction_isolation TO 'READ COMMITTED';      
+ALTER ROLE "habr_user" SET default_transaction_isolation TO 'READ COMMITTED';      
 ```
 Выставляем TIME ZONE
 ```
-ALTER ROLE "habr" SET TIME ZONE 'Europe/Moscow';
+ALTER ROLE "habr_user" SET TIME ZONE 'Europe/Moscow';
 ```
 Для выхода пишем «\q».
 
