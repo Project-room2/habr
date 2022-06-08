@@ -116,18 +116,3 @@ class HabrListView(ListView):
         """ Определяем все хабры текущего пользователя """
         posts = Habr.objects.filter(user = self.request.user).order_by('-time_update')
         return posts
-
-
-    # def get_context_data(self, *, object_list = None, **kwargs):
-    #     context = super().get_context_data(**kwargs)
-    #     if len(context['habr']) > 0:
-    #         cat_selected = context['habr'][0].category.id
-    #         context['title'] = str(context['habr'][0].category) + ' - Xabr '
-    #         context['cat_selected'] = context['habr'][0].category.id
-    #         context['art'] = Habr.objects.filter(is_published = True, is_active = True,
-    #                                              category = cat_selected).order_by('-habr_view')[:5]
-    #         context['author'] = Habr.objects.filter(category = cat_selected).order_by().values('user').distinct()
-    #     else:
-    #         context['title'] = ''
-    #         context['cat_selected'] = ''
-    #     return context
