@@ -64,7 +64,7 @@ sudo apt-get install python3-pip
 ```
 mkdir habr
 cd habr
-sudo git clone [git@github.com:Project-room2/habr.git](https://github.com/Project-room2/habr.git)
+sudo git clone https://github.com/Project-room2/habr.git
 ```
 
 #### Создаем виртуальное окружение (из папки /home/kbook/knackbook)
