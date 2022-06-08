@@ -33,7 +33,6 @@ class IndexView(ListView):
     allow_empty = True
     template_name = 'mainapp/index.html'
     context_object_name = 'habrs'
-
     tag = None
     tag_slug = None
 

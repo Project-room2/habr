@@ -2,6 +2,10 @@ from django.contrib import admin
 from .models import *
 
 
+# "This is a class that inherits from the admin.ModelAdmin class, and
+# it's used to customize the admin interface for the Habr model."
+#
+# The list_display attribute is used to specify which fields are displayed on the change list page for the object
 class AdminHabr(admin.ModelAdmin):
     list_display = ('id', 'title', 'time_create', 'is_active', 'is_ask_published', 'is_published', 'category',
                     'habr_view', 'tags')
@@ -15,6 +19,14 @@ class AdminHabr(admin.ModelAdmin):
     save_on_top = True
 
     def get_form(self, request, obj=None, **kwargs):
+        """
+        It returns a form object that has a custom widget for the tags field, and sets the tags and likes fields to be
+        optional
+
+        :param request: The current request object
+        :param obj: The object being edited
+        :return: The form is being returned.
+        """
         form = super(AdminHabr, self).get_form(request, obj, **kwargs)
         form.base_fields['tags'].widget.attrs['style'] = 'width: 80%;'
         form.base_fields['tags'].required = False

@@ -22,9 +22,18 @@ class Category(models.Model):
         ordering = ['id']
 
     def __str__(self):
+        """
+        The __str__ function is a special function that is called when you print an object
+        :return: The name of the object.
+        """
         return self.name
 
     def get_absolute_url(self):
+        """
+        It returns the URL of the category page for the category whose slug is stored in the slug field of the current
+        object
+        :return: The reverse function is being used to return the url of the category.
+        """
         return reverse('category', kwargs = {'cat_slug': self.slug})
 
 
@@ -54,13 +63,25 @@ class Habr(models.Model):
         ordering = ('-time_create', 'title')
 
     def __str__(self):
+        """
+        The __str__ function is a special function that is called when you call str() on an object
+        :return: The title of the question.
+        """
         return self.title
 
     def get_absolute_url(self):
+        """
+        It returns a URL to a particular view based on a name
+        :return: The URL to the post detail page for this post.
+        """
         # return reverse('post', kwargs = {'habr_slug': self.slug})
         return reverse('post')
 
     def total_likes(self):
+        """
+        This function returns the total number of likes for a given post.
+        :return: The total number of likes for a post.
+        """
         return self.likes.count()
 
     tags = TaggableManager()
