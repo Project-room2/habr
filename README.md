@@ -147,7 +147,7 @@ sudo systemctl restart postgresql
 #### заполняем файл настройки проекта
 
 ```
-nano ./doc/.env.
+nano ./doc/.env
 ```
 ```
 "DOMAIN_NAME" : "http://(IP-адрес):8000",
