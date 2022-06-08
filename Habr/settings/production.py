@@ -4,7 +4,7 @@ from .base import *
 
 DEBUG = False
 
-ALLOWED_HOSTS = ['*.4t-habr.ru', '127.0.0.1', '127.0.0.1:8000']
+ALLOWED_HOSTS = ['4t-habr.ru', '127.0.0.1', '127.0.0.1:8000']
 CSRF_TRUSTED_ORIGINS = ['https://4t-habr.ru']
 
 DATABASES = {
@@ -13,14 +13,6 @@ DATABASES = {
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
-
-
-SECURE_SSL_REDIRECT = True
-SECURE_SSL_HOST = "4t-habr.ru"
-SESSION_COOKIE_SECURE = True
-CSRF_COOKIE_SECURE = True
-SECURE_BROWSER_XSS_FILTER = True
-
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -43,11 +35,10 @@ DOMAIN_NAME = '4t-habr.ru'
 MAILER_EMAIL_BACKEND = EMAIL_BACKEND
 SERVER_EMAIL = os.getenv('SERVER_EMAIL')
 
-EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER', 'user@domain')
-DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
-EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD', 'password')
 EMAIL_HOST = 'localhost'
 EMAIL_PORT = '25'
-EMAIL_USE_TLS = True
 EMAIL_SUBJECT_PREFIX = "[4t-habr] "
-EMAIL_HOST_USER = 'root'
+EMAIL_HOST_USER = ''
+EMAIL_HOST_PASSWORD = ''
+EMAIL_USE_TLS = False
+DEFAULT_FROM_EMAIL = '4t-habr <i@4t-habr.ru>'

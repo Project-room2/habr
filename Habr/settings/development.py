@@ -19,15 +19,6 @@ DATABASES = {
 
 
 ACCOUNT_EMAIL_VERIFICATION = 'none'
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 DOMAIN_NAME = '4t-habr.ru'
-MAILER_EMAIL_BACKEND = EMAIL_BACKEND
-SERVER_EMAIL = os.getenv('SERVER_EMAIL')
-
-EMAIL_HOST = 'localhost'
-EMAIL_PORT = '25'
-EMAIL_SUBJECT_PREFIX = "[4t-habr] "
-EMAIL_HOST_USER = ''
-EMAIL_HOST_PASSWORD = ''
-EMAIL_USE_TLS = False
-DEFAULT_FROM_EMAIL = '4t-habr <i@4t-habr.ru>'
+EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
+EMAIL_FILE_PATH = 'tmp/email-messages/'
