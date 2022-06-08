@@ -147,7 +147,7 @@ sudo systemctl restart postgresql
 #### заполняем файл настройки проекта
 
 ```
-nano ./install/env.json
+nano ./doc/.env.
 ```
 ```
 "DOMAIN_NAME" : "http://(IP-адрес):8000",
@@ -174,7 +174,7 @@ python manage.py createsuperuser
 
 #### Заполнить базу данных тестовыми данными
 ```
-python manage.py loaddata ./install/tests_db.json 
+python manage.py loaddata ./doc/tests_db.json 
 ```
 
 #### Тест запуска   проекта
