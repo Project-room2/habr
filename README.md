@@ -6,7 +6,7 @@ ___
 ## Сайт обмена полезной информацией и формирование базы знаний для образовательной экосистемы
 Командная разработка по методологии Agile:Scrum 
 
-март-июнь 2022
+март-июнь 2022ut
 
 GeekBrains, факултет Python-разработки, группа GU_python_742 (09.11.2020)
 ____
@@ -120,9 +120,9 @@ CREATE USER "habr_user" with NOSUPERUSER PASSWORD 'PASSWORD';
 GRANT ALL PRIVILEGES ON DATABASE habr TO "habr_user";
 ```
 
-Кодировка 'UTF8'
+Усанавливаем кодировку 'UTF8'
 ```    
-ALTER ROLE "habr" SET CLIENT_ENCODING TO 'UTF8';
+ALTER ROLE "habr_user" SET CLIENT_ENCODING TO 'UTF8';
 ```
 
 Устанавливается уровень изоляции
