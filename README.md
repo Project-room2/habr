@@ -15,7 +15,7 @@ ____
 
 - Евгения
 - Владимир
-- Вячесоав
+- Вячеслав
 - Дмитрий - https://github.com/dr2moscow | https://t.me/dr2moscow
 
 ### :fire: Статистика (Statistic) :
@@ -43,6 +43,7 @@ ____
 * PostgreSQL 12
 * Django 4.4
 * Gunicorn 20.1.0
+* Nginx 1.18.0
 * Зависимости (Python) из requirements.txt
 
 ### Установка необходимого ПО (Setup) :
