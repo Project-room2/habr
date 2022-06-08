@@ -1,7 +1,7 @@
 {% load static %}
 {% block right %}
 <div class="col-md-4">
-    {% if object.avatar.url %}
+     {% if user.avatar %}
     <img src="{{ object.avatar.url }}" width="200" height="200"
          class="img-fluid rounded mx-auto d-block rounded-circle">
     {% else %}
