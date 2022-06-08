@@ -117,7 +117,7 @@ CREATE USER "habr_user" with NOSUPERUSER PASSWORD 'PASSWORD';
 
 Привилегии
 ```
-GRANT ALL PRIVILEGES ON DATABASE habr_user TO "habr";
+GRANT ALL PRIVILEGES ON DATABASE habr TO "habr_user";
 ```
 
 Кодировка 'UTF8'
