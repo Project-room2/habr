@@ -6,10 +6,10 @@
 
 {% block content %}
 {% if tag %}
-  <h2>Хабры с тэгом "{{ tag.name }}"</h2>
+  <h2>Хабры с меткой "{{ tag.name }}"</h2>
 {% endif %}
 {% if not habrs %}
-    <p class="mb-1 text-muted">Нет опубликованных хабров с указанным тэгом.</p>
+    <p class="mb-1 text-muted">Нет опубликованных хабров с указанной меткой.</p>
 {% endif %}
 {% for habr in habrs %}
 <article>

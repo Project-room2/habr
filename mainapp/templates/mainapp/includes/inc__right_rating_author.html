@@ -1,7 +1,7 @@
 {% load static %}
 {% block right %}
 <div class="col-md-4">
-    {% if object.user.avatar.url %}
+     {% if user.avatar %}
     <a href="{% url 'mainapp:profile' object.user.id %}" class="link-dark"><img src="{{ object.user.avatar.url }}"
                                                                                 width="200" height="200"
                                                                                 class="img-fluid rounded mx-auto d-block rounded-circle"></a>
